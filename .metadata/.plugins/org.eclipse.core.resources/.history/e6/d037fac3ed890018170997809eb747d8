@@ -1,0 +1,27 @@
+package com.f2f.app;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
+import com.f2f.app.repositories.PlanDetailRepository;
+import com.f2f.app.repositories.PlanRepository;
+
+@SpringBootApplication
+@EnableJpaRepositories
+public class FatToFitApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(FatToFitApplication.class, args);
+	}
+	
+	@Bean
+	public CommandLineRunner test(PlanDetailRepository planDetailRepository, PlanRepository planRepository) {
+		return args -> {
+
+			planDetailRepository.count();
+		};
+	}
+}

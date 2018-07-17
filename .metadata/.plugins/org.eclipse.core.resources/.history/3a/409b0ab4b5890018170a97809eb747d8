@@ -1,0 +1,46 @@
+package com.f2f.app.repositories;
+
+import java.util.Date;
+
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.f2f.app.models.Plan;
+import com.f2f.app.models.User;
+
+
+public interface UserRepository extends CrudRepository<User, Integer> {
+
+	@Modifying
+	@Transactional
+    @Query("UPDATE User u SET u.age = :age WHERE u.userId = :userId")
+	void updateAge(@Param("age") int age,@Param("userId") int userId );
+	
+	@Modifying
+	@Transactional
+    @Query("UPDATE User u SET u.weightKgs = :weightKgs WHERE u.userId = :userId")
+	void updateWeight(@Param("weightKgs") int weightKgs,@Param("userId") int userId );
+	
+	@Modifying
+	@Transactional
+    @Query("UPDATE User u SET u.heightCms = :heightCms WHERE u.userId = :userId")
+	void updateHeight(@Param("heightCms") int heightCms,@Param("userId") int userId );
+	
+	@Modifying
+	@Transactional
+    @Query("UPDATE User u SET u.currentWorkoutPlan = :currentWorkoutPlan, u.currPlanStartDate=:currDate WHERE u.userId = :userId")
+	void updateCurrentWorkoutPlan(@Param("currentWorkoutPlan") Plan currentWorkoutPlan,@Param("currDate") Date currDate ,@Param("userId") int userId );
+	
+	@Modifying
+	@Transactional
+    @Query("UPDATE User u SET u.currentDietPlan = :currentDietPlan, u.currPlanStartDate=:currDate WHERE u.userId = :userId")
+	void updateCurrentDietPlan(@Param("currentDietPlan") Plan currentDietPlan,@Param("currDate") Date currDate, @Param("userId") int userId );
+	
+	@Query("SELECT u.password FROM User u where u.username = :username")
+	String findPasswordByUsername(@Param("username") String username );
+	
+	
+}

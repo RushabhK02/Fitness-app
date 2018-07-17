@@ -1,0 +1,107 @@
+package com.f2f.app.models;
+
+import java.io.Serializable;
+import javax.persistence.*;
+
+
+/**
+ * The persistent class for the user_workout_records database table.
+ * 
+ */
+@Entity
+@Table(name="user_workout_records")
+@NamedQuery(name="UserWorkoutRecord.findAll", query="SELECT u FROM UserWorkoutRecord u")
+public class UserWorkoutRecord implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@EmbeddedId
+	private UserWorkoutRecordPK id;
+
+	@Column(name="sets_completed")
+	private int setsCompleted;
+
+	private String status;
+
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private User user;
+
+	//bi-directional many-to-one association to PlanDetail
+	@ManyToOne
+	@JoinColumns({
+		@JoinColumn(name="day", referencedColumnName="day",insertable=false,updatable=false),
+		@JoinColumn(name="workout_id", referencedColumnName="plan_id",insertable=false,updatable=false)
+		})
+	private PlanDetail planDetail;
+
+	//bi-directional many-to-one association to Allotment
+	@ManyToOne
+	@JoinColumn(name="allotment_id",insertable=false,updatable=false)
+	private Allotment allotment;
+
+	//bi-directional many-to-one association to Exercis
+	@ManyToOne
+	@JoinColumn(name="ex_id",insertable=false,updatable=false)
+	private Exercise exercis;
+
+	public UserWorkoutRecord() {
+	}
+
+	public UserWorkoutRecordPK getId() {
+		return this.id;
+	}
+
+	public void setId(UserWorkoutRecordPK id) {
+		this.id = id;
+	}
+
+	public int getSetsCompleted() {
+		return this.setsCompleted;
+	}
+
+	public void setSetsCompleted(int setsCompleted) {
+		this.setsCompleted = setsCompleted;
+	}
+
+	public String getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public User getUser() {
+		return this.user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public PlanDetail getPlanDetail() {
+		return this.planDetail;
+	}
+
+	public void setPlanDetail(PlanDetail planDetail) {
+		this.planDetail = planDetail;
+	}
+
+	public Allotment getAllotment() {
+		return this.allotment;
+	}
+
+	public void setAllotment(Allotment allotment) {
+		this.allotment = allotment;
+	}
+
+	public Exercise getExercis() {
+		return this.exercis;
+	}
+
+	public void setExercis(Exercise exercis) {
+		this.exercis = exercis;
+	}
+
+}

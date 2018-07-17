@@ -1,0 +1,18 @@
+package com.f2f.app.repositories;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+
+import com.f2f.app.models.Plan;
+
+public interface PlanRepository extends CrudRepository<Plan, Integer> {
+	
+	@Query("SELECT p FROM Plan p where p.planType='DIET'")
+	List<Plan> findDietPlans();
+
+	@Query("SELECT p FROM Plan p where p.planType='WORKOUT'")
+	List<Plan> findWorkoutPlans();
+
+}

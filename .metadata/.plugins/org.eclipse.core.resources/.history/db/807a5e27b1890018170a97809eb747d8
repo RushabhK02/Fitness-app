@@ -1,0 +1,14 @@
+package com.f2f.app.repositories;
+
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
+
+import com.f2f.app.models.User;
+import com.f2f.app.models.UserLite;
+
+public interface UserRepository extends CrudRepository<User, Integer> {
+
+	@Query("SELECT u.userId,u.firstName, u.lastName, u.age, u.heightCms, u.weightKgs, u.currPlanStartDate, u.plan1, u.plan2 FROM UserLite u where u.userId = :userId")
+	UserLite findInfoById(@Param("userId") int userId );
+}

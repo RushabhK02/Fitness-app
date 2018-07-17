@@ -1,0 +1,151 @@
+package com.f2f.app.models;
+
+import java.io.Serializable;
+import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
+
+
+/**
+ * The persistent class for the allotments database table.
+ * 
+ */
+@Entity
+@Table(name="allotments")
+@NamedQuery(name="Allotment.findAll", query="SELECT a FROM Allotment a")
+public class Allotment implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="allotment_id", unique=true, nullable=false)
+	private int allotmentId;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name="start_date")
+	private Date startDate;
+
+	//bi-directional many-to-one association to Admin
+	@ManyToOne
+	@JoinColumn(name="admin_id", nullable=false)
+	private Admin admin;
+
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	@JoinColumn(name="user_id", nullable=false)
+	private User user;
+
+	//bi-directional many-to-one association to Plan
+	@ManyToOne
+	@JoinColumn(name="workout_plan_id", nullable=false)
+	private Plan plan1;
+
+	//bi-directional many-to-one association to Plan
+	@ManyToOne
+	@JoinColumn(name="diet_plan_id", nullable=false)
+	private Plan plan2;
+
+	//bi-directional many-to-one association to UserDietRecord
+	@OneToMany(mappedBy="allotment")
+	private List<UserDietRecord> userDietRecords;
+
+	//bi-directional many-to-one association to UserWorkoutRecord
+	@OneToMany(mappedBy="allotment")
+	private List<UserWorkoutRecord> userWorkoutRecords;
+
+	public Allotment() {
+	}
+
+	public int getAllotmentId() {
+		return this.allotmentId;
+	}
+
+	public void setAllotmentId(int allotmentId) {
+		this.allotmentId = allotmentId;
+	}
+
+	public Date getStartDate() {
+		return this.startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Admin getAdmin() {
+		return this.admin;
+	}
+
+	public void setAdmin(Admin admin) {
+		this.admin = admin;
+	}
+
+	public User getUser() {
+		return this.user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Plan getPlan1() {
+		return this.plan1;
+	}
+
+	public void setPlan1(Plan plan1) {
+		this.plan1 = plan1;
+	}
+
+	public Plan getPlan2() {
+		return this.plan2;
+	}
+
+	public void setPlan2(Plan plan2) {
+		this.plan2 = plan2;
+	}
+
+	public List<UserDietRecord> getUserDietRecords() {
+		return this.userDietRecords;
+	}
+
+	public void setUserDietRecords(List<UserDietRecord> userDietRecords) {
+		this.userDietRecords = userDietRecords;
+	}
+
+	public UserDietRecord addUserDietRecord(UserDietRecord userDietRecord) {
+		getUserDietRecords().add(userDietRecord);
+		userDietRecord.setAllotment(this);
+
+		return userDietRecord;
+	}
+
+	public UserDietRecord removeUserDietRecord(UserDietRecord userDietRecord) {
+		getUserDietRecords().remove(userDietRecord);
+		userDietRecord.setAllotment(null);
+
+		return userDietRecord;
+	}
+
+	public List<UserWorkoutRecord> getUserWorkoutRecords() {
+		return this.userWorkoutRecords;
+	}
+
+	public void setUserWorkoutRecords(List<UserWorkoutRecord> userWorkoutRecords) {
+		this.userWorkoutRecords = userWorkoutRecords;
+	}
+
+	public UserWorkoutRecord addUserWorkoutRecord(UserWorkoutRecord userWorkoutRecord) {
+		getUserWorkoutRecords().add(userWorkoutRecord);
+		userWorkoutRecord.setAllotment(this);
+
+		return userWorkoutRecord;
+	}
+
+	public UserWorkoutRecord removeUserWorkoutRecord(UserWorkoutRecord userWorkoutRecord) {
+		getUserWorkoutRecords().remove(userWorkoutRecord);
+		userWorkoutRecord.setAllotment(null);
+
+		return userWorkoutRecord;
+	}
+
+}

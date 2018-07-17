@@ -1,0 +1,194 @@
+package com.f2f.app.models;
+
+import java.io.Serializable;
+import javax.persistence.*;
+import java.util.List;
+
+
+/**
+ * The persistent class for the plans database table.
+ * 
+ */
+@Entity
+@Table(name="plans")
+@NamedQuery(name="Plan.findAll", query="SELECT p FROM Plan p")
+public class Plan implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="plan_id")
+	private int planId;
+
+	@Column(name="plan_name")
+	private String planName;
+
+	@Column(name="plan_type")
+	private String planType;
+
+	//bi-directional many-to-one association to Allotment
+	@OneToMany(mappedBy="plan1")
+	private List<Allotment> allotments1;
+
+	//bi-directional many-to-one association to Allotment
+	@OneToMany(mappedBy="plan2")
+	private List<Allotment> allotments2;
+
+	//bi-directional many-to-one association to PlanDetail
+	@OneToMany(mappedBy="plan")
+	private List<PlanDetail> planDetails;
+
+	//bi-directional many-to-one association to User
+	@OneToMany(mappedBy="plan1")
+	private List<User> users1;
+
+	//bi-directional many-to-one association to User
+	@OneToMany(mappedBy="plan2")
+	private List<User> users2;
+
+	public Plan() {
+	}
+
+	public int getPlanId() {
+		return this.planId;
+	}
+
+	public void setPlanId(int planId) {
+		this.planId = planId;
+	}
+
+	public String getPlanName() {
+		return this.planName;
+	}
+
+	public void setPlanName(String planName) {
+		this.planName = planName;
+	}
+
+	public String getPlanType() {
+		return this.planType;
+	}
+
+	public void setPlanType(String planType) {
+		this.planType = planType;
+	}
+
+	public List<Allotment> getAllotments1() {
+		return this.allotments1;
+	}
+
+	public void setAllotments1(List<Allotment> allotments1) {
+		this.allotments1 = allotments1;
+	}
+
+	public Allotment addAllotments1(Allotment allotments1) {
+		getAllotments1().add(allotments1);
+		allotments1.setPlan1(this);
+
+		return allotments1;
+	}
+
+	public Allotment removeAllotments1(Allotment allotments1) {
+		getAllotments1().remove(allotments1);
+		allotments1.setPlan1(null);
+
+		return allotments1;
+	}
+
+	public List<Allotment> getAllotments2() {
+		return this.allotments2;
+	}
+
+	public void setAllotments2(List<Allotment> allotments2) {
+		this.allotments2 = allotments2;
+	}
+
+	public Allotment addAllotments2(Allotment allotments2) {
+		getAllotments2().add(allotments2);
+		allotments2.setPlan2(this);
+
+		return allotments2;
+	}
+
+	public Allotment removeAllotments2(Allotment allotments2) {
+		getAllotments2().remove(allotments2);
+		allotments2.setPlan2(null);
+
+		return allotments2;
+	}
+
+	public List<PlanDetail> getPlanDetails() {
+		return this.planDetails;
+	}
+
+	public void setPlanDetails(List<PlanDetail> planDetails) {
+		this.planDetails = planDetails;
+	}
+
+	public PlanDetail addPlanDetail(PlanDetail planDetail) {
+		getPlanDetails().add(planDetail);
+		planDetail.setPlan(this);
+
+		return planDetail;
+	}
+
+	public PlanDetail removePlanDetail(PlanDetail planDetail) {
+		getPlanDetails().remove(planDetail);
+		planDetail.setPlan(null);
+
+		return planDetail;
+	}
+
+	public List<User> getUsers1() {
+		return this.users1;
+	}
+
+	public void setUsers1(List<User> users1) {
+		this.users1 = users1;
+	}
+
+	public User addUsers1(User users1) {
+		getUsers1().add(users1);
+		users1.setPlan1(this);
+
+		return users1;
+	}
+
+	public User removeUsers1(User users1) {
+		getUsers1().remove(users1);
+		users1.setPlan1(null);
+
+		return users1;
+	}
+
+	public List<User> getUsers2() {
+		return this.users2;
+	}
+
+	public void setUsers2(List<User> users2) {
+		this.users2 = users2;
+	}
+
+	public User addUsers2(User users2) {
+		getUsers2().add(users2);
+		users2.setPlan2(this);
+
+		return users2;
+	}
+
+	public User removeUsers2(User users2) {
+		getUsers2().remove(users2);
+		users2.setPlan2(null);
+
+		return users2;
+	}
+
+	@Override
+	public String toString() {
+		return "Plan [planId=" + planId + ", planName=" + planName + ", planType=" + planType + ", allotments1="
+				+ allotments1 + ", allotments2=" + allotments2 + ", planDetails=" + planDetails + ", users1=" + users1
+				+ ", users2=" + users2 + "]";
+	}
+	
+
+}

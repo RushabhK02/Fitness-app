@@ -1,0 +1,154 @@
+package com.f2f.app.models;
+
+import java.io.Serializable;
+import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
+
+
+/**
+ * The persistent class for the users database table.
+ * 
+ */
+@Entity
+@Table(name="users")
+@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
+public class User implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="user_id")
+	private int userId;
+
+	private int age;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name="curr_plan_start_date")
+	private Date currPlanStartDate;
+
+	@Column(name="first_name")
+	private String firstName;
+
+	@Column(name="height_cms")
+	private int heightCms;
+
+	@Column(name="last_name")
+	private String lastName;
+
+	private String password;
+
+	private String username;
+
+	@Column(name="weight_kgs")
+	private int weightKgs;
+
+	//bi-directional many-to-one association to Plan
+	@ManyToOne
+	@JoinColumn(name="current_workout_plan")
+	private Plan plan1;
+
+	//bi-directional many-to-one association to Plan
+	@ManyToOne
+	@JoinColumn(name="current_diet_plan")
+	private Plan plan2;
+
+	public User() {
+	}
+
+	public int getUserId() {
+		return this.userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public int getAge() {
+		return this.age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public Date getCurrPlanStartDate() {
+		return this.currPlanStartDate;
+	}
+
+	public void setCurrPlanStartDate(Date currPlanStartDate) {
+		this.currPlanStartDate = currPlanStartDate;
+	}
+
+	public String getFirstName() {
+		return this.firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public int getHeightCms() {
+		return this.heightCms;
+	}
+
+	public void setHeightCms(int heightCms) {
+		this.heightCms = heightCms;
+	}
+
+	public String getLastName() {
+		return this.lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getPassword() {
+		return this.password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getUsername() {
+		return this.username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public int getWeightKgs() {
+		return this.weightKgs;
+	}
+
+	public void setWeightKgs(int weightKgs) {
+		this.weightKgs = weightKgs;
+	}
+
+	public Plan getPlan1() {
+		return this.plan1;
+	}
+
+	public void setPlan1(Plan plan1) {
+		this.plan1 = plan1;
+	}
+
+	public Plan getPlan2() {
+		return this.plan2;
+	}
+
+	public void setPlan2(Plan plan2) {
+		this.plan2 = plan2;
+	}
+
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", age=" + age + ", currPlanStartDate=" + currPlanStartDate + ", firstName="
+				+ firstName + ", heightCms=" + heightCms + ", lastName=" + lastName + ", password=" + password
+				+ ", username=" + username + ", weightKgs=" + weightKgs + ", plan1=" + plan1 + ", plan2=" + plan2 + "]";
+	}
+
+}

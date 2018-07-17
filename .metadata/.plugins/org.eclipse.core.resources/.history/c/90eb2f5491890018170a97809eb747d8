@@ -1,0 +1,48 @@
+package com.f2f.app;
+
+import org.apache.catalina.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
+import com.f2f.app.repositories.AdminRepository;
+import com.f2f.app.repositories.AllotmentRepository;
+import com.f2f.app.repositories.ExerciseRepository;
+import com.f2f.app.repositories.PlanDetailRepository;
+import com.f2f.app.repositories.PlanRepository;
+import com.f2f.app.repositories.UserDietRecordRepository;
+import com.f2f.app.repositories.UserRepository;
+import com.f2f.app.repositories.UserWorkoutRecordRepository;
+
+@SpringBootApplication
+@EnableJpaRepositories
+public class FatToFitApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(FatToFitApplication.class, args);
+	}
+	
+	@Bean
+	@Autowired
+	public CommandLineRunner test(PlanDetailRepository planDetailRepository, PlanRepository planRepository,AdminRepository adminRepository ,
+			                     AllotmentRepository allotmentRepository, ExerciseRepository exerciseRepository,
+			                     UserDietRecordRepository userDietRecordRepository, UserWorkoutRecordRepository userWorkoutRecordRepository,
+			                     UserRepository userRepository) {
+		return args -> {
+			
+		
+			System.out.println("planDetailRepository:"+planDetailRepository.count());
+			System.out.println("planRepository:"+planRepository.count());
+			System.out.println("adminRepository:"+adminRepository.count());
+			System.out.println("allotmentRepository:"+allotmentRepository.count());
+			System.out.println("exerciseRepository:"+exerciseRepository.findById(1));
+			System.out.println("userDietRecordRepository:"+userDietRecordRepository.count());
+			System.out.println("userWorkoutRecordRepository:"+userWorkoutRecordRepository.count());
+			System.out.println("userRepository:"+userRepository.count());
+			
+		};
+	}
+}

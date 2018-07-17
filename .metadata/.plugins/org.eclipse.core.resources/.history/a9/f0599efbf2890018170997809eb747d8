@@ -1,0 +1,108 @@
+package com.f2f.app.models;
+
+import java.io.Serializable;
+import javax.persistence.*;
+import java.util.List;
+
+
+/**
+ * The persistent class for the plan_details database table.
+ * 
+ */
+@Entity
+@Table(name="plan_details")
+@NamedQuery(name="PlanDetail.findAll", query="SELECT p FROM PlanDetail p")
+public class PlanDetail implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@EmbeddedId
+	private PlanDetailPK id;
+
+	@Column(name="day_details", length=2000)
+	private String dayDetails;
+
+	//bi-directional many-to-one association to Plan
+	@ManyToOne
+	@JoinColumn(name="plan_id", nullable=false, insertable=false, updatable=false)
+	private Plan plan;
+
+	//bi-directional many-to-one association to UserDietRecord
+	@OneToMany(mappedBy="planDetail")
+	private List<UserDietRecord> userDietRecords;
+
+	//bi-directional many-to-one association to UserWorkoutRecord
+	@OneToMany(mappedBy="planDetail")
+	private List<UserWorkoutRecord> userWorkoutRecords;
+
+	public PlanDetail() {
+	}
+
+	public PlanDetailPK getId() {
+		return this.id;
+	}
+
+	public void setId(PlanDetailPK id) {
+		this.id = id;
+	}
+
+	public String getDayDetails() {
+		return this.dayDetails;
+	}
+
+	public void setDayDetails(String dayDetails) {
+		this.dayDetails = dayDetails;
+	}
+
+	public Plan getPlan() {
+		return this.plan;
+	}
+
+	public void setPlan(Plan plan) {
+		this.plan = plan;
+	}
+
+	public List<UserDietRecord> getUserDietRecords() {
+		return this.userDietRecords;
+	}
+
+	public void setUserDietRecords(List<UserDietRecord> userDietRecords) {
+		this.userDietRecords = userDietRecords;
+	}
+
+	public UserDietRecord addUserDietRecord(UserDietRecord userDietRecord) {
+		getUserDietRecords().add(userDietRecord);
+		userDietRecord.setPlanDetail(this);
+
+		return userDietRecord;
+	}
+
+	public UserDietRecord removeUserDietRecord(UserDietRecord userDietRecord) {
+		getUserDietRecords().remove(userDietRecord);
+		userDietRecord.setPlanDetail(null);
+
+		return userDietRecord;
+	}
+
+	public List<UserWorkoutRecord> getUserWorkoutRecords() {
+		return this.userWorkoutRecords;
+	}
+
+	public void setUserWorkoutRecords(List<UserWorkoutRecord> userWorkoutRecords) {
+		this.userWorkoutRecords = userWorkoutRecords;
+	}
+
+	public UserWorkoutRecord addUserWorkoutRecord(UserWorkoutRecord userWorkoutRecord) {
+		getUserWorkoutRecords().add(userWorkoutRecord);
+		userWorkoutRecord.setPlanDetail(this);
+
+		return userWorkoutRecord;
+	}
+
+	public UserWorkoutRecord removeUserWorkoutRecord(UserWorkoutRecord userWorkoutRecord) {
+		getUserWorkoutRecords().remove(userWorkoutRecord);
+		userWorkoutRecord.setPlanDetail(null);
+
+		return userWorkoutRecord;
+	}
+
+}
