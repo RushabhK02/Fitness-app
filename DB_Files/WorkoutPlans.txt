@@ -1,0 +1,95 @@
+Workout Plans
+************
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Workout Plan -1   (Gym First Time )+ (Under / Fat) + (Any Age)
+
+Day-1   = ABS       =>(Incline Bench Sit-ups,2,10) ; (Hanging Leg Raises,2,10) ; (Dumbbell Side Bends, 2, 10) ; (Crunches, 2, 10) ; (Leg Raises , 2, 10); 
+Day-2   = BACK      =>(Chin Ups , 2, 8) ; (Deadlifts, 2, 8) ; (Lat Pull Downs, 2, 8) ; (Seated Rows, 2, 8) ;(One Arm Dumbbell Rows,2,8); 
+Day-3   = BICEPS    =>(Curls,2,8) ; (Barbell Curls,2,8) ;(Hammer Curls,2,8) ;(Concentration Curls, 2, 8 ) ;(Cable Biceps Curls, 2, 8);
+Day-4   = CHEST     =>(Bench Presses, 2, 8) ; (Incline Presses , 2, 8) ; (Dumbbell Presses, 2, 8) ; (Parallel Bar Dips, 2, 8) ; (Cable Crossover Flys,2,8) ; 
+Day-5   = LEGS      =>(Squats , 2, 10) ; (Angled Leg Presses, 2,10) ; (Leg Extensions , 2, 10) ; (Dumbbell Lunges, 2, 10) ; (Cable Back Kicks,2,10); 
+Day-6   = SHOULDERS =>(Back Presses, 2, 10) ; (Seated Front Presses , 2, 10) ; (Seated Dumbbell Presses , 2, 10) ; (Low Pulley Lateral; Raises , 2, 10) ; (Upright rows, 2, 10); 
+Day-7   = TRICEPS   =>(Close Grip Bench Presses,2,10) ; ( Push Downs,2,10) ; ( Triceps Extensions,2,10 ) ; ( Triceps KickBacks,2,10) ; ( One Arm Dumbbell Triceps Extensions,2,10); 
+
+Day-8   = ABS       =>(Incline Bench Sit-ups,2,12) ; (Hanging Leg Raises,2,12) ; (Dumbbell Side Bends, 2,12) ; (Crunches, 2,12) ; (Leg Raises , 2,12); ; 
+Day-9   = ABS       =>(Incline Bench Sit-ups,2,10) ; (Hanging Leg Raises,2,10) ; (Dumbbell Side Bends, 2, 10) ; (Crunches, 2, 10) ; (Leg Raises , 2, 10); 
+Day-10   = BACK      =>(Chin Ups , 2, 8) ; (Deadlifts, 2, 8) ; (Lat Pull Downs, 2, 8) ; (Seated Rows, 2, 8) ;(One Arm Dumbbell Rows,2,8); 
+Day-11   = BICEPS    =>(Curls,2,8) ; (Barbell Curls,2,8) ;(Hammer Curls,2,8) ;(Concentration Curls, 2, 8 ) ;(Cable Biceps Curls, 2, 8);
+Day-12  = CHEST     =>(Bench Presses, 2, 8) ; (Incline Presses , 2, 8) ; (Dumbbell Presses, 2, 8) ; (Parallel Bar Dips, 2, 8) ; (Cable Crossover Flys,2,8) ; 
+Day-13  = LEGS      =>(Squats , 2, 10) ; (Angled Leg Presses, 2,10) ; (Leg Extensions , 2, 10) ; (Dumbbell Lunges, 2, 10) ; (Cable Back Kicks,2,10); 
+Day-14  = SHOULDERS =>(Back Presses, 2, 10) ; (Seated Front Presses , 2, 10) ; (Seated Dumbbell Presses , 2, 10) ; (Low Pulley Lateral; Raises , 2, 10) ; (Upright rows, 2, 10); 
+Day-15  = TRICEPS   =>(Close Grip Bench Presses,2,10) ; ( Push Downs,2,10) ; ( Triceps Extensions,2,10 ) ; ( Triceps KickBacks,2,10) ; ( One Arm Dumbbell Triceps Extensions,2,10); 
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Workout Plan -2   [(Gym used to) + (Under/ Fat) + (any Age) ] + [(Gym First Time) + (Normal) + (25-40 / >40)]
+
+Day-1   = ABS       =>(Incline Bench Sit-ups,2,10) ; (Hanging Leg Raises,2,10) ; (Dumbbell Side Bends, 2, 10) ; (Crunches, 2, 10) ; (Leg Raises , 2, 10); 
+Day-2   = BACK      =>(Chin Ups , 2, 8) ; (Deadlifts, 2, 8) ; (Lat Pull Downs, 2, 8) ; (Seated Rows, 2, 8) ;(One Arm Dumbbell Rows,2,8); 
+Day-3   = BICEPS    =>(Curls,2,8) ; (Barbell Curls,2,8) ;(Hammer Curls,2,8) ;(Concentration Curls, 2, 8 ) ;(Cable Biceps Curls, 2, 8);
+Day-4   = CHEST     =>(Bench Presses, 2, 8) ; (Incline Presses , 2, 8) ; (Dumbbell Presses, 2, 8) ; (Parallel Bar Dips, 2, 8) ; (Cable Crossover Flys,2,8) ; 
+Day-5   = LEGS      =>(Squats , 2, 10) ; (Angled Leg Presses, 2,10) ; (Leg Extensions , 2, 10) ; (Dumbbell Lunges, 2, 10) ; (Cable Back Kicks,2,10); 
+Day-6   = SHOULDERS =>(Back Presses, 2, 10) ; (Seated Front Presses , 2, 10) ; (Seated Dumbbell Presses , 2, 10) ; (Low Pulley Lateral; Raises , 2, 10) ; (Upright rows, 2, 10); 
+Day-7   = TRICEPS   =>(Close Grip Bench Presses,2,10) ; ( Push Downs,2,10) ; ( Triceps Extensions,2,10 ) ; ( Triceps KickBacks,2,10) ; ( One Arm Dumbbell Triceps Extensions,2,10); 
+
+Day-8   = ABS       =>(Incline Bench Sit-ups,3,12) ; (Hanging Leg Raises,3,12) ; (Dumbbell Side Bends, 3,12) ; (Crunches, 3,12) ; (Leg Raises , 3,12); ; 
+Day-9   = BACK      =>(Chin Ups , 3,12) ; (Deadlifts, 3,12) ; (Lat Pull Downs, 3,12) ; (Seated Rows, 3,12) ;(One Arm Dumbbell Rows,3,12); 
+Day-10  = BICEPS    =>(Curls,3,12) ; (Barbell Curls,3,12) ;(Hammer Curls,3,12) ;(Concentration Curls,3,12 ) ;(Cable Biceps Curls, 3,12);
+Day-11  = CHEST     =>(Bench Presses,3,12) ; (Incline Presses , 3,12) ; (Dumbbell Presses, 3,12) ; (Parallel Bar Dips, 3,12) ; (Cable Crossover Flys,3,12) ; 
+Day-12  = LEGS      =>(Squats ,3,12) ; (Angled Leg Presses, 3,12) ; (Leg Extensions ,3,12) ; (Dumbbell Lunges,3,12) ; (Cable Back Kicks,3,12); 
+Day-13  = SHOULDERS =>(Back Presses, 3,12) ; (Seated Front Presses , 3,12) ; (Seated Dumbbell Presses , 3,12) ; (Low Pulley Lateral; Raises , 3,12) ; (Upright rows, 3,12); 
+Day-14  = TRICEPS   =>(Close Grip Bench Presses,3,12) ; ( Push Downs,3,12) ; ( Triceps Extensions,3,12 ) ; ( Triceps KickBacks,3,12) ; ( One Arm Dumbbell Triceps Extensions,3,12); 
+Day-15  = ABS       =>(Incline Bench Sit-ups,3,12) ; (Hanging Leg Raises,3,12) ; (Dumbbell Side Bends,3,12) ; (Crunches, 3,12) ; (Leg Raises ,3,12); 
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Workout Plan -3
+
+Day-1   = ABS       =>(Incline Bench Sit-ups,3,10) ; (Hanging Leg Raises,3,10) ; (Dumbbell Side Bends, 3, 10) ; (Crunches, 3, 10) ; (Leg Raises , 3, 10); 
+Day-2   = BACK      =>(Chin Ups , 3, 8) ; (Deadlifts, 3, 8) ; (Lat Pull Downs, 3, 8) ; (Seated Rows, 3, 8) ;(One Arm Dumbbell Rows,3,8); 
+Day-3   = BICEPS    =>(Curls,3,8) ; (Barbell Curls,3,8) ;(Hammer Curls,3,8) ;(Concentration Curls, 3, 8 ) ;(Cable Biceps Curls, 3, 8);
+Day-4   = CHEST     =>(Bench Presses, 3, 8) ; (Incline Presses , 3, 8) ; (Dumbbell Presses, 3, 8) ; (Parallel Bar Dips, 3, 8) ; (Cable Crossover Flys,3,8) ; 
+Day-5   = LEGS      =>(Squats , 3, 10) ; (Angled Leg Presses, 3,10) ; (Leg Extensions , 3, 10) ; (Dumbbell Lunges, 3, 10) ; (Cable Back Kicks,3,10); 
+Day-6   = SHOULDERS =>(Back Presses, 3, 10) ; (Seated Front Presses , 3, 10) ; (Seated Dumbbell Presses , 3, 10) ; (Low Pulley Lateral; Raises , 3, 10) ; (Upright rows, 3, 10); 
+Day-7   = TRICEPS   =>(Close Grip Bench Presses,3,10) ; ( Push Downs,3,10) ; ( Triceps Extensions,3,10 ) ; ( Triceps KickBacks,3,10) ; ( One Arm Dumbbell Triceps Extensions,3,10); 
+
+Day-8   = ABS       =>(Incline Bench Sit-ups,4,12) ; (Hanging Leg Raises,4,12) ; (Dumbbell Side Bends, 4,12) ; (Crunches, 4,12) ; (Leg Raises , 4,12); ; 
+Day-9   = BACK      =>(Chin Ups , 4,12) ; (Deadlifts, 4,12) ; (Lat Pull Downs, 4,12) ; (Seated Rows, 4,12) ;(One Arm Dumbbell Rows,4,12); 
+Day-10  = BICEPS    =>(Curls,4,12) ; (Barbell Curls,4,12) ;(Hammer Curls,4,12) ;(Concentration Curls,4,12 ) ;(Cable Biceps Curls, 4,12);
+Day-11  = CHEST     =>(Bench Presses,4,12) ; (Incline Presses , 4,12) ; (Dumbbell Presses, 4,12) ; (Parallel Bar Dips, 4,12) ; (Cable Crossover Flys,4,12) ; 
+Day-12  = LEGS      =>(Squats ,4,12) ; (Angled Leg Presses, 4,12) ; (Leg Extensions ,4,12) ; (Dumbbell Lunges,4,12) ; (Cable Back Kicks,4,12); 
+Day-13  = SHOULDERS =>(Back Presses, 4,12) ; (Seated Front Presses , 4,12) ; (Seated Dumbbell Presses , 4,12) ; (Low Pulley Lateral; Raises , 4,12) ; (Upright rows, 4,12); 
+Day-14  = TRICEPS   =>(Close Grip Bench Presses,4,12) ; ( Push Downs,4,12) ; ( Triceps Extensions,4,12 ) ; ( Triceps KickBacks,4,12) ; ( One Arm Dumbbell Triceps Extensions,4,12); 
+Day-15  = ABS       =>(Incline Bench Sit-ups,4,12) ; (Hanging Leg Raises,4,12) ; (Dumbbell Side Bends,4,12) ; (Crunches, 4,12) ; (Leg Raises ,4,12); 
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Workout Plan -4
+
+Day-1   = ABS       =>(Incline Bench Sit-ups,4,12) ; (Hanging Leg Raises,4,12) ; (Dumbbell Side Bends, 4,12) ; (Crunches, 4,12) ; (Leg Raises , 4,12); ; 
+Day-2   = BACK      =>(Chin Ups , 4,12) ; (Deadlifts, 4,12) ; (Lat Pull Downs, 4,12) ; (Seated Rows, 4,12) ;(One Arm Dumbbell Rows,4,12); 
+Day-3  = BICEPS    =>(Curls,4,12) ; (Barbell Curls,4,12) ;(Hammer Curls,4,12) ;(Concentration Curls,4,12 ) ;(Cable Biceps Curls, 4,12);
+Day-4  = CHEST     =>(Bench Presses,4,12) ; (Incline Presses , 4,12) ; (Dumbbell Presses, 4,12) ; (Parallel Bar Dips, 4,12) ; (Cable Crossover Flys,4,12) ; 
+Day-5  = LEGS      =>(Squats ,4,12) ; (Angled Leg Presses, 4,12) ; (Leg Extensions ,4,12) ; (Dumbbell Lunges,4,12) ; (Cable Back Kicks,4,12); 
+Day-6  = SHOULDERS =>(Back Presses, 4,12) ; (Seated Front Presses , 4,12) ; (Seated Dumbbell Presses , 4,12) ; (Low Pulley Lateral; Raises , 4,12) ; (Upright rows, 4,12); 
+Day-7  = TRICEPS   =>(Close Grip Bench Presses,4,12) ; ( Push Downs,4,12) ; ( Triceps Extensions,4,12 ) ; ( Triceps KickBacks,4,12) ; ( One Arm Dumbbell Triceps Extensions,4,12); 
+
+Day-8  = ABS       =>(Incline Bench Sit-ups,4,15) ; (Hanging Leg Raises,4,15) ; (Dumbbell Side Bends,4,15) ; (Crunches, 4,15) ; (Leg Raises ,4,15); 
+Day-9   = BACK      =>(Chin Ups , 4,15) ; (Deadlifts, 4,15) ; (Lat Pull Downs, 4,15) ; (Seated Rows, 4,15) ;(One Arm Dumbbell Rows,4,15); 
+Day-10  = BICEPS    =>(Curls,4,15) ; (Barbell Curls,4,15) ;(Hammer Curls,4,15) ;(Concentration Curls,4,15 ) ;(Cable Biceps Curls, 4,15);
+Day-11  = CHEST     =>(Bench Presses,4,15) ; (Incline Presses , 4,15) ; (Dumbbell Presses, 4,15) ; (Parallel Bar Dips, 4,15) ; (Cable Crossover Flys,4,15) ; 
+Day-12  = LEGS      =>(Squats ,4,15) ; (Angled Leg Presses, 4,15) ; (Leg Extensions ,4,15) ; (Dumbbell Lunges,4,15) ; (Cable Back Kicks,4,15); 
+Day-13  = SHOULDERS =>(Back Presses, 4,15) ; (Seated Front Presses , 4,15) ; (Seated Dumbbell Presses , 4,15) ; (Low Pulley Lateral; Raises , 4,15) ; (Upright rows, 4,15); 
+Day-14  = TRICEPS   =>(Close Grip Bench Presses,4,15) ; ( Push Downs,4,15) ; ( Triceps Extensions,4,15 ) ; ( Triceps KickBacks,4,15) ; ( One Arm Dumbbell Triceps Extensions,4,15); 
+Day-15  = ABS       =>(Incline Bench Sit-ups,4,15) ; (Hanging Leg Raises,4,15) ; (Dumbbell Side Bends,4,15) ; (Crunches, 4,15) ; (Leg Raises ,4,15); 
+
+
+

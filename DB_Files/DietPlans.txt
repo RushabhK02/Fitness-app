@@ -1,0 +1,68 @@
+Diet plan
+***********
+
+
+Diet Plan -1
+(Skinny/Fat) + (Sometimes Healthy or Junk Food)
+
+
+day 1 ==1700
+day 2 ==1750
+day 3 ==1800
+day 4 ==1800
+day 5 ==1800
+day 6 ==1850
+day 7 ==1850
+day 8 ==1900
+day 9 ==1900
+day 10==2050
+day 11==2050
+day 12==2100
+day 13==2150
+day 14==2200
+day 15==2250
+
+Diet Plan -2
+(Skinny/Fat) + (Always Healthy)
+
+
+day 1 ==2300
+day 2 ==2300
+day 3 ==2350
+day 4 ==2350
+day 5 ==2400
+day 6 ==2450
+day 7 ==2450
+day 8 ==2500
+day 9 ==2500
+day 10==2550
+day 11==2550
+day 12==2600
+day 13==2650
+day 14==2600
+day 15==2650
+
+
+
+
+
+Diet Plan -2
+(Skinny/Fat) + (Always Healthy)
+
+
+day 1 ==2100
+day 2 ==2100
+day 3 ==2150
+day 4 ==2150
+day 5 ==2150
+day 6 ==2150
+day 7 ==2150
+day 8 ==2200
+day 9 ==2200
+day 10==2250
+day 11==2250
+day 12==2300
+day 13==2350
+day 14==2400
+day 15==2450
+
