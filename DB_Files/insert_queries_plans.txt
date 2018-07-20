@@ -1,0 +1,16 @@
+Insert Queries
+***************
+
+insert into plans (plan_name, plan_type) values ("EASY","WORKOUT");
+
+insert into plans (plan_name, plan_type) values ("MEDIUM-1","WORKOUT");
+
+insert into plans (plan_name, plan_type) values ("MEDIUM-2","WORKOUT");
+
+insert into plans (plan_name, plan_type) values ("HARD","WORKOUT");
+
+insert into plans (plan_name, plan_type) values ("EASY_DIET","DIET");
+
+insert into plans (plan_name, plan_type) values ("MEDIUM_DIET","DIET");
+
+insert into plans (plan_name, plan_type) values ("HARD_DIET","DIET");

@@ -15,19 +15,20 @@ public interface AllotmentRepository extends CrudRepository<Allotment, Integer> 
 
 	@Query("SELECT a FROM Allotment a where a.user=:user")
 	List<Allotment> findAllotmentsByUserId(@Param("user") User user);
-	
-	@Query("SELECT a FROM Allotment a where a.user=:user and a.workoutPlanId=:workoutPlanId")
-	List<Allotment> findAllotmentsByUserIdAndWorkout(@Param("workoutPlanId") Plan workoutPlanId ,@Param("user") User user);
-	
-	@Query("SELECT a FROM Allotment a where a.user=:user and a.dietPlanId=:dietPlanId")
-	List<Allotment> findAllotmentsByUserIdAndDiet(@Param("dietPlanId") Plan dietPlanId ,@Param("user") User user);
-	
+
+	@Query("SELECT a FROM Allotment a where a.user=:user and a.startDate>=:AfterDate")
+	List<Allotment> findAllotmentsByUserIdAndAfterDate(@Param("AfterDate") Date afterDate, @Param("user") User user);
+
 	@Query("SELECT a FROM Allotment a where a.user=:user and a.startDate<=:BeforeDate")
-	List<Allotment> findAllotmentsByUserIdAndBeforeDate(@Param("BeforeDate") Date BeforeDate ,@Param("user") User user);
-	
-	@Query("SELECT a FROM Allotment a where a.user=:user and a.startDate<=:AfterDate")
-	List<Allotment> findAllotmentsByUserIdAndAfterDate(@Param("AfterDate") Date AfterDate ,@Param("user") User user);
-	
-	@Query(value="SELECT * FROM Allotments a ORDER BY a.allotment_id DESC LIMIT 1",nativeQuery=true)
-	Allotment findFirstByOrderByAllotmentIdDesc(@Param("allotmentId") int allotmentId);
+	List<Allotment> findAllotmentsByUserIdAndBeforeDate(@Param("BeforeDate") Date beforeDate, @Param("user") User user);
+
+	@Query("SELECT a FROM Allotment a where a.user=:user and a.dietPlanId=:dietPlanId")
+	List<Allotment> findAllotmentsByUserIdAndDiet(@Param("dietPlanId") Plan dietPlanId, @Param("user") User user);
+
+	@Query("SELECT a FROM Allotment a where a.user=:user and a.workoutPlanId=:workoutPlanId")
+	List<Allotment> findAllotmentsByUserIdAndWorkout(@Param("workoutPlanId") Plan workoutPlanId,
+			@Param("user") User user);
+
+	@Query(value = "SELECT * FROM Allotments a where a.user_id=:userId ORDER BY a.allotment_id DESC LIMIT 1", nativeQuery = true)
+	Allotment findFirstByOrderByAllotmentIdDesc(@Param("userId") int userId);
 }

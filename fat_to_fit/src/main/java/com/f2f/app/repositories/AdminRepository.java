@@ -9,13 +9,15 @@ import org.springframework.transaction.annotation.Transactional;
 import com.f2f.app.models.Admin;
 
 public interface AdminRepository extends CrudRepository<Admin, Integer> {
-	
+
+	@Query("SELECT a.clients FROM Admin a where a.id = :adminId")
+	String findClientsById(@Param("adminId") int adminId);
+
+	@Query("SELECT a.password FROM Admin a where a.username = :username")
+	String findPasswordByUsername(@Param("username") String username);
+
 	@Modifying
 	@Transactional
-    @Query("UPDATE Admin a SET a.clients = :clients WHERE a.id = :adminId")
-	void updateClient(@Param("clients") String clients,@Param("adminId") int adminId );
-	
-	@Query("SELECT a.clients FROM Admin a where a.id = :adminId")
-	String findClientsById(@Param("adminId") int adminId );
-
+	@Query("UPDATE Admin a SET a.clients = :clients WHERE a.id = :adminId")
+	void updateClient(@Param("clients") String clients, @Param("adminId") int adminId);
 }

@@ -1,113 +1,112 @@
 package com.f2f.app.models;
 
 import java.io.Serializable;
-import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.util.Date;
-import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 /**
  * The persistent class for the allotments database table.
- * 
+ *
  */
 @Entity
-@Table(name="allotments")
-@NamedQuery(name="Allotment.findAll", query="SELECT a FROM Allotment a")
+@Table(name = "allotments")
+@NamedQuery(name = "Allotment.findAll", query = "SELECT a FROM Allotment a")
 public class Allotment implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="allotment_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "allotment_id")
 	private int allotmentId;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="start_date")
+	@Column(name = "start_date")
 	private Date startDate;
 
-	//bi-directional many-to-one association to Admin
-	@JsonIgnore
+	// bi-directional many-to-one association to Admin
 	@ManyToOne
-	@JoinColumn(name="admin_id")
+	@JoinColumn(name = "admin_id")
 	private Admin admin;
 
-	//bi-directional many-to-one association to User
-	@JsonIgnore
+	// bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name="user_id")
+	@JoinColumn(name = "user_id")
 	private User user;
 
-	//bi-directional many-to-one association to Plan
-	@JsonIgnore
+	// bi-directional many-to-one association to Plan
 	@ManyToOne
-	@JoinColumn(name="workout_plan_id")
+	@JoinColumn(name = "workout_plan_id")
 	private Plan workoutPlanId;
 
-	//bi-directional many-to-one association to Plan
-	@JsonIgnore
+	// bi-directional many-to-one association to Plan
 	@ManyToOne
-	@JoinColumn(name="diet_plan_id")
+	@JoinColumn(name = "diet_plan_id")
 	private Plan dietPlanId;
 
-	public Allotment() {
+	public Admin getAdmin() {
+		return this.admin;
 	}
 
 	public int getAllotmentId() {
 		return this.allotmentId;
 	}
 
-	public void setAllotmentId(int allotmentId) {
-		this.allotmentId = allotmentId;
+	public Plan getDietPlanId() {
+		return this.dietPlanId;
 	}
 
 	public Date getStartDate() {
 		return this.startDate;
 	}
 
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
-
-	public Admin getAdmin() {
-		return this.admin;
-	}
-
-	public void setAdmin(Admin admin) {
-		this.admin = admin;
-	}
-
 	public User getUser() {
 		return this.user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	public Plan getWorkoutPlanId() {
 		return this.workoutPlanId;
 	}
 
-	public void setWorkoutPlanId(Plan workoutPlanId) {
-		this.workoutPlanId = workoutPlanId;
+	public void setAdmin(Admin admin) {
+		this.admin = admin;
 	}
 
-	public Plan getDietPlanId() {
-		return this.dietPlanId;
+	public void setAllotmentId(int allotmentId) {
+		this.allotmentId = allotmentId;
 	}
 
 	public void setDietPlanId(Plan dietPlanId) {
 		this.dietPlanId = dietPlanId;
 	}
 
-	@Override
-	public String toString() {
-		return "Allotment [allotmentId=" + allotmentId + ", startDate=" + startDate + ", admin=" + admin + ", user="
-				+ user + ", workoutPlanId=" + workoutPlanId + ", dietPlanId=" + dietPlanId + "]";
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 
-	
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public void setWorkoutPlanId(Plan workoutPlanId) {
+		this.workoutPlanId = workoutPlanId;
+	}
+
+	@Override
+	public String toString() {
+		return ReflectionToStringBuilder.toString(this);
+	}
+
 }

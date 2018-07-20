@@ -15,7 +15,7 @@ public class UserWorkoutRecordPK implements Serializable {
 	@Column(name="allotment_id", insertable=false, updatable=false)
 	private int allotmentId;
 
-	@Column(insertable=false, updatable=false)
+	@JoinColumn(name="day", referencedColumnName="day",insertable=false,updatable=false)
 	private int day;
 
 	@Column(name="ex_id", insertable=false, updatable=false)

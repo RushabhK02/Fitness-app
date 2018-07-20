@@ -22,6 +22,14 @@ insert into exercises (ex_name ,body_part_affected)
 values
 ("Concentration Curls","BICEPS");
 
+insert into exercises (ex_name ,body_part_affected) 
+values
+("Hammer Curls","BICEPS");
+
+insert into exercises (ex_name ,body_part_affected) 
+values
+("Cable Biceps Curls","BICEPS");
+
 
 2.ABS
 ----------
@@ -38,6 +46,20 @@ insert into exercises (ex_name ,body_part_affected)
 values
 ("Russian Twist","ABS");
 
+insert into exercises (ex_name ,body_part_affected) 
+values
+("Dumbbell Side Bends","ABS");
+
+insert into exercises (ex_name ,body_part_affected) 
+values
+("Hanging Leg Raises","ABS");
+
+insert into exercises (ex_name ,body_part_affected) 
+values
+("Incline Bench Sit-ups","ABS");
+
+
+
 -----------------------------
 
 3.Back
@@ -45,16 +67,24 @@ values
 
 insert into exercises (ex_name ,body_part_affected) 
 values
-("Chin Ups","Back");
+("Chin Ups","BACK");
 
 insert into exercises (ex_name ,body_part_affected) 
 values
-("Lat Pull Downs","Back");
+("Lat Pull Downs","BACK");
 
 insert into exercises (ex_name ,body_part_affected) 
 values
-("Deadlifts","Back");
+("Deadlifts","BACK");
 
+
+insert into exercises (ex_name ,body_part_affected) 
+values
+("Seated Rows","BACK");
+
+insert into exercises (ex_name ,body_part_affected) 
+values
+("One Arm Dumbbell Rows","BACK");
 -------------------------------------------
 
 4.Calf
@@ -62,15 +92,15 @@ values
 
 insert into exercises (ex_name ,body_part_affected) 
 values
-("Toe Raises","Calf");
+("Toe Raises","CALF");
 
 insert into exercises (ex_name ,body_part_affected) 
 values
-("One Leg Toe Raises","Calf");
+("One Leg Toe Raises","CALF");
 
 insert into exercises (ex_name ,body_part_affected) 
 values
-("Seated Calf Raises","Calf");
+("Seated Calf Raises","CALF");
 
 -------------------------------------------
 
@@ -81,15 +111,30 @@ values
 
 insert into exercises (ex_name ,body_part_affected) 
 values
-("Push Ups","Chest");
+("Push Ups","CHEST");
 
 insert into exercises (ex_name ,body_part_affected) 
 values
-("Bench Presses","Chest");
+("Bench Presses","CHEST");
 
 insert into exercises (ex_name ,body_part_affected) 
 values
-("Dumbbell Presses","Chest");
+("Dumbbell Presses","CHEST");
+
+insert into exercises (ex_name ,body_part_affected) 
+values
+("Incline Presses","CHEST");
+
+insert into exercises (ex_name ,body_part_affected) 
+values
+("Parallel Bar Dips","CHEST");
+
+
+insert into exercises (ex_name ,body_part_affected) 
+values
+("Cable Crossover Flys","CHEST");
+
+
 
 -------------------------------------------
 
@@ -100,15 +145,15 @@ values
 
 insert into exercises (ex_name ,body_part_affected) 
 values
-("Wrist Curls","Forearms");
+("Wrist Curls","FOREARMS");
 
 insert into exercises (ex_name ,body_part_affected) 
 values
-("Dumbbell Wrist Twist","Forearms");
+("Dumbbell Wrist Twist","FOREARMS");
 
 insert into exercises (ex_name ,body_part_affected) 
 values
-("Standing Wrist Curl","Forearms");
+("Standing Wrist Curl","FOREARMS");
 
 
 -------------------------------------------
@@ -119,15 +164,23 @@ values
 
 insert into exercises (ex_name ,body_part_affected) 
 values
-("Squats","Legs");
+("Squats","LEGS");
 
 insert into exercises (ex_name ,body_part_affected) 
 values
-("Angled Leg Presses","Legs");
+("Angled Leg Presses","LEGS");
 
 insert into exercises (ex_name ,body_part_affected) 
 values
-("Leg Extensions","Legs");
+("Leg Extensions","LEGS");
+
+insert into exercises (ex_name ,body_part_affected) 
+values
+("Dumbbell Lunges","LEGS");
+
+insert into exercises (ex_name ,body_part_affected) 
+values
+("Cable Back Kicks","LEGS");
 
 
 -------------------------------------------
@@ -139,15 +192,29 @@ values
 
 insert into exercises (ex_name ,body_part_affected) 
 values
-("Back Presses","Shoulders");
+("Back Presses","SHOULDERS");
 
 insert into exercises (ex_name ,body_part_affected) 
 values
-("Seated Front Presses","Shoulders");
+("Seated Front Presses","SHOULDERS");
 
 insert into exercises (ex_name ,body_part_affected) 
 values
-("Front Raises","Shoulders");
+("Front Raises","SHOULDERS");
+
+insert into exercises (ex_name ,body_part_affected) 
+values
+("Seated Dumbbell Presses","SHOULDERS");
+
+insert into exercises (ex_name ,body_part_affected) 
+values
+("Low Pulley Lateral","SHOULDERS");
+
+
+insert into exercises (ex_name ,body_part_affected) 
+values
+("Upright rows","SHOULDERS");
+
 
 
 -------------------------------------------
@@ -159,15 +226,26 @@ values
 
 insert into exercises (ex_name ,body_part_affected) 
 values
-("Pull Downs","Triceps");
+("Pull Downs","TRICEPS");
 
 insert into exercises (ex_name ,body_part_affected) 
 values
-("Close Grip Bench Presses","Triceps");
+("Close Grip Bench Presses","TRICEPS");
 
 insert into exercises (ex_name ,body_part_affected) 
 values
-("Triceps Extensions","Triceps");
+("Triceps Extensions","TRICEPS");
+
+
+insert into exercises (ex_name ,body_part_affected) 
+values
+("Triceps KickBacks","TRICEPS");
+
+insert into exercises (ex_name ,body_part_affected) 
+values
+("One Arm Dumbbell Triceps Extensions","TRICEPS");
+
+
 
 
 -------------------------------------------
