@@ -3,6 +3,7 @@ package com.f2f.app.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.f2f.app.constants.DateQueryType;
 import com.f2f.app.constants.ExerciseStatus;
 import com.f2f.app.constants.PlanType;
+import com.f2f.app.exceptions.OperationFailedException;
 import com.f2f.app.exceptions.ResourceNotFoundException;
 import com.f2f.app.models.AllocationPoints;
 import com.f2f.app.models.Allotment;
@@ -86,14 +88,19 @@ public class UserServiceImpl implements UserService {
 			return true;
 		} catch (Exception e) {
 			logger.error("UserService.firstAllotment : cannot allot plan for user: " + userId);
-			System.out.println(e);
-			return false;
+			logger.log(null, e);
+			throw new OperationFailedException((long) userId, "cannot allot plan for user");
 		}
 	}
 
 	@Override
 	public Exercise getExerciseInfo(int exId) {
-		return exerciseRepository.findById(exId).get();
+		Optional<Exercise> exercise = exerciseRepository.findById(exId);
+		if (exercise.isPresent()) {
+			return exercise.get();
+		} else {
+			throw new ResourceNotFoundException((long) exId, "cannot find exercise with Id:" + exId);
+		}
 	}
 
 	@Override
@@ -119,7 +126,7 @@ public class UserServiceImpl implements UserService {
 			return user;
 		} else {
 			logger.error("UserService.signup : cannot register user: " + newUser.getUsername());
-			return null;
+			throw new OperationFailedException(-1L, "cannot allot plan for user");
 		}
 	}
 
@@ -141,8 +148,8 @@ public class UserServiceImpl implements UserService {
 			return true;
 		} catch (Exception e) {
 			logger.error("UserService.UpdateBasicInfo for user : " + userId + "- failed");
-			System.out.println(e);
-			return false;
+			logger.log(null, e);
+			throw new OperationFailedException(-1L, "cannot update basic info for user");
 		}
 	}
 
@@ -175,8 +182,9 @@ public class UserServiceImpl implements UserService {
 			return true;
 		} catch (Exception e) {
 			logger.error("UserService.UpdateExerciseStatus for user : " + userId + "- failed");
-			System.out.println(e);
-			return false;
+			logger.log(null, e);
+			throw new OperationFailedException(-1L,
+					"cannot update exercise status for user: " + userId + "- Ex: " + exId);
 		}
 	}
 
@@ -209,7 +217,8 @@ public class UserServiceImpl implements UserService {
 		} catch (Exception e) {
 			logger.error("UserService.UpdateFoodEaten for user : " + userId + "- failed");
 			logger.log(null, "Error in UserService.UpdateFoodEaten:", e);
-			return false;
+			throw new OperationFailedException(-1L,
+					"cannot update calorie status for user: " + userId + "- Calorie Intake: " + calorieIntake);
 		}
 	}
 
@@ -222,7 +231,7 @@ public class UserServiceImpl implements UserService {
 			return userDietRecordRepository.findByUserIdAndAllotment(user, currAllotment.getAllotmentId());
 		}
 		logger.error("UserService.viewCurrentDietActivity: User " + userId + " does not exist");
-		return null;
+		throw new ResourceNotFoundException((long) userId, "User " + userId + " does not exist");
 	}
 
 	@Override
@@ -237,7 +246,7 @@ public class UserServiceImpl implements UserService {
 			return planDetailRepository.findByPlanId(user.getcurrentWorkoutPlan().getPlanId());
 		}
 		logger.error("UserService.viewCurrentPlan for user : " + userId + "- Incorrect query type");
-		return null;
+		throw new OperationFailedException(-1L, "Incorrect query type: " + type.toString() + " for user - " + userId);
 	}
 
 	@Override
@@ -254,7 +263,7 @@ public class UserServiceImpl implements UserService {
 			return records;
 		}
 		logger.error("UserService.viewCurrentWorkoutActivity: User " + userId + " does not exist");
-		return null;
+		throw new ResourceNotFoundException((long) userId, "User " + userId + " does not exist");
 	}
 
 	@Override
@@ -289,7 +298,8 @@ public class UserServiceImpl implements UserService {
 			return records;
 		}
 		logger.error("UserService.viewDietActivity: incorrect query type");
-		return null;
+		throw new OperationFailedException(-1L,
+				"Incorrect query type: " + queryType.toString() + " for user - " + userId);
 	}
 
 	@Override
@@ -308,7 +318,8 @@ public class UserServiceImpl implements UserService {
 			return allotmentRepository.findAllotmentsByUserIdAndAfterDate(date, user);
 		}
 		logger.error("UserService.viewDietPlanHistory: incorrect query type");
-		return null;
+		throw new OperationFailedException(-1L,
+				"Incorrect query type: " + queryType.toString() + " for user - " + userId);
 	}
 
 	@Override
@@ -349,7 +360,8 @@ public class UserServiceImpl implements UserService {
 			return records;
 		}
 		logger.error("UserService.viewWorkoutActivity: incorrect query type");
-		return null;
+		throw new OperationFailedException(-1L,
+				"Incorrect query type: " + queryType.toString() + " for user - " + userId);
 	}
 
 	@Override
@@ -369,7 +381,8 @@ public class UserServiceImpl implements UserService {
 			return allotmentRepository.findAllotmentsByUserIdAndAfterDate(date, user);
 		}
 		logger.error("UserService.viewWorkoutPlanHistory: incorrect query type");
-		return null;
+		throw new OperationFailedException(-1L,
+				"Incorrect query type: " + queryType.toString() + " for user - " + userId);
 	}
 
 }

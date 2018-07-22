@@ -3,6 +3,7 @@ package com.f2f.app.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import com.f2f.app.constants.DateQueryType;
 import com.f2f.app.constants.ExerciseStatus;
+import com.f2f.app.exceptions.OperationFailedException;
+import com.f2f.app.exceptions.ResourceNotFoundException;
 import com.f2f.app.models.Admin;
 import com.f2f.app.models.Allotment;
 import com.f2f.app.models.Plan;
@@ -48,10 +51,19 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void addClient(int adminId, int userId) {
 		logger.info("Running AdminService.addClient: adding " + userId + " for admin " + adminId);
-		Admin admin = adminRepository.findById(adminId).get();
-		String clients = admin.getClients().concat(";" + userId);
-		admin.setClients(clients);
-		adminRepository.save(admin);
+		Optional<Admin> result = adminRepository.findById(adminId);
+		if (result.isPresent()) {
+			Admin admin = result.get();
+			String clients = admin.getClients().concat(";" + userId);
+			admin.setClients(clients);
+			adminRepository.save(admin);
+			logger.info("Client with ID: " + userId + " added to admin: " + adminId);
+			return;
+		} else {
+			logger.warn("AdminService.addClient: Cannot find admin - " + adminId);
+			throw new ResourceNotFoundException((long) adminId, "cannot find admin with Id:" + adminId);
+		}
+
 	}
 
 	@Override
@@ -59,29 +71,47 @@ public class AdminServiceImpl implements AdminService {
 		logger.info("Running AdminService.assignPresetToUser: assignPresetToUser " + userId + " for admin " + adminId);
 		try {
 			Allotment newAllotment = new Allotment();
-			Plan plan = planRepository.findById(dietPlanId).get();
+			Optional<Plan> plan = planRepository.findById(dietPlanId);
 			Date date = new Date();
+			if (plan.isPresent()) {
+				newAllotment.setDietPlanId(plan.get());
+				userRepository.updateCurrentDietPlan(plan.get(), date, userId);
+			} else {
+				throw new ResourceNotFoundException((long) dietPlanId, "cannot find diet plan with Id:" + dietPlanId);
+			}
 
-			newAllotment.setDietPlanId(plan);
-			userRepository.updateCurrentDietPlan(plan, date, userId);
+			plan = planRepository.findById(workoutPlanId);
 
-			plan = planRepository.findById(workoutPlanId).get();
+			if (plan.isPresent()) {
+				userRepository.updateCurrentWorkoutPlan(plan.get(), date, userId);
+				newAllotment.setWorkoutPlanId(plan.get());
 
-			userRepository.updateCurrentWorkoutPlan(plan, date, userId);
-			newAllotment.setWorkoutPlanId(plan);
+				Optional<Admin> admin = adminRepository.findById(adminId);
+				if (admin.isPresent()) {
+					newAllotment.setAdmin(admin.get());
+					newAllotment.setStartDate(date);
+				} else {
+					throw new ResourceNotFoundException((long) adminId, "cannot find admin with Id:" + adminId);
+				}
+			} else {
+				throw new ResourceNotFoundException((long) workoutPlanId,
+						"cannot find workout plan with Id:" + workoutPlanId);
+			}
 
-			newAllotment.setAdmin(adminRepository.findById(adminId).get());
-			newAllotment.setStartDate(date);
-			newAllotment.setUser(userRepository.findById(userId).get());
+			Optional<User> user = userRepository.findById(userId);
+			if (user.isPresent()) {
+				newAllotment.setUser(user.get());
 
-			allotmentRepository.save(newAllotment);
-			logger.info("Running AdminService.assignPresetToUser: successfully alloted");
-			return true;
+				allotmentRepository.save(newAllotment);
+				logger.info("Running AdminService.assignPresetToUser: successfully alloted");
+				return true;
+			} else {
+				throw new ResourceNotFoundException((long) userId, "cannot find user with Id:" + userId);
+			}
 		} catch (Exception e) {
 			logger.error("AdminService.assignPresetToUser : cannot allot");
 			logger.log(null, "Error in AdminService.assignPresetToUser:", e);
-
-			return false;
+			throw e;
 		}
 	}
 
@@ -100,7 +130,7 @@ public class AdminServiceImpl implements AdminService {
 		} catch (Exception e) {
 			logger.error("AdminService.createNewPreset : cannot create");
 			logger.log(null, "Error in AdminService.createNewPreset:", e);
-			return false;
+			throw new OperationFailedException(-1L, "Cannot create new Preset");
 		}
 	}
 
@@ -115,7 +145,7 @@ public class AdminServiceImpl implements AdminService {
 		} catch (Exception e) {
 			logger.error("AdminService.deletePreset : cannot delete");
 			logger.log(null, "Error in AdminService.deletePreset:", e);
-			return false;
+			throw new OperationFailedException((long) planId, "Cannot delete Preset: " + planId);
 		}
 	}
 
@@ -124,44 +154,66 @@ public class AdminServiceImpl implements AdminService {
 		logger.info("Admin trying to login: " + adminName);
 		if (password.equals(adminRepository.findPasswordByUsername(adminName))) {
 			logger.info("Admin login: successful");
-			return adminRepository.findById(1).get();
+			Optional<Admin> admin = adminRepository.findById(1);
+			if (admin.isPresent()) {
+
+				return admin.get();
+			} else {
+				throw new ResourceNotFoundException(1L, "cannot find admin:" + adminName);
+			}
+
 		}
 		logger.error("Admin login: No such admin");
-		return null;
+		throw new ResourceNotFoundException(1L, "cannot find admin:" + adminName);
 	}
 
 	@Override
 	public User viewClientInfo(int userId) {
 		logger.info("AdminService.viewClientInfo for : " + userId);
 		try {
-			return userRepository.findById(userId).get();
+			Optional<User> user = userRepository.findById(userId);
+			if (user.isPresent()) {
+				return user.get();
+			} else {
+				throw new ResourceNotFoundException((long) userId, "cannot find user:" + userId);
+			}
 		} catch (Exception e) {
-			logger.error("AdminService.viewClientInfo: No such user");
-			return null;
-
+			logger.error("AdminService.viewClientInfo: No such user - " + userId);
+			throw e;
 		}
 	}
 
 	@Override
 	public List<UserLite> viewClients(int adminId) {
 		logger.info("AdminService.viewClients for admin : " + adminId);
-		try {
-			String clientList = adminRepository.findClientsById(adminId);
-			String[] clients = clientList.split(";");
-			List<UserLite> users = new ArrayList<>();
-			for (String client : clients) {
-				User user = userRepository.findById(Integer.valueOf(client)).get();
-				UserLite userLite = new UserLite();
-				userLite.setFirstName(user.getFirstName());
-				userLite.setLastName(user.getLastName());
-				userLite.setUserId(user.getUserId());
-				users.add(userLite);
+		Optional<Admin> admin = adminRepository.findById(adminId);
+		if (admin.isPresent()) {
+			try {
+				String clientList = adminRepository.findClientsById(adminId);
+				String[] clients = clientList.split(";");
+				List<UserLite> users = new ArrayList<>();
+				for (String client : clients) {
+					Optional<User> result = userRepository.findById(Integer.valueOf(client));
+					if (result.isPresent()) {
+						User user = result.get();
+						UserLite userLite = new UserLite();
+						userLite.setFirstName(user.getFirstName());
+						userLite.setLastName(user.getLastName());
+						userLite.setUserId(user.getUserId());
+						users.add(userLite);
+					} else {
+						throw new ResourceNotFoundException(Long.valueOf(client),
+								"cannot find user:" + Long.valueOf(client));
+					}
+				}
+				logger.info("AdminService.viewClients: running");
+				return users;
+			} catch (Exception e) {
+				logger.warn("AdminService.viewClients: Unknown client");
+				throw e;
 			}
-			logger.info("AdminService.viewClients: running");
-			return users;
-		} catch (Exception e) {
-			logger.warn("AdminService.viewClients: No clients");
-			return null;
+		} else {
+			throw new ResourceNotFoundException((long) adminId, "cannot find admin:" + adminId);
 		}
 	}
 
@@ -179,80 +231,115 @@ public class AdminServiceImpl implements AdminService {
 				if (daysBetween < 13) {
 					users.remove(user);
 				}
-				System.out.println(daysBetween);
+				logger.info("Days between for user: " + user.getUserId() + " - " + daysBetween);
 			}
 			logger.info("AdminService.viewNotifications : running");
 			return users;
 		} catch (Exception e) {
 			logger.warn("AdminService.viewNotifications: No users with expiring plan");
-			return null;
+			return new ArrayList<>();
 		}
 	}
 
 	@Override
 	public List<UserDietRecord> viewUserCurrentDietActivity(int userId) {
 
-		User user = userRepository.findById(userId).get();
-		if (user != null) {
+		Optional<User> user = userRepository.findById(userId);
+		if (user.isPresent()) {
 			logger.info("AdminService.viewUserCurrentDietActivity for user : " + userId);
-			Allotment currAllotment = allotmentRepository.findFirstByOrderByAllotmentIdDesc(user.getUserId());
+			Allotment currAllotment = allotmentRepository.findFirstByOrderByAllotmentIdDesc(user.get().getUserId());
 			logger.info("AdminService.viewUserCurrentDietActivity : successful");
-			return userDietRecordRepository.findByUserIdAndAllotment(user, currAllotment.getAllotmentId());
+			List<UserDietRecord> records = userDietRecordRepository.findByUserIdAndAllotment(user.get(),
+					currAllotment.getAllotmentId());
+			if (records.isEmpty()) {
+				logger.warn("AdminService.viewUserCurrentDietActivity: no current diet assigned");
+				return new ArrayList<>();
+			} else {
+				return records;
+			}
+		} else {
+			throw new ResourceNotFoundException((long) userId, "cannot find user:" + userId);
 		}
-		logger.warn("AdminService.viewUserCurrentDietActivity: no current diet assigned");
-		return null;
+
 	}
 
 	@Override
 	public List<UserWorkoutRecord> viewUserCurrentWorkoutActivity(int userId) {
-		User user = userRepository.findById(userId).get();
-		if (user != null) {
-			Allotment currAllotment = allotmentRepository.findFirstByOrderByAllotmentIdDesc(user.getUserId());
+		Optional<User> user = userRepository.findById(userId);
+		if (user.isPresent()) {
+			Allotment currAllotment = allotmentRepository.findFirstByOrderByAllotmentIdDesc(user.get().getUserId());
 			List<UserWorkoutRecord> records = new ArrayList<>();
-			records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user, currAllotment.getAllotmentId(),
-					ExerciseStatus.COMPLETE));
-			records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user, currAllotment.getAllotmentId(),
-					ExerciseStatus.INCOMPLETE));
-			logger.info("AdminService.viewUserCurrentWorkoutActivity for user : " + userId);
-			return records;
+			records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user.get(),
+					currAllotment.getAllotmentId(), ExerciseStatus.COMPLETE));
+			records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user.get(),
+					currAllotment.getAllotmentId(), ExerciseStatus.INCOMPLETE));
 
+			if (records.isEmpty()) {
+				logger.warn("AdminService.viewUserCurrentWorkoutActivity: no current workout assigned");
+				return new ArrayList<>();
+			} else {
+				logger.info("AdminService.viewUserCurrentWorkoutActivity for user : " + userId);
+				return records;
+			}
+		} else {
+			throw new ResourceNotFoundException((long) userId, "cannot find user:" + userId);
 		}
-		logger.warn("AdminService.viewUserCurrentWorkoutActivity: no current workout assigned");
-		return null;
 	}
 
 	@Override
 	public List<UserDietRecord> viewUserDietActivity(DateQueryType queryType, Date date, int userId) {
 		if (queryType == DateQueryType.DEFAULT) {
 			logger.info("AdminService.viewUserDietActivity for user : " + userId + " - default");
-			User user = userRepository.findById(userId).get();
-
-			return userDietRecordRepository.findByUserId(user);
+			Optional<User> user = userRepository.findById(userId);
+			if (user.isPresent()) {
+				return userDietRecordRepository.findByUserId(user.get());
+			} else {
+				throw new ResourceNotFoundException((long) userId, "cannot find user:" + userId);
+			}
 		} else if (queryType == DateQueryType.BEFORE) {
 			logger.info("AdminService.viewUserDietActivity for user : " + userId + " - BEFORE");
-			User user = userRepository.findById(userId).get();
+			Optional<User> user = userRepository.findById(userId);
+			if (user.isPresent()) {
+				List<Allotment> allotments = allotmentRepository.findAllotmentsByUserIdAndBeforeDate(date, user.get());
+				List<UserDietRecord> records = new ArrayList<>();
 
-			List<Allotment> allotments = allotmentRepository.findAllotmentsByUserIdAndBeforeDate(date, user);
-			List<UserDietRecord> records = new ArrayList<>();
+				for (Allotment allotment : allotments) {
+					records.addAll(
+							userDietRecordRepository.findByUserIdAndAllotment(user.get(), allotment.getAllotmentId()));
+				}
 
-			for (Allotment allotment : allotments) {
-				records.addAll(userDietRecordRepository.findByUserIdAndAllotment(user, allotment.getAllotmentId()));
+				if (records.isEmpty()) {
+					return new ArrayList<>();
+				} else {
+					return records;
+				}
+			} else {
+				throw new ResourceNotFoundException((long) userId, "cannot find user:" + userId);
 			}
-			return records;
 		} else if (queryType == DateQueryType.AFTER) {
 			logger.info("AdminService.viewUserDietActivity for user : " + userId + " - AFTER");
-			User user = userRepository.findById(userId).get();
+			Optional<User> user = userRepository.findById(userId);
+			if (user.isPresent()) {
 
-			List<Allotment> allotments = allotmentRepository.findAllotmentsByUserIdAndAfterDate(date, user);
-			List<UserDietRecord> records = new ArrayList<>();
+				List<Allotment> allotments = allotmentRepository.findAllotmentsByUserIdAndAfterDate(date, user.get());
+				List<UserDietRecord> records = new ArrayList<>();
 
-			for (Allotment allotment : allotments) {
-				records.addAll(userDietRecordRepository.findByUserIdAndAllotment(user, allotment.getAllotmentId()));
+				for (Allotment allotment : allotments) {
+					records.addAll(
+							userDietRecordRepository.findByUserIdAndAllotment(user.get(), allotment.getAllotmentId()));
+				}
+				if (records.isEmpty()) {
+					return new ArrayList<>();
+				} else {
+					return records;
+				}
+			} else {
+				throw new ResourceNotFoundException((long) userId, "cannot find user:" + userId);
 			}
-			return records;
 		}
 		logger.error("AdminService.viewUserDietActivity: incorrect query type");
-		return null;
+		throw new OperationFailedException(Long.valueOf(queryType.ordinal()),
+				"incorrect query type: " + queryType.toString());
 	}
 
 	@Override
@@ -260,64 +347,81 @@ public class AdminServiceImpl implements AdminService {
 
 		if (queryType == DateQueryType.DEFAULT) {
 			logger.info("AdminService.viewUserWorkoutActivity for user : " + userId + " - default");
-			User user = userRepository.findById(userId).get();
-
-			return userWorkoutRecordRepository.findByUserId(user);
+			Optional<User> user = userRepository.findById(userId);
+			if (user.isPresent()) {
+				return userWorkoutRecordRepository.findByUserId(user.get());
+			} else {
+				throw new ResourceNotFoundException((long) userId, "cannot find user:" + userId);
+			}
 		} else if (queryType == DateQueryType.BEFORE) {
 			logger.info("AdminService.viewUserWorkoutActivity for user : " + userId + " - BEFORE");
-			User user = userRepository.findById(userId).get();
+			Optional<User> user = userRepository.findById(userId);
+			if (user.isPresent()) {
+				List<Allotment> allotments = allotmentRepository.findAllotmentsByUserIdAndBeforeDate(date, user.get());
+				List<UserWorkoutRecord> records = new ArrayList<>();
 
-			List<Allotment> allotments = allotmentRepository.findAllotmentsByUserIdAndBeforeDate(date, user);
-			List<UserWorkoutRecord> records = new ArrayList<>();
-
-			for (Allotment allotment : allotments) {
-				records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user, allotment.getAllotmentId(),
-						ExerciseStatus.COMPLETE));
-				records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user, allotment.getAllotmentId(),
-						ExerciseStatus.INCOMPLETE));
+				for (Allotment allotment : allotments) {
+					records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user.get(),
+							allotment.getAllotmentId(), ExerciseStatus.COMPLETE));
+					records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user.get(),
+							allotment.getAllotmentId(), ExerciseStatus.INCOMPLETE));
+				}
+				return records;
+			} else {
+				throw new ResourceNotFoundException((long) userId, "cannot find user:" + userId);
 			}
-			return records;
 		} else if (queryType == DateQueryType.AFTER) {
 			logger.info("AdminService.viewUserWorkoutActivity for user : " + userId + " - AFTER");
-			User user = userRepository.findById(userId).get();
+			Optional<User> user = userRepository.findById(userId);
+			if (user.isPresent()) {
 
-			List<Allotment> allotments = allotmentRepository.findAllotmentsByUserIdAndAfterDate(date, user);
-			List<UserWorkoutRecord> records = new ArrayList<>();
+				List<Allotment> allotments = allotmentRepository.findAllotmentsByUserIdAndAfterDate(date, user.get());
+				List<UserWorkoutRecord> records = new ArrayList<>();
 
-			for (Allotment allotment : allotments) {
-				records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user, allotment.getAllotmentId(),
-						ExerciseStatus.COMPLETE));
-				records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user, allotment.getAllotmentId(),
-						ExerciseStatus.INCOMPLETE));
+				for (Allotment allotment : allotments) {
+					records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user.get(),
+							allotment.getAllotmentId(), ExerciseStatus.COMPLETE));
+					records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user.get(),
+							allotment.getAllotmentId(), ExerciseStatus.INCOMPLETE));
+				}
+				return records;
+			} else {
+				throw new ResourceNotFoundException((long) userId, "cannot find user:" + userId);
 			}
-			return records;
 		}
 		logger.error("AdminService.viewUserWorkoutActivity: incorrect query type");
-		return null;
+		throw new OperationFailedException(Long.valueOf(queryType.ordinal()),
+				"incorrect query type: " + queryType.toString());
 	}
 
 	@Override
 	public List<UserWorkoutRecord> viewUserWorkoutActivityByStatus(DateQueryType queryType, ExerciseStatus status,
 			int userId) {
 
-		User user = userRepository.findById(userId).get();
-		if (queryType == DateQueryType.CURRENT) {
-			logger.info("AdminService.viewUserWorkoutActivityByStatus for user : " + userId + " - CURRENT");
-			Allotment allotment = allotmentRepository.findFirstByOrderByAllotmentIdDesc(user.getUserId());
-			return userWorkoutRecordRepository.findByUserIdAndAllotmentAndStatus(user, allotment.getAllotmentId(),
-					status);
-		} else if (queryType == DateQueryType.ALL) {
-			List<Allotment> allotments = allotmentRepository.findAllotmentsByUserId(user);
-			List<UserWorkoutRecord> records = new ArrayList<>();
-			logger.info("AdminService.viewUserWorkoutActivityByStatus for user : " + userId + " - ALL");
-			for (Allotment allotment : allotments) {
-				records.addAll(
-						userWorkoutRecordRepository.findByUserIdAndAllotment(user, allotment.getAllotmentId(), status));
+		Optional<User> user = userRepository.findById(userId);
+		if (user.isPresent()) {
+			if (queryType == DateQueryType.CURRENT) {
+				logger.info("AdminService.viewUserWorkoutActivityByStatus for user : " + userId + " - CURRENT");
+				Allotment allotment = allotmentRepository.findFirstByOrderByAllotmentIdDesc(user.get().getUserId());
+				return userWorkoutRecordRepository.findByUserIdAndAllotmentAndStatus(user.get(),
+						allotment.getAllotmentId(), status);
+			} else if (queryType == DateQueryType.ALL) {
+				List<Allotment> allotments = allotmentRepository.findAllotmentsByUserId(user.get());
+				List<UserWorkoutRecord> records = new ArrayList<>();
+				logger.info("AdminService.viewUserWorkoutActivityByStatus for user : " + userId + " - ALL");
+				for (Allotment allotment : allotments) {
+					records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user.get(),
+							allotment.getAllotmentId(), status));
+				}
+				return records;
 			}
-			return records;
+			logger.error("AdminService.viewUserWorkoutActivityByStatus: incorrect query type");
+			throw new OperationFailedException(Long.valueOf(queryType.ordinal()),
+					"incorrect query type: " + queryType.toString());
+		} else {
+			throw new ResourceNotFoundException((long) userId, "cannot find user:" + userId);
 		}
-		logger.error("AdminService.viewUserWorkoutActivityByStatus: incorrect query type");
-		return null;
+
 	}
 
 }
