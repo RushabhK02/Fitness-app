@@ -19,6 +19,7 @@ import com.f2f.app.exceptions.ResourceNotFoundException;
 import com.f2f.app.models.AllocationPoints;
 import com.f2f.app.models.Allotment;
 import com.f2f.app.models.Exercise;
+import com.f2f.app.models.Plan;
 import com.f2f.app.models.PlanDetail;
 import com.f2f.app.models.PlanDetailPK;
 import com.f2f.app.models.User;
@@ -60,36 +61,76 @@ public class UserServiceImpl implements UserService {
 		logger.info("Running UserService.firstAllotment");
 		try {
 			Date date = new Date();
-			if (points.getWorkoutPoints() <= 15) {
-				logger.info("Running UserService.firstAllotment: allot workout plan 1 for user - " + userId);
-				userRepository.updateCurrentWorkoutPlan(planRepository.findById(1).get(), date, userId);
-			} else if (points.getWorkoutPoints() > 15 && points.getWorkoutPoints() < 40) {
-				logger.info("Running UserService.firstAllotment: allot workout plan 2 for user - " + userId);
-				userRepository.updateCurrentWorkoutPlan(planRepository.findById(2).get(), date, userId);
-			} else if (points.getWorkoutPoints() >= 40 && points.getWorkoutPoints() < 60) {
-				logger.info("Running UserService.firstAllotment: allot workout plan 3 for user - " + userId);
-				userRepository.updateCurrentWorkoutPlan(planRepository.findById(3).get(), date, userId);
-			} else {
-				logger.info("Running UserService.firstAllotment: allot workout plan 4 for user - " + userId);
-				userRepository.updateCurrentWorkoutPlan(planRepository.findById(4).get(), date, userId);
-			}
+			Optional<User> user = userRepository.findById(userId);
+			if (user.isPresent()) {
+				if (points.getWorkoutPoints() <= 15) {
+					logger.info("Running UserService.firstAllotment: allot workout plan 1 for user - " + userId);
+					Optional<Plan> plan = planRepository.findById(1);
+					if (plan.isPresent()) {
+						userRepository.updateCurrentWorkoutPlan(plan.get(), date, userId);
+					} else {
+						throw new ResourceNotFoundException(1L, "Plan 1 does not exist");
+					}
+				} else if (points.getWorkoutPoints() > 15 && points.getWorkoutPoints() < 40) {
+					logger.info("Running UserService.firstAllotment: allot workout plan 2 for user - " + userId);
+					Optional<Plan> plan = planRepository.findById(2);
+					if (plan.isPresent()) {
+						userRepository.updateCurrentWorkoutPlan(plan.get(), date, userId);
+					} else {
+						throw new ResourceNotFoundException(2L, "Plan 2 does not exist");
+					}
+				} else if (points.getWorkoutPoints() >= 40 && points.getWorkoutPoints() < 60) {
+					logger.info("Running UserService.firstAllotment: allot workout plan 3 for user - " + userId);
+					Optional<Plan> plan = planRepository.findById(3);
+					if (plan.isPresent()) {
+						userRepository.updateCurrentWorkoutPlan(plan.get(), date, userId);
+					} else {
+						throw new ResourceNotFoundException(3L, "Plan 3 does not exist");
+					}
+				} else {
+					logger.info("Running UserService.firstAllotment: allot workout plan 4 for user - " + userId);
+					Optional<Plan> plan = planRepository.findById(4);
+					if (plan.isPresent()) {
+						userRepository.updateCurrentWorkoutPlan(plan.get(), date, userId);
+					} else {
+						throw new ResourceNotFoundException(4L, "Plan 4 does not exist");
+					}
+				}
 
-			if (points.getWorkoutPoints() <= 15) {
-				logger.info("Running UserService.firstAllotment: allot diet plan 1 for user - " + userId);
-				userRepository.updateCurrentDietPlan(planRepository.findById(5).get(), date, userId);
-			} else if (points.getWorkoutPoints() > 15 && points.getWorkoutPoints() < 30) {
-				logger.info("Running UserService.firstAllotment: allot diet plan 2 for user - " + userId);
-				userRepository.updateCurrentDietPlan(planRepository.findById(6).get(), date, userId);
+				if (points.getWorkoutPoints() <= 15) {
+					logger.info("Running UserService.firstAllotment: allot diet plan 1 for user - " + userId);
+					Optional<Plan> plan = planRepository.findById(5);
+					if (plan.isPresent()) {
+						userRepository.updateCurrentDietPlan(plan.get(), date, userId);
+					} else {
+						throw new ResourceNotFoundException(5L, "Plan 5 does not exist");
+					}
+				} else if (points.getWorkoutPoints() > 15 && points.getWorkoutPoints() < 30) {
+					logger.info("Running UserService.firstAllotment: allot diet plan 2 for user - " + userId);
+					Optional<Plan> plan = planRepository.findById(6);
+					if (plan.isPresent()) {
+						userRepository.updateCurrentDietPlan(plan.get(), date, userId);
+					} else {
+						throw new ResourceNotFoundException(6L, "Plan 6 does not exist");
+					}
+				} else {
+					logger.info("Running UserService.firstAllotment: allot diet plan 3 for user - " + userId);
+					Optional<Plan> plan = planRepository.findById(7);
+					if (plan.isPresent()) {
+						userRepository.updateCurrentDietPlan(plan.get(), date, userId);
+					} else {
+						throw new ResourceNotFoundException(7L, "Plan 7 does not exist");
+					}
+				}
+				logger.info("Running UserService.firstAllotment: allotment done for user - " + userId);
+				return true;
 			} else {
-				logger.info("Running UserService.firstAllotment: allot diet plan 3 for user - " + userId);
-				userRepository.updateCurrentDietPlan(planRepository.findById(7).get(), date, userId);
+				throw new ResourceNotFoundException((long) userId, "User " + userId + " does not exist");
 			}
-			logger.info("Running UserService.firstAllotment: allotment done for user - " + userId);
-			return true;
 		} catch (Exception e) {
 			logger.error("UserService.firstAllotment : cannot allot plan for user: " + userId);
 			logger.log(null, e);
-			throw new OperationFailedException((long) userId, "cannot allot plan for user");
+			throw e;
 		}
 	}
 
@@ -134,22 +175,26 @@ public class UserServiceImpl implements UserService {
 	public Boolean updateBasicInfo(int userId, int newWeight, int newHeight, int newAge) {
 		try {
 			logger.info("UserService.UpdateBasicInfo for user : " + userId);
-			User user = userRepository.findById(userId).get();
-			if (user.getHeightCms() != newHeight) {
-				userRepository.updateHeight(newHeight, userId);
+			Optional<User> user = userRepository.findById(userId);
+			if (user.isPresent()) {
+				if (user.get().getHeightCms() != newHeight) {
+					userRepository.updateHeight(newHeight, userId);
+				}
+				if (user.get().getWeightKgs() != newWeight) {
+					userRepository.updateWeight(newWeight, userId);
+				}
+				if (user.get().getAge() != newAge) {
+					userRepository.updateAge(newAge, userId);
+				}
+				logger.info("UserService.UpdateBasicInfo for user : " + userId + "- successful");
+				return true;
+			} else {
+				throw new ResourceNotFoundException((long) userId, "User " + userId + " does not exist");
 			}
-			if (user.getWeightKgs() != newWeight) {
-				userRepository.updateWeight(newWeight, userId);
-			}
-			if (user.getAge() != newAge) {
-				userRepository.updateAge(newAge, userId);
-			}
-			logger.info("UserService.UpdateBasicInfo for user : " + userId + "- successful");
-			return true;
 		} catch (Exception e) {
 			logger.error("UserService.UpdateBasicInfo for user : " + userId + "- failed");
 			logger.log(null, e);
-			throw new OperationFailedException(-1L, "cannot update basic info for user");
+			throw e;
 		}
 	}
 
@@ -157,34 +202,43 @@ public class UserServiceImpl implements UserService {
 	public Boolean updateExerciseStatus(int userId, int day, ExerciseStatus status, int setsCompleted, int exId) {
 		try {
 			logger.info("UserService.UpdateExerciseStatus for user : " + userId);
-			User user = userRepository.findById(userId).get();
+			Optional<User> user = userRepository.findById(userId);
+			if (user.isPresent()) {
 
-			UserWorkoutRecord userWorkoutRecord = new UserWorkoutRecord();
-			userWorkoutRecord.setUser(user);
-			userWorkoutRecord.setStatus(status);
-			userWorkoutRecord.setSetsCompleted(setsCompleted);
-			userWorkoutRecord.setWorkoutId(user.getcurrentWorkoutPlan().getPlanId());
+				UserWorkoutRecord userWorkoutRecord = new UserWorkoutRecord();
+				userWorkoutRecord.setUser(user.get());
+				userWorkoutRecord.setStatus(status);
+				userWorkoutRecord.setSetsCompleted(setsCompleted);
+				userWorkoutRecord.setWorkoutId(user.get().getcurrentWorkoutPlan().getPlanId());
 
-			PlanDetailPK planDetailPK = new PlanDetailPK();
-			planDetailPK.setDay(day);
-			planDetailPK.setPlanId(user.getcurrentWorkoutPlan().getPlanId());
-			userWorkoutRecord.setPlanDetail(planDetailRepository.findById(planDetailPK).get());
+				PlanDetailPK planDetailPK = new PlanDetailPK();
+				planDetailPK.setDay(day);
+				planDetailPK.setPlanId(user.get().getcurrentWorkoutPlan().getPlanId());
+				Optional<PlanDetail> planDetail = planDetailRepository.findById(planDetailPK);
+				if (planDetail.isPresent()) {
+					userWorkoutRecord.setPlanDetail(planDetail.get());
+				} else {
+					throw new ResourceNotFoundException((long) user.get().getcurrentWorkoutPlan().getPlanId(),
+							"Plan " + user.get().getcurrentWorkoutPlan().getPlanId() + " does not exist");
+				}
 
-			UserWorkoutRecordPK userWorkoutRecordPK = new UserWorkoutRecordPK();
-			userWorkoutRecordPK.setDay(day);
-			userWorkoutRecordPK.setExId(exId);
-			userWorkoutRecordPK.setAllotmentId(
-					allotmentRepository.findFirstByOrderByAllotmentIdDesc(user.getUserId()).getAllotmentId());
-			userWorkoutRecord.setId(userWorkoutRecordPK);
+				UserWorkoutRecordPK userWorkoutRecordPK = new UserWorkoutRecordPK();
+				userWorkoutRecordPK.setDay(day);
+				userWorkoutRecordPK.setExId(exId);
+				userWorkoutRecordPK.setAllotmentId(
+						allotmentRepository.findFirstByOrderByAllotmentIdDesc(user.get().getUserId()).getAllotmentId());
+				userWorkoutRecord.setId(userWorkoutRecordPK);
 
-			userWorkoutRecordRepository.save(userWorkoutRecord);
-			logger.info("UserService.UpdateExerciseStatus for user : " + userId + "- successful");
-			return true;
+				userWorkoutRecordRepository.save(userWorkoutRecord);
+				logger.info("UserService.UpdateExerciseStatus for user : " + userId + "- successful");
+				return true;
+			} else {
+				throw new ResourceNotFoundException((long) userId, "User " + userId + " does not exist");
+			}
 		} catch (Exception e) {
 			logger.error("UserService.UpdateExerciseStatus for user : " + userId + "- failed");
 			logger.log(null, e);
-			throw new OperationFailedException(-1L,
-					"cannot update exercise status for user: " + userId + "- Ex: " + exId);
+			throw e;
 		}
 	}
 
@@ -193,42 +247,51 @@ public class UserServiceImpl implements UserService {
 	public Boolean updateFoodEaten(int userId, int day, int calorieIntake) {
 		try {
 			logger.info("UserService.UpdateFoodEaten for user : " + userId);
-			User user = userRepository.findById(userId).get();
-			UserDietRecord userDietRecord = new UserDietRecord();
-			userDietRecord.setUser(user);
+			Optional<User> user = userRepository.findById(userId);
+			if (user.isPresent()) {
+				UserDietRecord userDietRecord = new UserDietRecord();
+				userDietRecord.setUser(user.get());
 
-			PlanDetailPK planDetailPK = new PlanDetailPK();
-			planDetailPK.setDay(day);
-			planDetailPK.setPlanId(user.getcurrentWorkoutPlan().getPlanId());
-			userDietRecord.setPlanDetail(planDetailRepository.findById(planDetailPK).get());
+				PlanDetailPK planDetailPK = new PlanDetailPK();
+				planDetailPK.setDay(day);
+				planDetailPK.setPlanId(user.get().getCurrentDietPlan().getPlanId());
+				Optional<PlanDetail> planDetail = planDetailRepository.findById(planDetailPK);
+				if (planDetail.isPresent()) {
+					userDietRecord.setPlanDetail(planDetail.get());
+				} else {
+					throw new ResourceNotFoundException((long) user.get().getCurrentDietPlan().getPlanId(),
+							"Plan " + user.get().getcurrentWorkoutPlan().getPlanId() + " does not exist");
+				}
+				userDietRecord.setCalorieIntake(calorieIntake);
+				userDietRecord.setDietId(user.get().getCurrentDietPlan().getPlanId());
 
-			userDietRecord.setCalorieIntake(calorieIntake);
-			userDietRecord.setDietId(user.getCurrentDietPlan().getPlanId());
+				UserDietRecordPK userDietRecordPK = new UserDietRecordPK();
+				userDietRecordPK.setDay(day);
+				int allotmentId = allotmentRepository.findFirstByOrderByAllotmentIdDesc(user.get().getUserId())
+						.getAllotmentId();
+				userDietRecordPK.setAllotmentId(allotmentId);
+				userDietRecord.setId(userDietRecordPK);
 
-			UserDietRecordPK userDietRecordPK = new UserDietRecordPK();
-			userDietRecordPK.setDay(day);
-			int allotmentId = allotmentRepository.findFirstByOrderByAllotmentIdDesc(user.getUserId()).getAllotmentId();
-			userDietRecordPK.setAllotmentId(allotmentId);
-			userDietRecord.setId(userDietRecordPK);
-
-			userDietRecordRepository.save(userDietRecord);
-			logger.info("UserService.UpdateFoodEaten for user : " + userId + "- successful");
-			return true;
+				userDietRecordRepository.save(userDietRecord);
+				logger.info("UserService.UpdateFoodEaten for user : " + userId + "- successful");
+				return true;
+			} else {
+				throw new ResourceNotFoundException((long) userId, "User " + userId + " does not exist");
+			}
 		} catch (Exception e) {
 			logger.error("UserService.UpdateFoodEaten for user : " + userId + "- failed");
 			logger.log(null, "Error in UserService.UpdateFoodEaten:", e);
-			throw new OperationFailedException(-1L,
-					"cannot update calorie status for user: " + userId + "- Calorie Intake: " + calorieIntake);
+			throw e;
 		}
 	}
 
 	@Override
 	public List<UserDietRecord> viewCurrentDietActivity(int userId) {
 		logger.info("UserService.viewCurrentDietActivity for user : " + userId);
-		User user = userRepository.findById(userId).get();
-		if (user != null) {
-			Allotment currAllotment = allotmentRepository.findFirstByOrderByAllotmentIdDesc(user.getUserId());
-			return userDietRecordRepository.findByUserIdAndAllotment(user, currAllotment.getAllotmentId());
+		Optional<User> user = userRepository.findById(userId);
+		if (user.isPresent()) {
+			Allotment currAllotment = allotmentRepository.findFirstByOrderByAllotmentIdDesc(user.get().getUserId());
+			return userDietRecordRepository.findByUserIdAndAllotment(user.get(), currAllotment.getAllotmentId());
 		}
 		logger.error("UserService.viewCurrentDietActivity: User " + userId + " does not exist");
 		throw new ResourceNotFoundException((long) userId, "User " + userId + " does not exist");
@@ -237,29 +300,34 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<PlanDetail> viewCurrentPlan(int userId, PlanType type) {
 		logger.info("Running UserService.viewCurrentPlan for user : " + userId);
-		User user = userRepository.findById(userId).get();
-		if (type == PlanType.DIET) {
-			logger.info("UserService.viewCurrentPlan for user : " + userId + "- DIET");
-			return planDetailRepository.findByPlanId(user.getCurrentDietPlan().getPlanId());
-		} else if (type == PlanType.WORKOUT) {
-			logger.info("UserService.viewCurrentPlan for user : " + userId + "- WORKOUT");
-			return planDetailRepository.findByPlanId(user.getcurrentWorkoutPlan().getPlanId());
+		Optional<User> user = userRepository.findById(userId);
+		if (user.isPresent()) {
+			if (type == PlanType.DIET) {
+				logger.info("UserService.viewCurrentPlan for user : " + userId + "- DIET");
+				return planDetailRepository.findByPlanId(user.get().getCurrentDietPlan().getPlanId());
+			} else if (type == PlanType.WORKOUT) {
+				logger.info("UserService.viewCurrentPlan for user : " + userId + "- WORKOUT");
+				return planDetailRepository.findByPlanId(user.get().getcurrentWorkoutPlan().getPlanId());
+			}
+			logger.error("UserService.viewCurrentPlan for user : " + userId + "- Incorrect query type");
+			throw new OperationFailedException(-1L,
+					"Incorrect query type: " + type.toString() + " for user - " + userId);
+		} else {
+			throw new ResourceNotFoundException((long) userId, "User " + userId + " does not exist");
 		}
-		logger.error("UserService.viewCurrentPlan for user : " + userId + "- Incorrect query type");
-		throw new OperationFailedException(-1L, "Incorrect query type: " + type.toString() + " for user - " + userId);
 	}
 
 	@Override
 	public List<UserWorkoutRecord> viewCurrentWorkoutActivity(int userId) {
-		User user = userRepository.findById(userId).get();
-		if (user != null) {
+		Optional<User> user = userRepository.findById(userId);
+		if (user.isPresent()) {
 			logger.info("UserService.viewCurrentWorkoutActivity for user : " + userId);
-			Allotment currAllotment = allotmentRepository.findFirstByOrderByAllotmentIdDesc(user.getUserId());
+			Allotment currAllotment = allotmentRepository.findFirstByOrderByAllotmentIdDesc(user.get().getUserId());
 			List<UserWorkoutRecord> records = new ArrayList<>();
-			records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user, currAllotment.getAllotmentId(),
-					ExerciseStatus.COMPLETE));
-			records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user, currAllotment.getAllotmentId(),
-					ExerciseStatus.INCOMPLETE));
+			records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user.get(),
+					currAllotment.getAllotmentId(), ExerciseStatus.COMPLETE));
+			records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user.get(),
+					currAllotment.getAllotmentId(), ExerciseStatus.INCOMPLETE));
 			return records;
 		}
 		logger.error("UserService.viewCurrentWorkoutActivity: User " + userId + " does not exist");
@@ -271,31 +339,42 @@ public class UserServiceImpl implements UserService {
 
 		if (queryType == DateQueryType.DEFAULT) {
 			logger.info("UserService.viewDietActivity for user : " + userId + " - DEFAULT");
-			User user = userRepository.findById(userId).get();
-
-			return userDietRecordRepository.findByUserId(user);
+			Optional<User> user = userRepository.findById(userId);
+			if (user.isPresent()) {
+				return userDietRecordRepository.findByUserId(user.get());
+			} else {
+				throw new ResourceNotFoundException((long) userId, "User " + userId + " does not exist");
+			}
 		} else if (queryType == DateQueryType.BEFORE) {
 			logger.info("UserService.viewDietActivity for user : " + userId + " - BEFORE");
-			User user = userRepository.findById(userId).get();
+			Optional<User> user = userRepository.findById(userId);
+			if (user.isPresent()) {
+				List<Allotment> allotments = allotmentRepository.findAllotmentsByUserIdAndBeforeDate(date, user.get());
+				List<UserDietRecord> records = new ArrayList<>();
 
-			List<Allotment> allotments = allotmentRepository.findAllotmentsByUserIdAndBeforeDate(date, user);
-			List<UserDietRecord> records = new ArrayList<>();
-
-			for (Allotment allotment : allotments) {
-				records.addAll(userDietRecordRepository.findByUserIdAndAllotment(user, allotment.getAllotmentId()));
+				for (Allotment allotment : allotments) {
+					records.addAll(
+							userDietRecordRepository.findByUserIdAndAllotment(user.get(), allotment.getAllotmentId()));
+				}
+				return records;
+			} else {
+				throw new ResourceNotFoundException((long) userId, "User " + userId + " does not exist");
 			}
-			return records;
 		} else if (queryType == DateQueryType.AFTER) {
 			logger.info("UserService.viewDietActivity for user : " + userId + " - AFTER");
-			User user = userRepository.findById(userId).get();
+			Optional<User> user = userRepository.findById(userId);
+			if (user.isPresent()) {
+				List<Allotment> allotments = allotmentRepository.findAllotmentsByUserIdAndAfterDate(date, user.get());
+				List<UserDietRecord> records = new ArrayList<>();
 
-			List<Allotment> allotments = allotmentRepository.findAllotmentsByUserIdAndAfterDate(date, user);
-			List<UserDietRecord> records = new ArrayList<>();
-
-			for (Allotment allotment : allotments) {
-				records.addAll(userDietRecordRepository.findByUserIdAndAllotment(user, allotment.getAllotmentId()));
+				for (Allotment allotment : allotments) {
+					records.addAll(
+							userDietRecordRepository.findByUserIdAndAllotment(user.get(), allotment.getAllotmentId()));
+				}
+				return records;
+			} else {
+				throw new ResourceNotFoundException((long) userId, "User " + userId + " does not exist");
 			}
-			return records;
 		}
 		logger.error("UserService.viewDietActivity: incorrect query type");
 		throw new OperationFailedException(-1L,
@@ -306,16 +385,28 @@ public class UserServiceImpl implements UserService {
 	public List<Allotment> viewDietPlanHistory(DateQueryType queryType, Date date, int userId) {
 		if (queryType == DateQueryType.DEFAULT) {
 			logger.info("UserService.viewDietPlanHistory for user : " + userId + " - DEFAULT");
-			User user = userRepository.findById(userId).get();
-			return allotmentRepository.findAllotmentsByUserId(user);
+			Optional<User> user = userRepository.findById(userId);
+			if (user.isPresent()) {
+				return allotmentRepository.findAllotmentsByUserId(user.get());
+			} else {
+				throw new ResourceNotFoundException((long) userId, "User " + userId + " does not exist");
+			}
 		} else if (queryType == DateQueryType.BEFORE) {
 			logger.info("UserService.viewDietPlanHistory for user : " + userId + " - BEFORE");
-			User user = userRepository.findById(userId).get();
-			return allotmentRepository.findAllotmentsByUserIdAndBeforeDate(date, user);
+			Optional<User> user = userRepository.findById(userId);
+			if (user.isPresent()) {
+				return allotmentRepository.findAllotmentsByUserIdAndBeforeDate(date, user.get());
+			} else {
+				throw new ResourceNotFoundException((long) userId, "User " + userId + " does not exist");
+			}
 		} else if (queryType == DateQueryType.AFTER) {
 			logger.info("UserService.viewDietPlanHistory for user : " + userId + " - AFTER");
-			User user = userRepository.findById(userId).get();
-			return allotmentRepository.findAllotmentsByUserIdAndAfterDate(date, user);
+			Optional<User> user = userRepository.findById(userId);
+			if (user.isPresent()) {
+				return allotmentRepository.findAllotmentsByUserIdAndAfterDate(date, user.get());
+			} else {
+				throw new ResourceNotFoundException((long) userId, "User " + userId + " does not exist");
+			}
 		}
 		logger.error("UserService.viewDietPlanHistory: incorrect query type");
 		throw new OperationFailedException(-1L,
@@ -327,37 +418,47 @@ public class UserServiceImpl implements UserService {
 
 		if (queryType == DateQueryType.DEFAULT) {
 			logger.info("UserService.viewWorkoutActivity for user : " + userId + " - default");
-			User user = userRepository.findById(userId).get();
-
-			return userWorkoutRecordRepository.findByUserId(user);
+			Optional<User> user = userRepository.findById(userId);
+			if (user.isPresent()) {
+				return userWorkoutRecordRepository.findByUserId(user.get());
+			} else {
+				throw new ResourceNotFoundException((long) userId, "User " + userId + " does not exist");
+			}
 		} else if (queryType == DateQueryType.BEFORE) {
 			logger.info("UserService.viewWorkoutActivity for user : " + userId + " - BEFORE");
-			User user = userRepository.findById(userId).get();
+			Optional<User> user = userRepository.findById(userId);
+			if (user.isPresent()) {
+				List<Allotment> allotments = allotmentRepository.findAllotmentsByUserIdAndBeforeDate(date, user.get());
+				List<UserWorkoutRecord> records = new ArrayList<>();
 
-			List<Allotment> allotments = allotmentRepository.findAllotmentsByUserIdAndBeforeDate(date, user);
-			List<UserWorkoutRecord> records = new ArrayList<>();
-
-			for (Allotment allotment : allotments) {
-				records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user, allotment.getAllotmentId(),
-						ExerciseStatus.COMPLETE));
-				records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user, allotment.getAllotmentId(),
-						ExerciseStatus.INCOMPLETE));
+				for (Allotment allotment : allotments) {
+					records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user.get(),
+							allotment.getAllotmentId(), ExerciseStatus.COMPLETE));
+					records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user.get(),
+							allotment.getAllotmentId(), ExerciseStatus.INCOMPLETE));
+				}
+				return records;
+			} else {
+				throw new ResourceNotFoundException((long) userId, "User " + userId + " does not exist");
 			}
-			return records;
+
 		} else if (queryType == DateQueryType.AFTER) {
 			logger.info("UserService.viewWorkoutActivity for user : " + userId + " - AFTER");
-			User user = userRepository.findById(userId).get();
+			Optional<User> user = userRepository.findById(userId);
+			if (user.isPresent()) {
+				List<Allotment> allotments = allotmentRepository.findAllotmentsByUserIdAndAfterDate(date, user.get());
+				List<UserWorkoutRecord> records = new ArrayList<>();
 
-			List<Allotment> allotments = allotmentRepository.findAllotmentsByUserIdAndBeforeDate(date, user);
-			List<UserWorkoutRecord> records = new ArrayList<>();
-
-			for (Allotment allotment : allotments) {
-				records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user, allotment.getAllotmentId(),
-						ExerciseStatus.COMPLETE));
-				records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user, allotment.getAllotmentId(),
-						ExerciseStatus.INCOMPLETE));
+				for (Allotment allotment : allotments) {
+					records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user.get(),
+							allotment.getAllotmentId(), ExerciseStatus.COMPLETE));
+					records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user.get(),
+							allotment.getAllotmentId(), ExerciseStatus.INCOMPLETE));
+				}
+				return records;
+			} else {
+				throw new ResourceNotFoundException((long) userId, "User " + userId + " does not exist");
 			}
-			return records;
 		}
 		logger.error("UserService.viewWorkoutActivity: incorrect query type");
 		throw new OperationFailedException(-1L,
@@ -369,16 +470,29 @@ public class UserServiceImpl implements UserService {
 
 		if (queryType == DateQueryType.DEFAULT) {
 			logger.info("UserService.viewWorkoutPlanHistory for user : " + userId + " - default");
-			User user = userRepository.findById(userId).get();
-			return allotmentRepository.findAllotmentsByUserId(user);
+			Optional<User> user = userRepository.findById(userId);
+			if (user.isPresent()) {
+				return allotmentRepository.findAllotmentsByUserId(user.get());
+			} else {
+				throw new ResourceNotFoundException((long) userId, "User " + userId + " does not exist");
+			}
 		} else if (queryType == DateQueryType.BEFORE) {
 			logger.info("UserService.viewWorkoutPlanHistory for user : " + userId + " - BEFORE");
-			User user = userRepository.findById(userId).get();
-			return allotmentRepository.findAllotmentsByUserIdAndBeforeDate(date, user);
+			Optional<User> user = userRepository.findById(userId);
+			if (user.isPresent()) {
+				return allotmentRepository.findAllotmentsByUserIdAndBeforeDate(date, user.get());
+			} else {
+				throw new ResourceNotFoundException((long) userId, "User " + userId + " does not exist");
+			}
+
 		} else if (queryType == DateQueryType.AFTER) {
 			logger.info("UserService.viewWorkoutPlanHistory for user : " + userId + " - AFTER");
-			User user = userRepository.findById(userId).get();
-			return allotmentRepository.findAllotmentsByUserIdAndAfterDate(date, user);
+			Optional<User> user = userRepository.findById(userId);
+			if (user.isPresent()) {
+				return allotmentRepository.findAllotmentsByUserIdAndAfterDate(date, user.get());
+			} else {
+				throw new ResourceNotFoundException((long) userId, "User " + userId + " does not exist");
+			}
 		}
 		logger.error("UserService.viewWorkoutPlanHistory: incorrect query type");
 		throw new OperationFailedException(-1L,

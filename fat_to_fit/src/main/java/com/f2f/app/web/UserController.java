@@ -96,6 +96,7 @@ public class UserController {
 	@GetMapping(value = "/user/{userId}/view/current-plan", produces = { "application/json" })
 	List<PlanDetail> viewCurrentPlan(@PathVariable int userId,
 			@RequestParam(value = "queryType", required = true) String queryType) {
+
 		if (queryType.equalsIgnoreCase(PlanType.DIET.toString())) {
 			logger.info("UserController.viewCurrentPlan:" + userId + "-" + PlanType.DIET.toString());
 			return userService.viewCurrentPlan(userId, PlanType.DIET);

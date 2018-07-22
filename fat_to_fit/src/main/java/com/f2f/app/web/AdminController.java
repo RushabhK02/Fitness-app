@@ -51,7 +51,7 @@ public class AdminController {
 	}
 
 	@DeleteMapping(value = "/delete/plan/{planId}")
-	Boolean deletePlanPreset(@RequestParam int planId) {
+	Boolean deletePlanPreset(@PathVariable int planId) {
 		logger.info("AdminController.deletePlanPreset:" + planId);
 		return adminService.deletePreset(planId);
 	}
