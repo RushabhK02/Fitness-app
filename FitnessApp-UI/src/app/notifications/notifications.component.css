@@ -1,0 +1,32 @@
+.notif{
+    background-color: black;
+    border-style: solid;
+    border-color: gray;
+    border-bottom-width: 0.5px;
+    height:  30%;
+    color: white;
+    padding-left: 2%;
+    padding-top:4.5%; 
+   
+}
+.back{
+    background-image: url("../../assets/images/notif.jpeg");
+    background-repeat: no-repeat;
+    
+    background-size: 100% 100%;
+    opacity:0.8;
+    background-color:#ccc;
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:8.5%;
+    left:0px;
+    z-index:1000;
+    
+   
+}
+
+.abc{
+    margin-top: 10%;
+  
+}

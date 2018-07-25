@@ -1,0 +1,66 @@
+<div class="row">
+  <div class="col-3 col-sm-3 col-md-3"></div>
+  <div class="col-8 col-md-8 col-sm-8">
+    <div class="welcome col-12 col-md-12 col-sm-12">
+      <p class="animated fadeIn" style="font-weight: 300 ; font-size: 400%;">{{user.firstName}}</p>
+      <p class="lead animated fadeIn" style="font-size: 190%">{{user.lastName}}</p>
+    </div>
+
+    <div class="description">
+      <br/>
+      <br/>
+      <div class="row abc">
+        <div class="col-6 col-sm-6 col-md-6">
+          <label class="property" style="margin-left: 50%">Current Workout Plan :</label>
+        </div>
+        <div class="col-6 col-sm-6 col-md-6">
+          <label class="" style="margin-right: 50%">{{user.currentWorkoutPlan.planName}}</label>
+        </div>
+      </div>
+      <div class="row abc">
+        <div class="col-6 col-sm-6 col-md-6">
+          <label class="property" style="margin-left: 50%">Current Diet Plan :</label>
+        </div>
+        <div class="col-6 col-sm-6 col-md-6">
+          <label class="" style="margin-right: 50%">{{user.currentDietPlan.planName}}</label>
+        </div>
+      </div>
+      <div class="row abc">
+        <div class="col-6 col-sm-6 col-md-6">
+          <label class="property" style="margin-left: 50%">Start Date :</label>
+        </div>
+        <div class="col-6 col-sm-6 col-md-6">
+          <label class="" style="margin-right: 50%">{{user.currPlanStartDate}}</label>
+        </div>
+      </div>
+
+      <div class="row abc">
+        <div class="col-6 col-sm-6 col-md-6">
+          <label class="property" style="margin-left: 50%">Weight :</label>
+        </div>
+        <div class="col-6 col-sm-6 col-md-6">
+          <label>{{user.weightKgs}}</label>
+        </div>
+      </div>
+
+
+      <div class="row abc">
+        <div class="col-6 col-sm-6 col-md-6">
+          <label class="property" style="margin-left: 50%">Height :</label>
+        </div>
+        <div class="col-6 col-sm-6 col-md-6">
+          <label>{{user.heightCms}}</label>
+        </div>
+      </div>
+
+      <div class="row abc">
+        <div class="col-6 col-sm-6 col-md-6">
+          <label class="property" style="margin-left: 50%">Age :</label>
+        </div>
+        <div class="col-6 col-sm-6 col-md-6">
+          <label>{{user.age}}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

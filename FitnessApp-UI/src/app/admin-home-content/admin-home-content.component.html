@@ -1,0 +1,33 @@
+<div class="jumbotron welcome col-12 col-md-12 col-sm-12">
+  <h1 class=" animated fadeIn" style="font-weight: 200 ; font-size: 490%">Welcome admin!</h1>
+  <br>
+  <span class="lead animated fadeIn">Following are the actions you can perform :</span>
+</div>
+<div class="jumbotron shortDesc">
+  <div class="row animated fadeIn">
+      <div class="col-6 col-md-6 col-sm-6">
+          <button type="button" class="btn btn-success btn-lg btn-responsive animated fadeInDown action" 
+           (click)="newWorkoutClicked()"> New Workout </button>
+        </div>
+
+        <div class="col-6 col-md-6 col-sm-6">
+            <button type="button" class="btn btn-success btn-lg btn-responsive animated fadeInDown action" 
+             (click)="newDietClicked()"> New Diet </button>
+          </div>
+
+  </div>
+  <br>
+  <br>
+  <br> <br><br>
+  <div class="row animated fadeIn">
+      <div class="col-6 col-md-6 col-sm-6">
+          <button type="button" class="btn btn-success btn-lg btn-responsive animated fadeInDown action" 
+           (click)="assignClicked()"> Assign Plan </button>
+        </div>
+        <div class="col-6 col-md-6 col-sm-6 " >
+            <button type="button" class="btn btn-success btn-lg btn-responsive animated fadeInDown action" 
+             (click)="deleteDietClicked()"> Delete Plans </button>
+          </div>
+
+  </div>
+</div>

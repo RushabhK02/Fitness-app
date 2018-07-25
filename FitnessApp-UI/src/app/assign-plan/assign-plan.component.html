@@ -1,0 +1,28 @@
+<br>
+<br>
+<br>
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <button class="btn btn-success" type="button" (click)="toggleForm()">Let's assign plans to users</button>
+    </div>
+    <div class="card-body" *ngIf="toggle">
+      <form *ngIf="toggle" [formGroup]="assignForm" (submit)="handleFormSubmit($event)">
+        <div class="form-group">
+          <label>Client Name</label>
+          <p-dropdown [options]="users" class="form-control" formControlName="selectedClient" optionLabel="name"></p-dropdown>
+        </div>
+        <div class="form-group">
+          <label>Workout</label>
+          <p-dropdown [options]="workouts" class="form-control" formControlName="selectedWorkout" optionLabel="planName"></p-dropdown>
+        </div>
+        <div class="form-group">
+          <label>Diet</label>
+          <p-dropdown [options]="diets" class="form-control" formControlName="selectedDiet" optionLabel="planName"></p-dropdown>
+        </div>
+        <button type="submit" class="btn btn-success">Submit</button>
+      </form>
+    </div>
+    <label class= "alert alert-success" *ngIf="status">{{statusString}}</label>
+  </div>
+</div>

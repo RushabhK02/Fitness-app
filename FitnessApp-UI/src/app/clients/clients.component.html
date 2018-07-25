@@ -1,0 +1,37 @@
+<div class="jumbotron welcome">
+  <h1 class=" animated fadeIn" style="font-weight: 200">Following</h1>
+  <br>
+  <p class="lead animated fadeIn">are your clients :</p>
+</div>
+
+<div class="row" style="justify-content: center ; padding: 2%;">
+  <div style="align-self: center;">
+
+    <p-table [value]="clients" [paginator]="true" [rows]="12" [pageLinks]="3">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Client ID</th>
+          <th>Client First Name</th>
+          <th>Client Last Name</th>
+          <th>Profile</th>
+          <th>Activity</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-client>
+        <tr>
+          <td>{{client.userId}}</td>
+          <td>{{client.firstName}}</td>
+          <td>{{client.lastName}}</td>
+          <td>
+            <a class="btn btn-muted" [ngClass]="{ 'nav-link' : true ,'active' : isTabSelected(1, client.userId )}" 
+             (click)="changeTabProfile($event,1 , client.userId)">View Profile</a>
+          </td>
+          <td>
+            <a class = "btn btn-warning" [ngClass]="{ 'nav-link' : true ,'active' : isTabSelected(2 , client.userId )}"
+             (click)="changeTab($event,2 , client.userId)">View Activity</a>
+          </td>
+          <tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

@@ -1,0 +1,632 @@
+
+<div class="card">
+    <div class="card-header">
+   &nbsp;<label> New Plan Name: </label>
+<form [formGroup]="day1">
+    <div class="form-group">
+        <input type="text" placeholder="PLAN NAME" class="form-control" formControlName = "planName" />
+       </div>
+</form>
+</div>
+<div class="card-body">
+<p-tabView [activeIndex]="index">
+
+  <p-tabPanel header="day 1">
+    <form [formGroup]="day1" (submit) = "handleday1($event)">
+      
+      <div class="form-group">
+        <label>Exercise 1 :</label>
+        <p-dropdown [options]="exercises" class="form-control" formControlName="d1Ex1"  
+        optionLabel="exName"></p-dropdown>
+        <input type="number" class="form-control" placeholder="sets" formControlName="d1Sets1">
+        <input type="number" class="form-control" placeholder="reps" formControlName="d1Reps1">
+      </div>
+      <div class="form-group">
+        <label>Exercise 2: </label>
+        <p-dropdown [options]="exercises" class="form-control" formControlName="d1Ex2"  
+        optionLabel="exName"></p-dropdown>
+        <input type="number" class="form-control" placeholder="sets" formControlName="d1Sets2">
+        <input type="number" class="form-control" placeholder="reps" formControlName="d1Reps2">
+      </div>
+      <div class="form-group">
+        <label>Exercise 3: </label>
+        <p-dropdown [options]="exercises" class="form-control" formControlName="d1Ex3"  
+        optionLabel="exName"></p-dropdown>
+        <input type="number" class="form-control" placeholder="sets" formControlName="d1Sets3">
+        <input type="number" class="form-control" placeholder="reps" formControlName="d1Reps3">
+      </div>
+      <div class="form-group">
+        <label>Exercise 4: </label>
+        <p-dropdown [options]="exercises" class="form-control" formControlName="d1Ex4"  
+        optionLabel="exName"></p-dropdown>
+        <input type="number" class="form-control" placeholder="sets" formControlName="d1Sets4">
+        <input type="number" class="form-control" placeholder="reps" formControlName="d1Reps4">
+      </div>
+      <div class="form-group">
+        <label>Exercise 5: </label>
+        <p-dropdown [options]="exercises" class="form-control" formControlName="d1Ex5"  
+        optionLabel="exName"></p-dropdown>
+        <input type="number" class="form-control" placeholder="sets" formControlName="d1Sets5">
+        <input type="number" class="form-control" placeholder="reps" formControlName="d1Reps5">
+      </div>
+      <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+  </p-tabPanel>
+
+  <p-tabPanel header="day 2">
+      <form [formGroup]="day2"  (submit) = "handleday2($event)">
+          <div class="form-group">
+            <label>Exercise 1 :</label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d2Ex1"  
+        optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d2Sets1">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d2Reps1">
+          </div>
+          <div class="form-group">
+            <label>Exercise 2: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d2Ex2"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d2Sets2">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d2Reps2">
+          </div>
+          <div class="form-group">
+            <label>Exercise 3: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d2Ex3"  
+        optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d2Sets3">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d2Reps3">
+          </div>
+          <div class="form-group">
+            <label>Exercise 4: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d2Ex4"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d2Sets4">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d2Reps4">
+          </div>
+          <div class="form-group">
+            <label>Exercise 5: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d2Ex5"  
+        optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d2Sets5">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d2Reps5">
+          </div>
+          <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+  </p-tabPanel>
+
+  <p-tabPanel header="day 3" >
+      <form [formGroup]="day3" (submit) = "handleday3($event)"> 
+          <div class="form-group">
+            <label>Exercise 1 :</label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d3Ex1"  
+        optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d3Sets1">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d3Reps1">
+          </div>
+          <div class="form-group">
+            <label>Exercise 2: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d3Ex2"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d3Sets2">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d3Reps2">
+          </div>
+          <div class="form-group">
+            <label>Exercise 3: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d3Ex3"  
+        optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d3Sets3">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d3Reps3">
+          </div>
+          <div class="form-group">
+            <label>Exercise 4: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d3Ex4"  
+        optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d3Sets4">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d3Reps4">
+          </div>
+          <div class="form-group">
+            <label>Exercise 5: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d3Ex5"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d3Sets5">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d3Reps5">
+          </div>
+          <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+  </p-tabPanel>
+
+  <p-tabPanel header="day 4">
+      <form [formGroup]="day4" (submit) = "handleday4($event)">
+          <div class="form-group">
+            <label>Exercise 1 :</label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d4Ex1"  
+        optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d4Sets1">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d4Reps1">
+          </div>
+          <div class="form-group">
+            <label>Exercise 2: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d4Ex2"  
+        optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d4Sets2">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d4Reps2">
+          </div>
+          <div class="form-group">
+            <label>Exercise 3: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d4Ex3"  
+        optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d4Sets3">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d4Reps3">
+          </div>
+          <div class="form-group">
+            <label>Exercise 4: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d4Ex4"  
+        optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d4Sets4">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d4Reps4">
+          </div>
+          <div class="form-group">
+            <label>Exercise 5: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d4Ex5"  
+        optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d4Sets5">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d4Reps5">
+          </div>
+          <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+  </p-tabPanel>
+
+  <p-tabPanel header="day 5">
+      <form [formGroup]="day5"  (submit) = "handleday5($event)">
+          <div class="form-group">
+            <label>Exercise 1 :</label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d5Ex1"  
+        optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d5Sets1">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d5Reps1">
+          </div>
+          <div class="form-group">
+            <label>Exercise 2: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d5Ex2"  
+        optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d5Sets2">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d5Reps2">
+          </div>
+          <div class="form-group">
+            <label>Exercise 3: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d5Ex3"  
+        optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d5Sets3">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d5Reps3">
+          </div>
+          <div class="form-group">
+            <label>Exercise 4: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d5Ex4"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d5Sets4">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d5Reps4">
+          </div>
+          <div class="form-group">
+            <label>Exercise 5: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d5Ex5"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d5Sets5">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d5Reps5">
+          </div> 
+          <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+  </p-tabPanel>
+
+  <p-tabPanel header="day 6">
+      <form [formGroup]="day6" (submit) = "handleday6($event)">
+          <div class="form-group">
+            <label>Exercise 1 :</label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d6Ex1"  
+        optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d6Sets1">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d6Reps1">
+          </div>
+          <div class="form-group">
+            <label>Exercise 2: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d6Ex2"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d6Sets2">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d6Reps2">
+          </div>
+          <div class="form-group">
+            <label>Exercise 3: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d6Ex3"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d6Sets3">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d6Reps3">
+          </div>
+          <div class="form-group">
+            <label>Exercise 4: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d6Ex4"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d6Sets4">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d6Reps4">
+          </div>
+          <div class="form-group">
+            <label>Exercise 5: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d6Ex5"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d6Sets5">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d6Reps5">
+          </div>
+          <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+  </p-tabPanel>
+
+  <p-tabPanel header="day 7">
+      <form [formGroup]="day7" (submit) = "handleday7($event)">
+          <div class="form-group">
+            <label>Exercise 1 :</label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d7Ex1"  
+        optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d7Sets1">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d7Reps1">
+          </div>
+          <div class="form-group">
+            <label>Exercise 2: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d7Ex2"  
+        optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d7Sets2">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d7Reps2">
+          </div>
+          <div class="form-group">
+            <label>Exercise 3: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d7Ex3"  
+        optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d7Sets3">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d7Reps3">
+          </div>
+          <div class="form-group">
+            <label>Exercise 4: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d7Ex4"  
+        optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d7Sets4">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d7Reps4">
+          </div>
+          <div class="form-group">
+            <label>Exercise 5: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d7Ex5"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d7Sets5">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d7Reps5">
+          </div> 
+          <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+  </p-tabPanel>
+
+  <p-tabPanel header="day 8">
+      <form [formGroup]="day8" (submit) = "handleday8($event)">
+          <div class="form-group">
+            <label>Exercise 1 :</label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d8Ex1"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d8Sets1">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d8Reps1">
+          </div>
+          <div class="form-group">
+            <label>Exercise 2: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d8Ex2"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d8Sets2">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d8Reps2">
+          </div>
+          <div class="form-group">
+            <label>Exercise 3: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d8Ex3"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d8Sets3">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d8Reps3">
+          </div>
+          <div class="form-group">
+            <label>Exercise 4: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d8Ex4"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d8Sets4">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d8Reps4">
+          </div>
+          <div class="form-group">
+            <label>Exercise 5: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d8Ex5"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d8Sets5">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d8Reps5">
+          </div>
+          <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+  </p-tabPanel>
+
+  <p-tabPanel header="day 9">
+      <form [formGroup]="day9" (submit) = "handleday9($event)">
+          <div class="form-group">
+            <label>Exercise 1 :</label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d9Ex1"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d9Sets1">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d9Reps1">
+          </div>
+          <div class="form-group">
+            <label>Exercise 2: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d9Ex2"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d9Sets2">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d9Reps2">
+          </div>
+          <div class="form-group">
+            <label>Exercise 3: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d9Ex3"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d9Sets3">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d9Reps3">
+          </div>
+          <div class="form-group">
+            <label>Exercise 4: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d9Ex4"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d9Sets4">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d9Reps4">
+          </div>
+          <div class="form-group">
+            <label>Exercise 5: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d9Ex5"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d9Sets5">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d9Reps5">
+          </div>
+          <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+  </p-tabPanel>
+
+  <p-tabPanel header="day 10">
+      <form [formGroup]="day10" (submit) = "handleday10($event)">
+          <div class="form-group">
+            <label>Exercise 1 :</label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d10Ex1"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d10Sets1">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d10Reps1">
+          </div>
+          <div class="form-group">
+            <label>Exercise 2: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d10Ex2"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d10Sets2">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d10Reps2">
+          </div>
+          <div class="form-group">
+            <label>Exercise 3: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d10Ex3"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d10Sets3">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d10Reps3">
+          </div>
+          <div class="form-group">
+            <label>Exercise 4: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d10Ex4"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d10Sets4">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d10Reps4">
+          </div>
+          <div class="form-group">
+            <label>Exercise 5: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d10Ex5"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d10Sets5">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d10Reps5">
+          </div>
+          <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+  </p-tabPanel>
+
+  <p-tabPanel header="day 11">
+      <form [formGroup]="day11" (submit) = "handleday11($event)">
+          <div class="form-group">
+            <label>Exercise 1 :</label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d11Ex1"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d11Sets1">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d11Reps1">
+          </div>
+          <div class="form-group">
+            <label>Exercise 2: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d11Ex2"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d11Sets2">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d11Reps2">
+          </div>
+          <div class="form-group">
+            <label>Exercise 3: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d11Ex3"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d11Sets3">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d11Reps3">
+          </div>
+          <div class="form-group">
+            <label>Exercise 4: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d11Ex4"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d11Sets4">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d11Reps4">
+          </div>
+          <div class="form-group">
+            <label>Exercise 5: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d11Ex5"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d11Sets5">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d11Reps5">
+          </div>
+          <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+  </p-tabPanel>
+
+  <p-tabPanel header="day 12">
+      <form [formGroup]="day12" (submit) = "handleday12($event)">
+          <div class="form-group">
+            <label>Exercise 1 :</label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d12Ex1"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d12Sets1">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d12Reps1">
+          </div>
+          <div class="form-group">
+            <label>Exercise 2: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d12Ex2"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d12Sets2">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d12Reps2">
+          </div>
+          <div class="form-group">
+            <label>Exercise 3: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d12Ex3"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d12Sets3">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d12Reps3">
+          </div>
+          <div class="form-group">
+            <label>Exercise 4: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d12Ex4"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d12Sets4">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d12Reps4">
+          </div>
+          <div class="form-group">
+            <label>Exercise 5: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d12Ex5"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d12Sets5">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d12Reps5">
+          </div>
+          <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+  </p-tabPanel>
+
+  <p-tabPanel header="day 13">
+      <form [formGroup]="day13" (submit) = "handleday13($event)">
+          <div class="form-group">
+            <label>Exercise 1 :</label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d13Ex1"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d13Sets1">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d13Reps1">
+          </div>
+          <div class="form-group">
+            <label>Exercise 2: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d13Ex2"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d13Sets2">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d13Reps2">
+          </div>
+          <div class="form-group">
+            <label>Exercise 3: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d13Ex3"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d13Sets3">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d13Reps3">
+          </div>
+          <div class="form-group">
+            <label>Exercise 4: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d13Ex4"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d13Sets4">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d13Reps4">
+          </div>
+          <div class="form-group">
+            <label>Exercise 5: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d13Ex5"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d13Sets5">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d13Reps5">
+          </div>
+          <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+  </p-tabPanel>
+
+  <p-tabPanel header="day 14">
+      <form [formGroup]="day14" (submit) = "handleday14($event)">
+          <div class="form-group">
+            <label>Exercise 1 :</label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d14Ex1"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d14Sets1">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d14Reps1">
+          </div>
+          <div class="form-group">
+            <label>Exercise 2: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d14Ex2"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d14Sets2">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d14Reps2">
+          </div>
+          <div class="form-group">
+            <label>Exercise 3: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d14Ex3"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d14Sets3">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d14Reps3">
+          </div>
+          <div class="form-group">
+            <label>Exercise 4: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d14Ex4"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d14Sets4">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d14Reps4">
+          </div>
+          <div class="form-group">
+            <label>Exercise 5: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d14Ex5"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d14Sets5">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d14Reps5">
+          </div>
+          <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+  </p-tabPanel>
+
+  <p-tabPanel header="day 15">
+      <form [formGroup]="day15" (submit) = "handleday15($event)">
+          <div class="form-group">
+            <label>Exercise 1 :</label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d15Ex1"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d15Sets1">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d15Reps1">
+          </div>
+          <div class="form-group">
+            <label>Exercise 2: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d15Ex2"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d15Sets2">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d15Reps2">
+          </div>
+          <div class="form-group">
+            <label>Exercise 3: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d15Ex3"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d15Sets3">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d15Reps3">
+          </div>
+          <div class="form-group">
+            <label>Exercise 4: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d15Ex4"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d15Sets4">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d15Reps4">
+          </div>
+          <div class="form-group">
+            <label>Exercise 5: </label>
+            <p-dropdown [options]="exercises" class="form-control" formControlName="d15Ex5"  
+            optionLabel="exName"></p-dropdown>
+            <input type="number" class="form-control" placeholder="sets" formControlName="d15Sets5">
+            <input type="number" class="form-control" placeholder="reps" formControlName="d15Reps5">
+          </div>
+          <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+  </p-tabPanel>
+
+</p-tabView>
+</div>
+</div>

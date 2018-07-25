@@ -1,0 +1,36 @@
+
+
+ .welcome{
+
+    overflow: hidden;
+    width: 110vw;
+    text-align: center;
+    margin-bottom : 0px;
+ 
+
+}
+
+.shortDesc{
+
+    background-color: white;
+    color: black;
+    font-family: 'Roboto', sans-serif;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+    background-image: url('../../assets/images/dumbelssssss.jpg');
+    background-repeat: no-repeat;
+ 
+ }
+
+ .action{
+
+    border-radius: 25px 25px 25px 25px ;
+    font-family: 'Montserrat', sans-serif;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+ }
+
+ .btn-responsive{
+    
+    word-wrap: break-word;
+}

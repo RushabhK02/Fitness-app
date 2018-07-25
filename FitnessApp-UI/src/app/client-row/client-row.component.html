@@ -1,0 +1,9 @@
+<td>{{client.number}}</td>
+<td>{{client.name}}</td>
+<td>{{client.workout}}</td>
+<td>{{client.diet}}</td>
+
+<td>
+  <a class="btn btn-sucsess" [ngClass]="{ 'nav-link' : true ,'active' : isTabSelected(2 )}" (click)="changeTab($event,2)">View Activity</a>
+  <div *ngIf="isTabSelected(2)">this is my activity</div>
+</td>

@@ -1,0 +1,90 @@
+
+<br>
+<br>
+<div class="card">
+  <div class="card-header">
+ &nbsp;<label> New Plan Name: </label>
+<form [formGroup]="day1TOday7" (submit)="handleWeek1($event)">
+    <input type="text" class="form-control" placeholder="Calorie goal" formControlName="name">
+</form>
+</div>
+<div class="card-body">
+<p-tabView [activeIndex]="index">
+
+  <p-tabPanel header="day 1 - day 7">
+    <form [formGroup]="day1TOday7" (submit)="handleWeek1($event)">
+      <div class="form-group">
+        <label>Day 1 :</label>
+        <input type="number" class="form-control" placeholder="Calorie goal" formControlName="d1goal">
+      </div>
+      <div class="form-group">
+        <label>Day 2 :</label>
+        <input type="number" class="form-control" placeholder="Calorie goal" formControlName="d2goal">
+      </div>
+      <div class="form-group">
+        <label>Day 3 :</label>
+        <input type="number" class="form-control" placeholder="Calorie goal" formControlName="d3goal">
+      </div>
+      <div class="form-group">
+        <label>Day 4 :</label>
+        <input type="number" class="form-control" placeholder="Calorie goal" formControlName="d4goal">
+      </div>
+      <div class="form-group">
+        <label>Day 5 :</label>
+        <input type="number" class="form-control" placeholder="Calorie goal" formControlName="d5goal">
+      </div>
+      <div class="form-group">
+        <label>Day 6 :</label>
+        <input type="number" class="form-control" placeholder="Calorie goal" formControlName="d6goal">
+      </div>
+      <div class="form-group">
+        <label>Day 7 :</label>
+        <input type="number" class="form-control" placeholder="Calorie goal" formControlName="d7goal">
+      </div>
+      <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+  </p-tabPanel>
+
+  <p-tabPanel header="day 8 - day 15">
+    <form [formGroup]="day8TOday15" (submit)="handleWeek2($event)">
+      <div class="form-group">
+        <label>Day 8 :</label>
+        <input type="number" class="form-control" placeholder="Calorie goal" formControlName="d8goal">
+      </div>
+      <div class="form-group">
+        <label>Day 9 :</label>
+        <input type="number" class="form-control" placeholder="Calorie goal" formControlName="d9goal">
+      </div>
+      <div class="form-group">
+        <label>Day 10 :</label>
+        <input type="number" class="form-control" placeholder="Calorie goal" formControlName="d10goal">
+      </div>
+      <div class="form-group">
+        <label>Day 11 :</label>
+        <input type="number" class="form-control" placeholder="Calorie goal" formControlName="d11goal">
+      </div>
+      <div class="form-group">
+        <label>Day 12 :</label>
+        <input type="number" class="form-control" placeholder="Calorie goal" formControlName="d12goal">
+      </div>
+      <div class="form-group">
+        <label>Day 13 :</label>
+        <input type="number" class="form-control" placeholder="Calorie goal" formControlName="d13goal">
+      </div>
+      <div class="form-group">
+        <label>Day 14 :</label>
+        <input type="number" class="form-control" placeholder="Calorie goal" formControlName="d14goal">
+      </div>
+      <div class="form-group">
+        <label>Day 15 :</label>
+        <input type="number" class="form-control" placeholder="Calorie goal" formControlName="d15goal">
+      </div>
+      <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+  </p-tabPanel>
+
+
+</p-tabView>
+<label class="alert alert-success" *ngIf="status">{{statusString}}</label>
+</div>
+</div>

@@ -1,0 +1,22 @@
+<div class="navbar navbar-expand-lg top row navbar-fixed-top">
+  
+  <b class="title col-1 col-sm-1 col-md-1" style="font-size: 190%; color: white">Fat.to.Fit</b>
+  <div class="col-5 col-sm-5 col-md-5">
+    <a class="nav-link option" (click) = "homeClicked()">Home</a>
+
+    <a class="nav-link option" (click) = "myPlanClicked()">My plan</a>
+
+    <div class="dropdown">
+      <a class="dropbtn option" (click) = "previousPlansClicked()">Previous Plans
+      </a>
+    </div>
+
+
+    <a class="nav-link option" (click) = "myActivityClicked()">My activity </a>
+
+  </div>
+  <div class="col-6 col-sm-6 col-md-6">
+    <a class="nav-link option" style="float: right;" (click)="logoutBtnClicked()" >Log out</a>
+    <a class="nav-link option" style="float: right;" (click)="viewProfile()">Profile</a>
+  </div>
+</div>

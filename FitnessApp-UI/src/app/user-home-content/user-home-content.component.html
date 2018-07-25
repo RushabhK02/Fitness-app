@@ -1,0 +1,132 @@
+<div class="jumbotron welcome">
+  <h1 class="display-4 animated fadeIn" style="font-weight: 200">Welcome user!</h1>
+  <br>
+  <p class="lead animated fadeIn">Following are your goals for today :</p>
+</div>
+<div class="row">
+  <div class="col-6 col-sm-6 col-md-6 workoutGoals">
+    <h1 class="display-4 animated fadeInLeft">WORKOUT</h1>
+    <br>
+    <br>
+    <br>
+    <div style="text-align: left ; padding-left: 1%;" class="animated fadeIn">
+      <div class="row">
+        <span style="font-size: 200%;" class="col-5 col-md-5 col-sm-5">{{exercises[0][0]}} </span>
+        <div class="col-3 col-md-3 col-sm-3">
+            <div *ngIf="!workoutEnter1" class="row">
+            <form [formGroup]="Ex1Status" (submit)="handleEx1($event)">
+              <p-dropdown class="form-group" [options]="statuses" class="form-control" formControlName="status" optionLabel="Name"></p-dropdown>
+              &nbsp;
+              <input type ="number" class="form-control" placeholder="Sets Completed" formControlName="setsCompleted" required>
+              <button type="submit" class="btn btn-success">></button>
+            </form>
+          </div>
+        </div>
+        <span style="font-size: 150%;" class="col-4 col-md-4 col-sm-4"> {{exercises[0][2]}} reps,{{exercises[0][1]}} sets</span>
+
+      </div>
+      <br>
+      <br>
+      <div class="row">
+        <span style="font-size: 200%;" class="col-5 col-md-5 col-sm-5">{{exercises[1][0]}} </span>
+        <div class="col-3 col-md-3 col-sm-3">
+            <div *ngIf="!workoutEnter2" class="row">
+            <form [formGroup]="Ex2Status" (submit)="handleEx2($event)">
+              <p-dropdown class="form-group" [options]="statuses" class="form-control" formControlName="status" optionLabel="Name"></p-dropdown>
+              &nbsp;
+              <input type ="number" class="form-control" placeholder="Sets Completed" formControlName="setsCompleted" required>
+              <button type="submit" class="btn btn-success">></button>
+            </form>
+          </div>
+        </div>
+        <span style="font-size: 150%;" class="col-4 col-md-4 col-sm-4"> {{exercises[1][2]}} reps,{{exercises[1][1]}} sets</span>
+      </div>
+      <br>
+      <br>
+      <div class="row">
+        <span style="font-size: 200%;" class="col-5 col-md-5 col-sm-5"> {{exercises[2][0]}} </span>
+        <div class="col-3 col-md-3 col-sm-3">
+            <div *ngIf="!workoutEnter3" class="row">
+            <form [formGroup]="Ex3Status" (submit)="handleEx3($event)">
+              <p-dropdown class="form-group" [options]="statuses" class="form-control" formControlName="status" optionLabel="Name"></p-dropdown>
+              &nbsp;
+              <input type ="number" class="form-control" placeholder="Sets Completed" formControlName="setsCompleted" required>
+              <button type="submit" class="btn btn-success">></button>
+            </form>
+          </div>
+        </div>
+        <span style="font-size: 150%;" class="col-4 col-md-4 col-sm-4"> {{exercises[2][2]}} reps,{{exercises[2][1]}} sets</span>
+      </div>
+      <br>
+      <br>
+      <div class="row">
+        <span style="font-size: 200%;" class="col-5 col-md-5 col-sm-5"> {{exercises[3][0]}} </span>
+        <div class="col-3 col-md-3 col-sm-3">
+            <div *ngIf="!workoutEnter4" class="row">
+            <form [formGroup]="Ex4Status" (submit)="handleEx4($event)">
+              <p-dropdown class="form-group" [options]="statuses" class="form-control" formControlName="status" optionLabel="Name"></p-dropdown>
+              &nbsp;
+              <input type ="number" class="form-control" placeholder="Sets Completed" formControlName="setsCompleted" required>
+              <button type="submit" class="btn btn-success">></button>
+            </form>
+          </div>
+        </div>
+        <span style="font-size: 150%;" class="col-4 col-md-4 col-sm-4"> {{exercises[3][2]}} reps,{{exercises[3][1]}} sets </span>
+      </div>
+      <br>
+      <br>
+      <div class="row">
+        <span style="font-size: 200%;" class="col-5 col-md-5 col-sm-5"> {{exercises[4][0]}} </span>
+        <div class="row">
+          <div class="col-3 col-md-3 col-sm-3">
+            <div *ngIf="!workoutEnter5" class="row">
+              <form [formGroup]="Ex5Status" (submit)="handleEx5($event)">
+                <p-dropdown class="form-group" [options]="statuses" class="form-control" formControlName="status" optionLabel="Name"></p-dropdown>
+                &nbsp;
+                <input type ="number" class="form-control" placeholder="Sets Completed" formControlName="setsCompleted" required>
+                <button type="submit" class="btn btn-success">></button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <span style="font-size: 150%;" class="col-4 col-md-4 col-sm-4"> {{exercises[4][2]}} reps,{{exercises[4][1]}} sets </span>
+      </div>
+      <br>
+    </div>
+    <div style="background-color: black ; height: 0.2px;"></div>
+    <span *ngIf="workoutEnter1||workoutEnter2||workoutEnter3||workoutEnter4||workoutEnter5" 
+            style="font-size: 140%;" class="animated fadeIn">{{workoutStatusString}}</span>
+    <br>
+  </div>
+  <div class="col-6 col-sm-6 col-md-6 dietGoals">
+    <h1 class="display-4 animated fadeInRight">DIET</h1>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <span style="font-size: 340%;" class="animated fadeIn">Today's intake goal : </span>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <span style="font-size: 600%;color:white"> {{calorieIntake}} cal</span>
+    <br>
+    <br>
+    <br>
+    <br>
+    <input *ngIf="!entered" [(ngModel)]="actualCalorie" #calValue required>
+    <br>
+    <br>
+    <div style="background-color: wheat ; height: 0.2px;"></div>
+    <br>
+    <br>
+    <button *ngIf="!entered" class="btn btn-success" (click)="setValue(actualCalorie)">Submit</button>
+    <span style="font-size: 120%;" class="animated fadeIn">{{statusString}}</span>
+    <br>
+    <span *ngIf="entered" style="font-size: 140%;" class="animated fadeIn">Your intake today : {{actualCalorie}} cal</span>
+  </div>
+</div>

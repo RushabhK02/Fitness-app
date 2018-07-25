@@ -1,0 +1,37 @@
+<div class="jumbotron welcome">
+    <h1 class="display-4 animated fadeIn" style="font-weight: 200">Following</h1>
+    <br>
+    <p class="lead animated fadeIn">is your current plan :</p>
+  </div>
+ <div class="row" style="justify-content: center ; padding: 2%;">
+     <div style="align-self: center;">
+      <!-- <p-dataTable [value] = "myPlan" [paginator] = "true" [rows] = "5" [pageLinks] = "3" class="table">
+      <p-column field="day" header="Day"></p-column>
+      <p-column field="exercise" header="Exercise"></p-column>
+      <p-column field="sets" header="Sets"></p-column>
+      <p-column field="reps" header="Reps"></p-column>
+      <p-column field="calories" header="Calorie Intake"></p-column> 
+    </p-dataTable> -->
+    <button class="btn btn-success" *ngIf="!clicked" (click)="toggle()">Show Plan</button>
+    <p-table *ngIf="clicked"  [value]="myPlan" [paginator] = "true" [rows] = "20" [pageLinks] = "15">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Day</th>
+                    <th>Exercise</th>
+                    <th>Sets</th>
+                    <th>Reps</th>
+                    <th>Calorie Intake</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-record>
+                <tr>
+                    <td>{{record.day}}</td>
+                    <td>{{record.exercise}}</td>
+                    <td>{{record.sets}}</td>
+                    <td>{{record.reps}}</td>
+                    <td>{{record.calories}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+ </div>   

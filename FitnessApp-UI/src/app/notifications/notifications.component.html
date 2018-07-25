@@ -1,0 +1,23 @@
+<div class="back">
+    <div class="container animated fadeInLeft">
+        <div class="row" style="margin-top: 10%">
+
+            <div class="col-2 col-sm-2 col-md-2"></div>
+            <div class="col-8 col-sm-8 col-md-8 ">
+
+                <div *ngIf="notifExist">
+                    <div class="notif" *ngFor="let user of users" style="height: 20;">
+                        <span>{{""+user.userId+"-"+user.name}}</span>
+                        <span>'s plan is going to expire soon. </span>
+                    </div>
+                </div>
+                <div *ngIf="!notifExist" class="fadeIn">
+                       
+                    <div class="alert alert-dark" style="align-content: center">No Users with expiring plans!</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

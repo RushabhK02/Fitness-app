@@ -1,0 +1,100 @@
+<div>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">{{user.firstName +" "+user.lastName}}</h1>
+            <p class="lead">Current Allotment: {{allotmentId}}, Plan Start Date: {{currStartDate}}</p>
+        </div>
+    </div>
+    <br>
+    <p-tabView>
+        <p-tabPanel header="Workout records">
+
+            <br>
+            <form [formGroup]="workoutDateForm" (submit)="handleFilterWorkout()">
+                <div class="row form-group">
+                    <div class="col-5 col-md-5 col-sm-5">
+                        <label>Filter</label>
+                        <p-dropdown [options]="filters" class="form-control" formControlName="filter" optionLabel="Name"></p-dropdown>
+                    </div>
+                    <div class="col-5 col-md-5 col-sm-5">
+                        <label>Select a date</label>
+                        <p-calendar class="form-control" formControlName="filterDate"></p-calendar>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success">Filter</button>
+            </form>
+
+            <div class="row" style="justify-content: center ; padding: 2%;">
+                <div style="align-self: center;">
+
+                    <p-table [value]="workoutRecords" [paginator]="true" [rows]="10" [pageLinks]="3">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>Allotment id</th>
+                                <th>Day</th>
+                                <th>Exercise name</th>
+                                <th>Status</th>
+                                <th>Sets Completed</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-record>
+                            <tr>
+                                <td>{{record.allotmentId}}</td>
+                                <td>{{record.day}}</td>
+                                <td>{{record.name}}</td>
+                                <td>{{record.status}}</td>
+                                <td>{{record.setsCompleted}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+
+
+                </div>
+            </div>
+        </p-tabPanel>
+        <p-tabPanel header="Diet records">
+
+            <br>
+            <form [formGroup]="dietDateForm" (submit)="handleFilterDiet()">
+                <div class="row form-group">
+                    <div class="col-5 col-md-5 col-sm-5">
+                        <label>Filter</label>
+                        <p-dropdown [options]="filters" class="form-control" formControlName="filter" optionLabel="Name"></p-dropdown>
+                    </div>
+                    <div class="col-5 col-md-5 col-sm-5">
+                        <label>Select a date</label>
+                        <p-calendar class="form-control" formControlName="filterDate"></p-calendar>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success">Filter</button>
+            </form>
+
+            <div class="row" style="justify-content: center ; padding: 2%;">
+                <div style="align-self: center;">
+
+                    <p-table [value]="dietRecords" [paginator]="true" [rows]="10" [pageLinks]="3">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>Allotment id</th>
+                                <th>Plan Name</th>
+                                <th>Day</th>
+                                <th>Calorie Intake</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-record>
+                            <tr>
+                                <td>{{record.allotmentId}}</td>
+                                <td>{{record.name}}</td>
+                                <td>{{record.day}}</td>
+                                <td>{{record.intake}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+
+
+                </div>
+            </div>
+        </p-tabPanel>
+    </p-tabView>
+
+</div>

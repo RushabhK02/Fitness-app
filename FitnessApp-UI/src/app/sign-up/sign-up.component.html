@@ -1,0 +1,62 @@
+<div class="parent ">
+  <div class = "backgroundImg">
+  <div class="w3ls-main animated fadeInDown">
+    <h2>Sign Up</h2>
+    <p>Don't worry, we won't take much time</p>
+    <div class="w3ls-form">
+      <form [formGroup]="signUpForm" (submit)="handleFormSubmit($event)">
+        <ul class="fields">
+          <div class="Refer_w3l">
+            <h3>Your details</h3>
+            <li>
+              <div class="formGroup">
+                <label class="w3ls-opt">What should
+                  <br> we call you?
+                  <span class="w3ls-star"> * </span>
+                </label>
+                <div class="w3ls-name">
+                  <input type="text" class="form-control" placeholder="First Name" formControlName="firstName">
+                </div>
+            
+                <div class="w3ls-name">
+                  <input type="text" class="form-control" placeholder="Last Name" formControlName="lastName">
+                  <span class="is-invalid" style="color: red">{{errors.name}}</span>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <div class="form-group">
+                <label class="w3ls-opt">Username
+                  <span class="w3ls-star"> * </span>
+                </label>
+                <span class="w3ls-text w3ls-name">
+                  <input type="email" class="form-control" placeholder="abcd@xyz.com" formControlName="username">
+                  <span class="is-invalid" style="color: red">{{errors.email}}</span>
+                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </span>
+              </div>
+            </li>
+            <li>
+              <div class="form-group ">
+              <label class="w3ls-opt">Create Password
+                <span class="w3ls-star"> * </span>
+              </label>
+              <span class="w3ls-text w3ls-name">
+                  <input type="password" class="form-control passwordStyle" placeholder="password(max 20 characters)" formControlName = "password">
+                  <span class="is-invalid" style="color: red">{{errors.password}}</span>
+              </span>
+              </div>
+            </li>
+          </div>
+        </ul>
+        <br><br>
+        <div class="clear"></div>
+        <div class="w3ls-btn">
+          <input type="submit" value="submit">
+        </div>
+      </form>
+    </div>
+  </div>
+  </div>
+</div>

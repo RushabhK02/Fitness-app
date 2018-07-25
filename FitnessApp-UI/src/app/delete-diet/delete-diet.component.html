@@ -1,0 +1,40 @@
+<br>
+<br>
+<br>
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <button class="btn btn-secondary" type="button" (click)="toggleDietForm()">Delete Diet Plans</button>
+    </div>
+    <div class="card-body" *ngIf="toggleDiet">
+<form [formGroup]="deleteDietForm" (submit)="handleDietFormSubmit($event)">
+  <div class="form-group" >
+    <label>Diet Name</label>
+    <p-dropdown [options]="diets" class="form-control" formControlName="selectedDiet"  optionLabel="planName"></p-dropdown>
+  </div>
+  <button type="submit" class="btn btn-danger">Delete</button>
+</form>
+</div>
+<label class="alert alert-danger" *ngIf="dietStatus">{{statusStringDiet}}</label>
+</div>
+</div>
+<br>
+<br>
+<br>
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <button class="btn btn-secondary" type="button" (click)="toggleWorkoutForm()">Delete Workout Plans</button>
+    </div>
+<div class="card-body" *ngIf="toggleWorkout">
+        <form [formGroup]="deleteWorkoutForm" (submit)="handleWorkoutFormSubmit($event)">
+            <div class="form-group" >
+              <label>Workout Name</label>
+              <p-dropdown [options]="workouts" class="form-control" formControlName="selectedWorkout"  optionLabel="planName"></p-dropdown>
+            </div>
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+</div>
+<label class="alert alert-danger" *ngIf="workoutStatus">{{statusStringWorkout}}</label>
+</div>
+</div>

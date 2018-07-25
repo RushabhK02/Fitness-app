@@ -1,0 +1,102 @@
+<div class="parent ">
+  <div class="backgroundImg">
+    <div class="w3ls-main animated fadeInUp">
+      <h2>Questionnaire</h2>
+      <p>Please help us serve you better</p>
+      <div class="w3ls-form">
+        <form [formGroup]="questionnaireForm" (submit)="handleFormSubmit($event)">
+          
+            <div class="Refer_w3l">
+              <h3>Your details</h3>
+              
+             
+                <div class="formGroup">
+                    <div class="row">
+                  <label class="w3ls-opt col-4 col-md-4 col-sm-4" style="float: left;">age
+                    <span class="w3ls-star"> * </span>
+                  </label>
+                  <span class="w3ls-name col-8 col-md-8 col-sm-8" style="float: right;">
+                    <input type="number" class="form-control questionsStyle" formControlName="age">
+                  </span>
+                </div>
+              
+              </div>
+              <br><br>
+              
+              
+                <div class="form-group">
+                    <div class="row">
+                  <label class="w3ls-opt col-4 col-md-4 col-sm-4">Weight
+                    <span class="w3ls-star"> * </span>
+                  </label>
+                  <span class="w3ls-text w3ls-name col-8 col-md-8 col-sm-8">
+                    <input type="number" class="form-control questionsStyle" placeholder="in kgs" formControlName="weight">
+                  </span>
+                </div>
+              
+              </div>
+              <br><br>
+             
+              
+                <div class="form-group ">
+                    <div class="row">
+                  <label class="w3ls-opt  col-4 col-md-4 col-sm-4">Height
+                    <span class="w3ls-star"> * </span>
+                  </label>
+                  <span class="w3ls-text w3ls-name col-8 col-md-8 col-sm-8">
+                    <input type="number" class="form-control questionsStyle" placeholder="in cms" formControlName="height">
+                  </span>
+                </div>
+             
+              </div>
+              <br><br>
+              
+              
+                <div class="form-group ">
+                    <div class="row">
+                  <label class="w3ls-opt col-4 col-md-4 col-sm-4">How well do you know the gym?
+                    <span class="w3ls-star"> * </span>
+                  </label>
+                  <span class="w3ls-text w3ls-name col-8 col-md-8 col-sm-8">
+                    <select class="form-control questionsStyle" formControlName="gymExp">
+                      <option value="50">I'm an expert!</option>
+                      <option value="25">I've occasionally been to a gym</option>
+                      <option value="0">This is my first time</option>
+                    </select>
+                  </span>
+                </div>
+              
+              </div>
+              <br><br>
+              
+              
+                <div class="form-group ">
+                    <div class="row">
+                  <label class="w3ls-opt col-4 col-md-4 col-sm-4">What are your eating habits?
+                    <span class="w3ls-star"> * </span>
+                  </label>
+                  <span class="w3ls-text w3ls-name col-8 col-md-8 col-sm-8">
+                    <select class="form-control" formControlName="diet">
+                      <option value="20">I always eat healthy</option>
+                      <option value="10">I try to eat healthy sometimes</option>
+                      <option value="0">I eat a lot of junk food</option>
+                    </select>
+                  </span>
+                </div>
+             
+              </div>
+              <br><br>
+            </div>
+          
+
+          <br>
+          <br>
+          <div class="clear"></div>
+          <div class="w3ls-btn">
+            <input type="submit" value="Let's workout">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

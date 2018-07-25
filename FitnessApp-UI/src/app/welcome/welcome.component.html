@@ -1,0 +1,150 @@
+<nav class="navbar  top  navbar-fixed-top">
+  <div class="title">Fat.to.Fit</div>
+  <form class="form-inline" [formGroup]="loginForm" (submit)="handleFormSubmit($event)" style="float: right;">
+    <div class="form-group">
+      <input type="email" class="form-control loginForm" formControlName="username" placeholder="Username" style="border-width: 0.2px; border-color: black"
+      />
+    </div>
+    &nbsp;
+    <div class="form-group">
+      <input type="password" class="form-control loginForm" formControlName="password" placeholder="Password" style="border-width: 0.2px; border-color: black"
+      />
+    </div>
+    &nbsp;
+    <div class="form-group">
+      <button type="submit" class="btn btn-outline-dark loginButton">LOGIN</button>
+    </div>
+    &nbsp; &nbsp;
+  </form>
+</nav>
+
+<div class="jumbotron container1">
+  <div class="row">
+    <div class="col-sm-8 col-md-8 col-8 textContainer">
+      <hr>
+      <hr>
+      <hr>
+      <hr>
+      <p class="animated fadeInUp">
+        Fitness,</p>
+      <h1 class="animated fadeInUp"> just one step away.</h1>
+      <hr/>
+      <hr/>
+      <p style="font-family: 'Raleway', sans-serif; font-size: 25px;" class="animated fadeInUp">Join today and get access to customized</p>
+      <p style="font-family: 'Raleway', sans-serif; font-size: 25px;" class="animated fadeInUp">diet and workout plans, activity trackers and much more.</p>
+      <button type="button" class="btn btn-success btn-lg animated fadeInDown" style="border-radius: 25px 25px 25px 25px ; padding-left:25px ; padding-right:25px ; font-family: 'Montserrat', sans-serif;
+      font-size: 22px;" (click)="signUpClick()">&nbsp; Get Started &nbsp;</button>
+    </div>
+    <div class="col-sm-4 col-md-4 col-4 imgContainer">
+      <img src="\assets\images\homeleft.jpg" class="w3-animate-opacity img-fluid" align="right" />
+    </div>
+  </div>
+</div>
+
+<div class="jumbotron shortDesc">
+  <br>
+  <br>
+  <h1 class="animated fadeInDown ">Make it POSSIBLE.</h1>
+  <br>
+  <br>
+  <br>
+  <div class="row animated fadeIn">
+    <div class="col-4 col-md-4 col-sm-4">
+      <img src="\assets\images\tick.png" class="img-fluid" style="width: 80px; height: 80px;" />
+      <br>
+      <br>
+      <br>
+      <h3>Fitness</h3>
+      <br>
+      <p style="font-family: 'Raleway', sans-serif; color: black;
+font-size: 18px;">
+        <b> Specially designed weight
+          <br> training plans to keep you fit. </b>
+      </p>
+    </div>
+
+    <div class="col-4 col-md-4 col-sm-4">
+      <img src="\assets\images\tick.png" class="img-fluid" style="width: 80px; height: 80px;" />
+      <br>
+      <br>
+      <br>
+      <h3>Power Lifting</h3>
+      <br>
+      <p style="font-family: 'Raleway', sans-serif; color: black;
+    font-size: 18px;">
+        <b> Weight lifting plans
+          <br> to test you to the limit. </b>
+      </p>
+    </div>
+
+    <div class="col-4 col-md-4 col-sm-4">
+      <img src="\assets\images\tick.png" class="img-fluid" style="width: 80px; height: 80px;" />
+      <br>
+      <br>
+      <br>
+      <h3>Body Building</h3>
+      <br>
+      <p style="font-family: 'Raleway', sans-serif; color: black;
+        font-size: 18px;">
+        <b> Plans comprising balanced
+          <br> combination of exercises to help you get in shape. </b>
+      </p>
+    </div>
+
+  </div>
+  <br>
+  <br>
+  <br>
+  <div class="row animated fadeIn">
+    <div class="col-6 col-md-6 col-sm-6" style="padding-left: 22%;">
+      <img src="\assets\images\tick.png" class="img-fluid" style="width: 80px; height: 80px;" />
+      <br>
+      <br>
+      <br>
+      <h3>Cardio</h3>
+      <br>
+      <p style="font-family: 'Raleway', sans-serif; color: black;
+    font-size: 18px;">
+        <b> Intense cardio training
+          <br> to help you lose weight. </b>
+      </p>
+    </div>
+
+    <div class="col-6 col-md-6 col-sm-6" style="padding-right: 22%;">
+      <img src="\assets\images\tick.png" class="img-fluid" style="width: 80px; height: 80px;" />
+      <br>
+      <br>
+      <br>
+      <h3>Nutrition</h3>
+      <br>
+      <p style="font-family: 'Raleway', sans-serif; color: black;
+        font-size: 18px;">
+        <b> Diet plans for you
+          <br> to follow during your training. </b>
+      </p>
+    </div>
+
+  </div>
+
+</div>
+
+<div style="background-color: black; height: 1px;">
+</div>
+
+<div class="jumbotron bottom">
+  <div class="row" style="position: relative;">
+    <div class="col-6 col-sm-6 col-md-6 ">
+      <!-- <br><br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+      <p>DIET.</p> -->
+      <img src="../../assets/images/diet.jpeg" class="img-fluid" style=" float: right;  size: 100% ; height: 100%; width : 99%;" />
+
+    </div>
+    <div class="col-6 col-sm-6 col-md-6">
+      <img src="../../assets/images/gym.jpeg" class="img-fluid" style=" float: left; size: 100% ;width : 110%; height: 100%;" />
+
+    </div>
+
+  </div>
+
+
+</div>
