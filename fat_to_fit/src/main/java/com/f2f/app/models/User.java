@@ -18,8 +18,6 @@ import javax.persistence.TemporalType;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 /**
  * The persistent class for the users database table.
  *
@@ -50,7 +48,7 @@ public class User implements Serializable {
 	@Column(name = "last_name")
 	private String lastName;
 
-	@JsonIgnore
+	@Column(name = "password")
 	private String password;
 
 	private String username;

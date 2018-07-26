@@ -18,6 +18,8 @@ public interface UserService {
 
 	Boolean firstAllotment(int userId, AllocationPoints points);
 
+	Exercise getExerciseByName(String exName);
+
 	Exercise getExerciseInfo(int exId);
 
 	User login(String userName, String password);
@@ -29,6 +31,9 @@ public interface UserService {
 	Boolean updateExerciseStatus(int userId, int day, ExerciseStatus status, int setsCompleted, int exId);
 
 	Boolean updateFoodEaten(int userId, int day, int calorieIntake);
+
+	Allotment viewCurrentAllotment(int userId);
+	// void logout();
 
 	List<UserDietRecord> viewCurrentDietActivity(int userId);
 
@@ -43,6 +48,4 @@ public interface UserService {
 	List<UserWorkoutRecord> viewWorkoutActivity(DateQueryType queryType, Date date, int userId);
 
 	List<Allotment> viewWorkoutPlanHistory(DateQueryType queryType, Date date, int userId);
-
-	// void logout();
 }

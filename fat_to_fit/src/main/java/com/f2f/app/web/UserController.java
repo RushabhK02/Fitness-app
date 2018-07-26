@@ -48,7 +48,19 @@ public class UserController {
 		return userService.firstAllotment(userId, points);
 	}
 
-	@GetMapping(value = "/user/{userId}/history/records/exercise/{exId}", produces = { "application/json" })
+	@GetMapping(value = "/user/{userId}/current/allotment", produces = { "application/json" })
+	Allotment getCurrentAllotment(@PathVariable(value = "userId") int userId) {
+		logger.info("UserController.getCurrentAllotment:" + userId);
+		return userService.viewCurrentAllotment(userId);
+	}
+
+	@GetMapping(value = "/exercise/name/{exName}", produces = { "application/json" })
+	Exercise getExerciseByName(@PathVariable(value = "exName") String exName) {
+		logger.info("UserController.getExerciseInfo:" + exName);
+		return userService.getExerciseByName(exName);
+	}
+
+	@GetMapping(value = "/exercise/{exId}", produces = { "application/json" })
 	Exercise getExerciseInfo(@PathVariable(value = "exId") int exId) {
 		logger.info("UserController.getExerciseInfo:" + exId);
 		return userService.getExerciseInfo(exId);

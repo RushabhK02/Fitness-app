@@ -2,6 +2,7 @@ package com.f2f.app.service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,14 +17,17 @@ import com.f2f.app.exceptions.OperationFailedException;
 import com.f2f.app.exceptions.ResourceNotFoundException;
 import com.f2f.app.models.Admin;
 import com.f2f.app.models.Allotment;
+import com.f2f.app.models.Exercise;
 import com.f2f.app.models.Plan;
 import com.f2f.app.models.PlanDetail;
+import com.f2f.app.models.PlansList;
 import com.f2f.app.models.User;
 import com.f2f.app.models.UserDietRecord;
 import com.f2f.app.models.UserLite;
 import com.f2f.app.models.UserWorkoutRecord;
 import com.f2f.app.repositories.AdminRepository;
 import com.f2f.app.repositories.AllotmentRepository;
+import com.f2f.app.repositories.ExerciseRepository;
 import com.f2f.app.repositories.PlanDetailRepository;
 import com.f2f.app.repositories.PlanRepository;
 import com.f2f.app.repositories.UserDietRecordRepository;
@@ -47,6 +51,8 @@ public class AdminServiceImpl implements AdminService {
 	private PlanRepository planRepository;
 	@Autowired
 	private AdminRepository adminRepository;
+	@Autowired
+	private ExerciseRepository exerciseRepository;
 
 	@Override
 	public void addClient(int adminId, int userId) {
@@ -138,8 +144,8 @@ public class AdminServiceImpl implements AdminService {
 	public boolean deletePreset(int planId) {
 		logger.info("Running AdminService.deletePreset: deletePreset - " + planId);
 		try {
-			planRepository.deleteById(planId);
 			planDetailRepository.deleteByPlanId(planId);
+			planRepository.deleteById(planId);
 			logger.info("AdminService.deletePreset: successfully deleted");
 			return true;
 		} catch (Exception e) {
@@ -147,6 +153,26 @@ public class AdminServiceImpl implements AdminService {
 			logger.log(null, "Error in AdminService.deletePreset:", e);
 			throw new OperationFailedException((long) planId, "Cannot delete Preset: " + planId);
 		}
+	}
+
+	@Override
+	public List<Exercise> getExercises() {
+		Iterator<Exercise> itr = exerciseRepository.findAll().iterator();
+		List<Exercise> exercises = new ArrayList<>();
+		while (itr.hasNext()) {
+			exercises.add(itr.next());
+		}
+		return exercises;
+	}
+
+	@Override
+	public PlansList getPlans() {
+		List<Plan> dietPlans = planRepository.findDietPlans();
+		List<Plan> workoutPlans = planRepository.findWorkoutPlans();
+		PlansList plansList = new PlansList();
+		plansList.setDietPlans(dietPlans);
+		plansList.setWorkoutPlans(workoutPlans);
+		return plansList;
 	}
 
 	@Override
@@ -164,7 +190,8 @@ public class AdminServiceImpl implements AdminService {
 
 		}
 		logger.error("Admin login: No such admin");
-		throw new ResourceNotFoundException(1L, "cannot find admin:" + adminName);
+		return null;
+		// throw new ResourceNotFoundException(1L, "cannot find admin:" + adminName);
 	}
 
 	@Override

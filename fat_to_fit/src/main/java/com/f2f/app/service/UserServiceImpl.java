@@ -27,6 +27,7 @@ import com.f2f.app.models.UserDietRecord;
 import com.f2f.app.models.UserDietRecordPK;
 import com.f2f.app.models.UserWorkoutRecord;
 import com.f2f.app.models.UserWorkoutRecordPK;
+import com.f2f.app.repositories.AdminRepository;
 import com.f2f.app.repositories.AllotmentRepository;
 import com.f2f.app.repositories.ExerciseRepository;
 import com.f2f.app.repositories.PlanDetailRepository;
@@ -55,6 +56,8 @@ public class UserServiceImpl implements UserService {
 	private AdminService adminService;
 	@Autowired
 	private ExerciseRepository exerciseRepository;
+	@Autowired
+	private AdminRepository adminRepository;
 
 	@Override
 	public Boolean firstAllotment(int userId, AllocationPoints points) {
@@ -123,6 +126,15 @@ public class UserServiceImpl implements UserService {
 					}
 				}
 				logger.info("Running UserService.firstAllotment: allotment done for user - " + userId);
+				Allotment newAllotment = new Allotment();
+				Optional<Plan> plan = planRepository.findById(user.get().getCurrentDietPlan().getPlanId());
+				newAllotment.setDietPlanId(plan.get());
+				plan = planRepository.findById(user.get().getcurrentWorkoutPlan().getPlanId());
+				newAllotment.setWorkoutPlanId(plan.get());
+				newAllotment.setAdmin(adminRepository.findById(1).get());
+				newAllotment.setStartDate(date);
+				newAllotment.setUser(user.get());
+				allotmentRepository.save(newAllotment);
 				return true;
 			} else {
 				throw new ResourceNotFoundException((long) userId, "User " + userId + " does not exist");
@@ -132,6 +144,11 @@ public class UserServiceImpl implements UserService {
 			logger.log(null, e);
 			throw e;
 		}
+	}
+
+	@Override
+	public Exercise getExerciseByName(String exName) {
+		return exerciseRepository.findExerciseByName(exName);
 	}
 
 	@Override
@@ -153,13 +170,14 @@ public class UserServiceImpl implements UserService {
 			return user;
 		}
 		logger.warn("Running UserService.login: unknown user - " + userName);
-		throw new ResourceNotFoundException(-1L, "user not found");
+		return null;
+//		throw new ResourceNotFoundException(-1L, "user not found");
 	}
 
 	@Override
 	public User signup(User newUser) {
 		logger.info("Running UserService.signup: adding user: " + newUser.getUsername());
-		userRepository.save(newUser);
+		newUser = userRepository.save(newUser);
 		adminService.addClient(1, newUser.getUserId());
 		User user = userRepository.findByUsername(newUser.getUsername());
 		if (user.getUserId() > 0) {
@@ -283,6 +301,11 @@ public class UserServiceImpl implements UserService {
 			logger.log(null, "Error in UserService.UpdateFoodEaten:", e);
 			throw e;
 		}
+	}
+
+	@Override
+	public Allotment viewCurrentAllotment(int userId) {
+		return allotmentRepository.findFirstByOrderByAllotmentIdDesc(userId);
 	}
 
 	@Override

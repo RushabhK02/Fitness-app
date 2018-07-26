@@ -13,12 +13,12 @@ import com.f2f.app.models.PlanDetailPK;
 
 public interface PlanDetailRepository extends CrudRepository<PlanDetail, PlanDetailPK> {
 
-	@Query("SELECT p FROM PlanDetail p where p.id.planId=:planId")
-	List<PlanDetail> findByPlanId(@Param("planId") int planId);
-	
 	@Modifying
 	@Transactional
 	@Query("DELETE FROM PlanDetail p where p.id.planId=:planId")
 	void deleteByPlanId(@Param("planId") int planId);
-	
+
+	@Query("SELECT p FROM PlanDetail p where p.id.planId=:planId")
+	List<PlanDetail> findByPlanId(@Param("planId") int planId);
+
 }

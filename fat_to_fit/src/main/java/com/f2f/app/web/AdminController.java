@@ -21,8 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.f2f.app.constants.DateQueryType;
 import com.f2f.app.constants.ExerciseStatus;
+import com.f2f.app.models.Admin;
+import com.f2f.app.models.Exercise;
+import com.f2f.app.models.LoginCredentials;
 import com.f2f.app.models.PlanCombo;
 import com.f2f.app.models.PlanPreset;
+import com.f2f.app.models.PlansList;
 import com.f2f.app.models.User;
 import com.f2f.app.models.UserDietRecord;
 import com.f2f.app.models.UserLite;
@@ -31,56 +35,74 @@ import com.f2f.app.service.AdminService;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/admin/{adminId}")
+@RequestMapping("/admin")
 public class AdminController {
 
 	private static Logger logger = LogManager.getLogger();
 	@Autowired
 	private AdminService adminService;
 
-	@PutMapping(value = "/user/{userId}/assign")
+	@PutMapping(value = "/{adminId}/user/{userId}/assign")
 	Boolean assignNewPreset(@PathVariable int userId, @RequestBody PlanCombo comboPlan) {
 		logger.info("AdminController.assignNewPreset:" + comboPlan);
 		return adminService.assignPresetToUser(userId, 1, comboPlan.getWorkoutPlan(), comboPlan.getDietPlan());
 	}
 
-	@PostMapping(value = "/new/plan")
+	@PostMapping(value = "/{adminId}/new/plan")
 	Boolean createNewPreset(@RequestBody PlanPreset newPreset) {
 		logger.info("AdminController.createNewPreset:" + newPreset);
 		return adminService.createNewPreset(newPreset.getPlan(), newPreset.getPlanDetails());
 	}
 
-	@DeleteMapping(value = "/delete/plan/{planId}")
+	@DeleteMapping(value = "/{adminId}/delete/plan/{planId}")
 	Boolean deletePlanPreset(@PathVariable int planId) {
 		logger.info("AdminController.deletePlanPreset:" + planId);
 		return adminService.deletePreset(planId);
 	}
 
-	@GetMapping(value = "/user/{userId}", produces = { "application/json" })
+	@GetMapping(value = "/{adminId}/exercises", produces = { "application/json" })
+	List<Exercise> getExercises() {
+		logger.info("AdminController.getExercises: running...");
+		return adminService.getExercises();
+	}
+
+	@GetMapping(value = "/{adminId}/plans", produces = { "application/json" })
+	PlansList getPlans() {
+		logger.info("AdminController.getPlans: running");
+		return adminService.getPlans();
+	}
+
+	@PostMapping(value = "/login", produces = { "application/json" })
+	Admin loginAdmin(@RequestBody LoginCredentials credentials) {
+		logger.info("User trying to log in.");
+		return adminService.login(credentials.getUsername(), credentials.getPassword());
+	}
+
+	@GetMapping(value = "/{adminId}/user/{userId}", produces = { "application/json" })
 	User viewClientInfo(@PathVariable int userId) {
 		logger.info("AdminController.viewClientInfo:" + userId);
 		return adminService.viewClientInfo(userId);
 	}
 
-	@GetMapping(value = "/users", produces = { "application/json" })
+	@GetMapping(value = "/{adminId}/users", produces = { "application/json" })
 	List<UserLite> viewClients(@PathVariable int adminId) {
 		logger.info("AdminController.viewClients:" + adminId);
 		return adminService.viewClients(adminId);
 	}
 
-	@GetMapping(value = "/user/{userId}/history/records/diet/current", produces = { "application/json" })
+	@GetMapping(value = "/{adminId}/user/{userId}/history/records/diet/current", produces = { "application/json" })
 	List<UserDietRecord> viewUserCurrentDietHistory(@PathVariable int userId) {
 		logger.info("AdminController.viewUserCurrentDietHistory:" + userId);
 		return adminService.viewUserCurrentDietActivity(userId);
 	}
 
-	@GetMapping(value = "/user/{userId}/history/records/workout/current", produces = { "application/json" })
+	@GetMapping(value = "/{adminId}/user/{userId}/history/records/workout/current", produces = { "application/json" })
 	List<UserWorkoutRecord> viewUserCurrentWorkoutHistory(@PathVariable int userId) {
 		logger.info("AdminController.viewUserCurrentWorkoutHistory:" + userId);
 		return adminService.viewUserCurrentWorkoutActivity(userId);
 	}
 
-	@GetMapping(value = "/user/{userId}/history/records/diet/date", produces = { "application/json" })
+	@GetMapping(value = "/{adminId}/user/{userId}/history/records/diet/date", produces = { "application/json" })
 	List<UserDietRecord> viewUserDietHistory(@PathVariable int userId,
 			@RequestParam(value = "queryType", required = false) String queryType,
 			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam(value = "date", required = false) Date date) {
@@ -101,13 +123,13 @@ public class AdminController {
 		return new ArrayList<>();
 	}
 
-	@GetMapping(value = "/notifications", produces = { "application/json" })
-	List<UserLite> viewUsersWithExpiredPlans(@RequestParam int adminId) {
+	@GetMapping(value = "/{adminId}/notifications", produces = { "application/json" })
+	List<UserLite> viewUsersWithExpiredPlans(@PathVariable int adminId) {
 		logger.info("AdminController.viewUsersWithExpiredPlans:" + adminId);
 		return adminService.viewNotifications(adminId);
 	}
 
-	@GetMapping(value = "/user/{userId}/history/records/workout/date", produces = { "application/json" })
+	@GetMapping(value = "/{adminId}/user/{userId}/history/records/workout/date", produces = { "application/json" })
 	List<UserWorkoutRecord> viewUserWorkoutHistory(@PathVariable int userId,
 			@RequestParam(value = "queryType", required = false) String queryType,
 			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam(value = "date", required = false) Date date) {
@@ -128,7 +150,7 @@ public class AdminController {
 		return new ArrayList<>();
 	}
 
-	@GetMapping(value = "/user/{userId}/history/records/workout/status", produces = { "application/json" })
+	@GetMapping(value = "/{adminId}/user/{userId}/history/records/workout/status", produces = { "application/json" })
 	List<UserWorkoutRecord> viewUserWorkoutHistoryByStatus(@PathVariable int userId,
 			@RequestParam(value = "queryType", required = true) String queryType,
 			@RequestParam(value = "status", required = true) String status) {

@@ -1,2 +1,1 @@
 # Fitness-app
-Mini Project

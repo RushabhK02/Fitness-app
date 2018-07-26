@@ -1,0 +1,17 @@
+
+¢squid:S1192İ"qDefine a constant instead of duplicating this literal "AdminService.viewUserWorkoutActivity for user : " 3 times.(½ì¡HÛRCRITICALZ
+CODE_SMELL
+Ÿsquid:S1192¤"nDefine a constant instead of duplicating this literal "AdminService.viewUserDietActivity for user : " 3 times.(£©ˆHÜRCRITICALZ
+CODE_SMELL
+squid:S1192Ö"WDefine a constant instead of duplicating this literal "incorrect query type: " 3 times.(–°‡‘8ş¿°”Ì,HİRCRITICALZ
+CODE_SMELL
+squid:S3776¢"RRefactor this method to reduce its Cognitive Complexity from 26 to the 15 allowed.(Æ—¿©şÿÿÿÿ8ºÙ™”Ì,HŞRCRITICALZ
+CODE_SMELL
+‹squid:S1192¢"SDefine a constant instead of duplicating this literal "cannot find admin:" 3 times.(ÈÃ¨ü8ŞÏÀ”Ì,HßRCRITICALZ
+CODE_SMELL
+Osquid:S3626="Remove this redundant jump.(ûÁİ…8ÉŞ‘“Ì,HàRMINORZ
+CODE_SMELL
+squid:S1192²"SDefine a constant instead of duplicating this literal "cannot find user:" 11 times.(ˆÅ§¡ıÿÿÿÿ8®ÇÍ“Ì,HáRCRITICALZ
+CODE_SMELL
+Šsquid:S3776Ú"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(û™ßò8ş¿°”Ì,HâRCRITICALZ
+CODE_SMELL
