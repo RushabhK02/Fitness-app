@@ -1,0 +1,26 @@
+package com.f2f.app.service;
+
+public class AllocationPoints {
+	
+	int workoutPoints=0;
+	int dietPoints=0;
+	
+	public int getWorkoutPoints() {
+		return workoutPoints;
+	}
+	public void setWorkoutPoints(int workoutPoints) {
+		this.workoutPoints = workoutPoints;
+	}
+	public int getDietPoints() {
+		return dietPoints;
+	}
+	public void setDietPoints(int dietPoints) {
+		this.dietPoints = dietPoints;
+	}
+	
+	@Override
+	public String toString() {
+		return "AllocationPoints [workoutPoints=" + workoutPoints + ", dietPoints=" + dietPoints + "]";
+	}
+
+}

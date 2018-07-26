@@ -1,0 +1,5 @@
+package com.f2f.app.service;
+
+public enum DateQueryType {
+	AFTER, BEFORE, DEFAULT ,CURRENT, ALL
+}

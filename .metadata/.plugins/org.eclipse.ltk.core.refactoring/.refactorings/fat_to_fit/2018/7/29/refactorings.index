@@ -1,10 +1,20 @@
-1531850890032	Rename type 'PlansRepository'
-1531853056790	Delete elements
-1531854088313	Delete elements
-1531854863209	Rename type 'Exercis'
-1531855025943	Rename type 'exercise'
-1531855058717	Copy compilation unit
-1531855075193	Delete element
-1531855168831	Rename type 'adminRepository'
-1531855183563	Rename type 'exerciseRepository'
-1531813066532	Delete element
+1532074326127	Copy compilation units
+1532074350913	Delete element
+1532074355444	Delete element
+1532074371500	Move compilation unit
+1532074381961	Move compilation unit
+1532074583338	Move compilation unit
+1532074627137	Move compilation unit
+1532074633301	Move compilation unit
+1532074698147	Move compilation unit
+1532074702674	Move compilation unit
+1532074708255	Move compilation unit
+1532074715472	Move compilation unit
+1532074725838	Move compilation unit
+1532074730027	Move compilation unit
+1532076380605	Delete element
+1532076752057	Rename resource 'log4j2.properties.xml'
+1532076789161	Delete element
+1532076820233	Rename resource 'log4j2'
+1532080908632	Extract local variable 'allotmentId'
+1532094149548	Rename type 'ExceptionHandling'

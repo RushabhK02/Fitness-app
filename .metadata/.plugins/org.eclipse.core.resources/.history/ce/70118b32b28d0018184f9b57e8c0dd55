@@ -1,0 +1,5 @@
+package com.f2f.app.exceptions;
+
+public class OperationFailedException {
+
+}

@@ -1,0 +1,286 @@
+package com.f2f.app.service;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.f2f.app.models.*;
+import com.f2f.app.repositories.*;
+
+@Transactional
+@Service
+public class UserServiceImpl implements UserService {
+	@Autowired
+	private UserRepository userRepository;
+	@Autowired
+	private AllotmentRepository allotmentRepository;
+	@Autowired
+	private UserWorkoutRecordRepository userWorkoutRecordRepository;
+	@Autowired
+	private UserDietRecordRepository userDietRecordRepository;
+	@Autowired
+	private PlanDetailRepository planDetailRepository;
+	@Autowired
+	private PlanRepository planRepository;
+	@Autowired
+	private AdminService adminService;
+
+	@Override
+	public User signup(User newUser) {
+		userRepository.save(newUser);
+		adminService.addClient(1, newUser.getUserId());
+		User user = userRepository.findByUsername(newUser.getUsername());
+		if (user.getUserId() > 0) {
+			return user;
+		} else
+			return null;
+	}
+
+	@Override
+	public Boolean firstAllotment(int userId, AllocationPoints points) {
+		try {
+			Date date = new Date();
+			if (points.getWorkoutPoints() <= 15)
+				userRepository.updateCurrentWorkoutPlan(planRepository.findById(1).get(), date, userId);
+			else if (points.getWorkoutPoints() > 15 && points.getWorkoutPoints() < 40) {
+				userRepository.updateCurrentWorkoutPlan(planRepository.findById(2).get(), date, userId);
+			} else if (points.getWorkoutPoints() >= 40 && points.getWorkoutPoints() < 60) {
+				userRepository.updateCurrentWorkoutPlan(planRepository.findById(3).get(), date, userId);
+			} else
+				userRepository.updateCurrentWorkoutPlan(planRepository.findById(4).get(), date, userId);
+
+			if (points.getWorkoutPoints() <= 15)
+				userRepository.updateCurrentDietPlan(planRepository.findById(5).get(), date, userId);
+			else if (points.getWorkoutPoints() > 15 && points.getWorkoutPoints() < 30) {
+				userRepository.updateCurrentDietPlan(planRepository.findById(6).get(), date, userId);
+			} else
+				userRepository.updateCurrentDietPlan(planRepository.findById(7).get(), date, userId);
+
+			return true;
+		} catch (Exception e) {
+			System.out.println(e);
+			return false;
+		}
+	}
+
+	@Override
+	public User login(String userName, String password) {
+		String DBpassword = userRepository.findPasswordByUsername(userName);
+		if (password.equals(DBpassword)) {
+			User user = userRepository.findByUsername(userName);
+			return user;		
+		}
+		return null;
+	}
+
+	@Override
+	public List<Allotment> viewWorkoutPlanHistory(DateQueryType queryType, Date date, int userId) {
+
+		if (queryType == DateQueryType.DEFAULT) {
+			User user = userRepository.findById(userId).get();
+			return allotmentRepository.findAllotmentsByUserId(user);
+		} else if (queryType == DateQueryType.BEFORE) {
+			User user = userRepository.findById(userId).get();
+			return allotmentRepository.findAllotmentsByUserIdAndBeforeDate(date, user);
+		} else if (queryType == DateQueryType.AFTER) {
+			User user = userRepository.findById(userId).get();
+			return allotmentRepository.findAllotmentsByUserIdAndAfterDate(date, user);
+		}
+		return null;
+	}
+
+	@Override
+	public List<UserWorkoutRecord> viewWorkoutActivity(DateQueryType queryType, Date date, int userId) {
+
+		if (queryType == DateQueryType.DEFAULT) {
+			User user = userRepository.findById(userId).get();
+
+			return userWorkoutRecordRepository.findByUserId(user);
+		} else if (queryType == DateQueryType.BEFORE) {
+			User user = userRepository.findById(userId).get();
+
+			List<Allotment> allotments = allotmentRepository.findAllotmentsByUserIdAndBeforeDate(date, user);
+			List<UserWorkoutRecord> records = new ArrayList<UserWorkoutRecord>();
+
+			for (Allotment allotment : allotments) {
+				records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user, allotment.getAllotmentId(),ExerciseStatus.COMPLETE));
+				records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user, allotment.getAllotmentId(),ExerciseStatus.INCOMPLETE));
+			}
+			return records;
+		} else if (queryType == DateQueryType.AFTER) {
+			User user = userRepository.findById(userId).get();
+
+			List<Allotment> allotments = allotmentRepository.findAllotmentsByUserIdAndBeforeDate(date, user);
+			List<UserWorkoutRecord> records = new ArrayList<UserWorkoutRecord>();
+
+			for (Allotment allotment : allotments) {
+				records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user, allotment.getAllotmentId(),ExerciseStatus.COMPLETE));
+				records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user, allotment.getAllotmentId(),ExerciseStatus.INCOMPLETE));
+	}
+			return records;
+		}
+		return null;
+	}
+
+	public List<UserWorkoutRecord> viewCurrentWorkoutActivity(int userId) {
+		User user = userRepository.findById(userId).get();
+		if (user != null) {
+			Allotment currAllotment = allotmentRepository.findFirstByOrderByAllotmentIdDesc(user.getUserId());
+			List<UserWorkoutRecord> records = new ArrayList<UserWorkoutRecord>();
+				records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user, currAllotment.getAllotmentId(),ExerciseStatus.COMPLETE));
+				records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user, currAllotment.getAllotmentId(),ExerciseStatus.INCOMPLETE));
+			return records;
+		}
+		return null;
+	}
+
+	@Override
+	public List<Allotment> viewDietPlanHistory(DateQueryType queryType, Date date, int userId) {
+		if (queryType == DateQueryType.DEFAULT) {
+			User user = userRepository.findById(userId).get();
+			return allotmentRepository.findAllotmentsByUserId(user);
+		} else if (queryType == DateQueryType.BEFORE) {
+			User user = userRepository.findById(userId).get();
+			return allotmentRepository.findAllotmentsByUserIdAndBeforeDate(date, user);
+		} else if (queryType == DateQueryType.AFTER) {
+			User user = userRepository.findById(userId).get();
+			return allotmentRepository.findAllotmentsByUserIdAndAfterDate(date, user);
+		}
+		return null;
+	}
+
+	@Override
+	public List<UserDietRecord> viewDietActivity(DateQueryType queryType, Date date, int userId) {
+
+		if (queryType == DateQueryType.DEFAULT) {
+			User user = userRepository.findById(userId).get();
+
+			return userDietRecordRepository.findByUserId(user);
+		} else if (queryType == DateQueryType.BEFORE) {
+			User user = userRepository.findById(userId).get();
+
+			List<Allotment> allotments = allotmentRepository.findAllotmentsByUserIdAndBeforeDate(date, user);
+			List<UserDietRecord> records = new ArrayList<UserDietRecord>();
+
+			for (Allotment allotment : allotments) {
+				records.addAll(userDietRecordRepository.findByUserIdAndAllotment(user, allotment.getAllotmentId()));
+			}
+			return records;
+		} else if (queryType == DateQueryType.AFTER) {
+			User user = userRepository.findById(userId).get();
+
+			List<Allotment> allotments = allotmentRepository.findAllotmentsByUserIdAndAfterDate(date, user);
+			List<UserDietRecord> records = new ArrayList<UserDietRecord>();
+
+			for (Allotment allotment : allotments) {
+				records.addAll(userDietRecordRepository.findByUserIdAndAllotment(user, allotment.getAllotmentId()));
+			}
+			return records;
+		}
+		return null;
+	}
+
+	@Override
+	public List<UserDietRecord> viewCurrentDietActivity(int userId) {
+		User user = userRepository.findById(userId).get();
+		if (user != null) {
+			Allotment currAllotment = allotmentRepository.findFirstByOrderByAllotmentIdDesc(user.getUserId());
+			return userDietRecordRepository.findByUserIdAndAllotment(user, currAllotment.getAllotmentId());
+		}
+		return null;
+	}
+
+	@Override
+	public Boolean UpdateExerciseStatus(int userId, int day, ExerciseStatus status, int setsCompleted, int exId) {
+		try {
+			User user = userRepository.findById(userId).get();
+
+			UserWorkoutRecord userWorkoutRecord = new UserWorkoutRecord();
+			userWorkoutRecord.setUser(user);
+			userWorkoutRecord.setStatus(status);
+			userWorkoutRecord.setSetsCompleted(setsCompleted);
+			userWorkoutRecord.setWorkoutId(user.getcurrentWorkoutPlan().getPlanId());
+
+			PlanDetailPK planDetailPK = new PlanDetailPK();
+			planDetailPK.setDay(day);
+			planDetailPK.setPlanId(user.getcurrentWorkoutPlan().getPlanId());
+			userWorkoutRecord.setPlanDetail(planDetailRepository.findById(planDetailPK).get());
+
+			UserWorkoutRecordPK userWorkoutRecordPK = new UserWorkoutRecordPK();
+			userWorkoutRecordPK.setDay(day);
+			userWorkoutRecordPK.setExId(exId);
+			userWorkoutRecordPK.setAllotmentId(allotmentRepository.findFirstByOrderByAllotmentIdDesc(user.getUserId()).getAllotmentId());
+			userWorkoutRecord.setId(userWorkoutRecordPK);
+
+			userWorkoutRecordRepository.save(userWorkoutRecord);
+			return true;
+		} catch (Exception e) {
+			System.out.println(e);
+			return false;
+		}
+	}
+
+	@Override
+	@Transactional
+	public Boolean UpdateFoodEaten(int userId, int day, int calorieIntake) {
+		try {
+			User user = userRepository.findById(userId).get();
+			UserDietRecord userDietRecord = new UserDietRecord();
+			userDietRecord.setUser(user);
+
+			PlanDetailPK planDetailPK = new PlanDetailPK();
+			planDetailPK.setDay(day);
+			planDetailPK.setPlanId(user.getcurrentWorkoutPlan().getPlanId());
+			userDietRecord.setPlanDetail(planDetailRepository.findById(planDetailPK).get());
+
+			userDietRecord.setCalorieIntake(calorieIntake);
+			userDietRecord.setDiet_id(user.getCurrentDietPlan().getPlanId());
+			
+			UserDietRecordPK userDietRecordPK = new UserDietRecordPK();
+			userDietRecordPK.setDay(day);
+			userDietRecordPK.setAllotmentId(allotmentRepository.findFirstByOrderByAllotmentIdDesc(user.getUserId()).getAllotmentId());
+			userDietRecord.setId(userDietRecordPK);
+
+			userDietRecordRepository.save(userDietRecord);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public Boolean UpdateBasicInfo(int userId, int newWeight, int newHeight, int newAge) {
+		try {
+			User user = userRepository.findById(userId).get();
+			if (user.getHeightCms() != newHeight) {
+				userRepository.updateHeight(newHeight, userId);
+			}
+			if (user.getWeightKgs() != newWeight) {
+				userRepository.updateWeight(newWeight, userId);
+			}
+			if (user.getAge() != newAge) {
+				userRepository.updateAge(newAge, userId);
+			}
+			return true;
+		} catch (Exception e) {
+			System.out.println(e);
+			return false;
+		}
+	}
+
+	@Override
+	public List<PlanDetail> viewCurrentPlan(int userId, PlanType type) {
+		User user = userRepository.findById(userId).get();
+		if (type == PlanType.DIET) {
+			return planDetailRepository.findByPlanId(user.getCurrentDietPlan().getPlanId());
+		} else {
+			return planDetailRepository.findByPlanId(user.getcurrentWorkoutPlan().getPlanId());
+		}
+	}
+
+}

@@ -1,0 +1,51 @@
+package com.f2f.app.service;
+
+import java.util.Date;
+import java.util.List;
+
+import com.f2f.app.constants.DateQueryType;
+import com.f2f.app.constants.ExerciseStatus;
+import com.f2f.app.constants.PlanType;
+import com.f2f.app.models.AllocationPoints;
+import com.f2f.app.models.Allotment;
+import com.f2f.app.models.Exercise;
+import com.f2f.app.models.PlanDetail;
+import com.f2f.app.models.User;
+import com.f2f.app.models.UserDietRecord;
+import com.f2f.app.models.UserWorkoutRecord;
+
+public interface UserService {
+
+	Boolean firstAllotment(int userId, AllocationPoints points);
+
+	Exercise getExerciseInfo(int exId);
+	
+	Exercise getExerciseByName(String exName);
+
+	User login(String userName, String password);
+
+	User signup(User newUser);
+
+	Boolean updateBasicInfo(int userId, int newWeight, int newHeight, int newAge);
+
+	Boolean updateExerciseStatus(int userId, int day, ExerciseStatus status, int setsCompleted, int exId);
+
+	Boolean updateFoodEaten(int userId, int day, int calorieIntake);
+
+	Allotment viewCurrentAllotment(int userId);
+	// void logout();
+
+	List<UserDietRecord> viewCurrentDietActivity(int userId);
+
+	List<PlanDetail> viewCurrentPlan(int userId, PlanType type);
+
+	List<UserWorkoutRecord> viewCurrentWorkoutActivity(int userId);
+
+	List<UserDietRecord> viewDietActivity(DateQueryType queryType, Date date, int userId);
+
+	List<Allotment> viewDietPlanHistory(DateQueryType queryType, Date date, int userId);
+
+	List<UserWorkoutRecord> viewWorkoutActivity(DateQueryType queryType, Date date, int userId);
+
+	List<Allotment> viewWorkoutPlanHistory(DateQueryType queryType, Date date, int userId);
+}

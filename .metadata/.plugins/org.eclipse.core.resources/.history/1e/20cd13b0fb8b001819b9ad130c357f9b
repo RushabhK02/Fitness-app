@@ -1,0 +1,148 @@
+package com.f2f.app.web;
+
+import java.util.Date;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.f2f.app.models.*;
+import com.f2f.app.constants.PlanType;
+import com.f2f.app.constants.DateQueryType;
+import com.f2f.app.service.UserService;
+
+@CrossOrigin(origins="*")
+@RestController
+@RequestMapping("/")
+public class UserController {
+
+	@Autowired
+	private UserService userService;
+	private static Logger logger = LogManager.getLogger();
+//	@GetMapping(value = "login", produces = { "application/json" })
+//	User loginUser(@RequestBody LoginCredentials credentials) {
+//		return userService.login(credentials.getUsername(), credentials.getPassword());
+//	}
+//	
+	@PostMapping(value = "login", produces = { "application/json" })
+	User loginUser(@RequestBody LoginCredentials credentials) {
+		logger.info("User trying to log in.");
+		User user = userService.login(credentials.getUsername(), credentials.getPassword());
+		return user;
+	}
+	
+	@PostMapping(value ="signup",produces = { "application/json" })
+	User signup(@RequestBody User newUser) {
+		return userService.signup(newUser);
+	}
+	
+	@PostMapping(value="/user/{userId}/assign-initial-plan",produces = { "application/json" })
+	Boolean assignInitialPreset(@PathVariable int userId,@RequestBody AllocationPoints points) {
+		return userService.firstAllotment(userId, points);
+	}
+	
+	@GetMapping(value="/user/{userId}/history/plan/workout", produces = { "application/json" })
+	List<Allotment> viewWorkoutPlanHistory(@PathVariable int userId,
+										   @RequestParam(value = "queryType", required=false) String queryType,
+										   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+										   @RequestParam(value = "date", required = false) Date date){
+		if(queryType.equalsIgnoreCase(DateQueryType.AFTER.toString())) {
+			return userService.viewWorkoutPlanHistory(DateQueryType.AFTER, date, userId);
+		}else if(queryType.equalsIgnoreCase(DateQueryType.BEFORE.toString())) {
+			return userService.viewWorkoutPlanHistory(DateQueryType.BEFORE, date, userId);
+		}else if(queryType.equalsIgnoreCase(DateQueryType.DEFAULT.toString())) {
+			return userService.viewWorkoutPlanHistory(DateQueryType.DEFAULT, date, userId);
+		}
+		return null;
+	}
+	
+	@GetMapping(value="/user/{userId}/history/records/workout", produces = { "application/json" })
+	List<UserWorkoutRecord> viewWorkoutActivity(@PathVariable int userId,
+										   @RequestParam(value = "queryType", required=false) String queryType,
+										   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+										   @RequestParam(value = "date", required = false) Date date){
+		if(queryType.equalsIgnoreCase(DateQueryType.AFTER.toString())) {
+			return userService.viewWorkoutActivity(DateQueryType.AFTER, date, userId);
+		}else if(queryType.equalsIgnoreCase(DateQueryType.BEFORE.toString())) {
+			return userService.viewWorkoutActivity(DateQueryType.BEFORE, date, userId);
+		}else if(queryType.equalsIgnoreCase(DateQueryType.DEFAULT.toString())) {
+			return userService.viewWorkoutActivity(DateQueryType.DEFAULT, date, userId);
+		}
+		return null;
+	}
+	
+	@GetMapping(value="/user/{userId}/history/records/workout/current", produces = { "application/json" })
+	List<UserWorkoutRecord> viewCurrentWorkoutActivity(@PathVariable int userId){
+		return userService.viewCurrentWorkoutActivity(userId);
+	}
+	
+	@GetMapping(value="/user/{userId}/history/plan/diet", produces = { "application/json" })
+	List<Allotment> viewDietPlanHistory(@PathVariable int userId,
+										   @RequestParam(value = "queryType", required=false) String queryType,
+										   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+										   @RequestParam(value = "date", required = false) Date date){
+		if(queryType.equalsIgnoreCase(DateQueryType.AFTER.toString())) {
+			return userService.viewDietPlanHistory(DateQueryType.AFTER, date, userId);
+		}else if(queryType.equalsIgnoreCase(DateQueryType.BEFORE.toString())) {
+			return userService.viewDietPlanHistory(DateQueryType.BEFORE, date, userId);
+		}else if(queryType.equalsIgnoreCase(DateQueryType.DEFAULT.toString())) {
+			return userService.viewDietPlanHistory(DateQueryType.DEFAULT, date, userId);
+		}
+		return null;
+	}
+	
+	@GetMapping(value="/user/{userId}/history/records/diet", produces = { "application/json" })
+	List<UserDietRecord> viewDietActivity(@PathVariable int userId,
+										   @RequestParam(value = "queryType", required=false) String queryType,
+										   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+										   @RequestParam(value = "date", required = false) Date date){
+		if(queryType.equalsIgnoreCase(DateQueryType.AFTER.toString())) {
+			return userService.viewDietActivity(DateQueryType.AFTER, date, userId);
+		}else if(queryType.equalsIgnoreCase(DateQueryType.BEFORE.toString())) {
+			return userService.viewDietActivity(DateQueryType.BEFORE, date, userId);
+		}else if(queryType.equalsIgnoreCase(DateQueryType.DEFAULT.toString())) {
+			return userService.viewDietActivity(DateQueryType.DEFAULT, date, userId);
+		}
+		return null;
+	}
+	
+	@GetMapping(value="/user/{userId}/history/records/diet/current", produces = { "application/json" })
+	List<UserDietRecord> viewCurrentDietActivity(@PathVariable int userId){
+		return userService.viewCurrentDietActivity(userId);
+	}
+	
+	@PutMapping(value="/user/{userId}/update/exercise", produces = { "application/json" })
+	Boolean updateExerciseDone(@PathVariable int userId, @RequestBody ExerciseDetails details) {
+		return userService.UpdateExerciseStatus(userId, details.getDay(), details.getStatus(), details.getSetsCompleted(), details.getExId());	
+	}
+	
+	@PutMapping(value="/user/{userId}/update/diet", produces = { "application/json" })
+	Boolean updateCalorieConsumed(@PathVariable int userId, @RequestBody CalorieDetails details) {
+		return userService.UpdateFoodEaten(userId, details.getDay(), details.getCalorieIntake());	
+	}
+	
+	@PutMapping(value="/user/{userId}/update/info", produces = { "application/json" })
+	Boolean updateBasicInfo(@PathVariable int userId, @RequestBody BasicInfo newBasicInfo) {
+		return userService.UpdateBasicInfo(userId, newBasicInfo.getWeight(), newBasicInfo.getHeight(), newBasicInfo.getAge());
+		
+	}
+	
+	@GetMapping(value = "/user/{userId}/view/current-plan", produces = { "application/json" })
+	List<PlanDetail> viewCurrentPlan(@PathVariable int userId,@RequestParam(value = "queryType", required=true) String queryType) {
+		if(queryType.equalsIgnoreCase(PlanType.DIET.toString()))
+			return userService.viewCurrentPlan(userId,PlanType.DIET);
+		else
+			return userService.viewCurrentPlan(userId,PlanType.WORKOUT);
+	}
+}

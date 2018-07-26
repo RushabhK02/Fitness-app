@@ -1,9 +1,9 @@
 
-•squid:S1192"dDefine a constant instead of duplicating this literal "UserController.viewDietPlanHistory:" 3 times.(ô‘ÀHÔRCRITICALZ
+šsquid:S1192­"dDefine a constant instead of duplicating this literal "UserController.viewWorkoutActivity:" 3 times.(¡ñ±»üÿÿÿÿH„RCRITICALZ
 CODE_SMELL
-–squid:S1192y"aDefine a constant instead of duplicating this literal "UserController.viewDietActivity:" 3 times.(×ªùìøÿÿÿÿHÕRCRITICALZ
+—squid:S1192…"aDefine a constant instead of duplicating this literal "UserController.viewDietActivity:" 3 times.(×ªùìøÿÿÿÿH…RCRITICALZ
 CODE_SMELL
-˜squid:S1192´"gDefine a constant instead of duplicating this literal "UserController.viewWorkoutPlanHistory:" 3 times.(¸çÈ¿HÖRCRITICALZ
+•squid:S1192™"dDefine a constant instead of duplicating this literal "UserController.viewDietPlanHistory:" 3 times.(ô‘ÀH†RCRITICALZ
 CODE_SMELL
-šsquid:S1192¡"dDefine a constant instead of duplicating this literal "UserController.viewWorkoutActivity:" 3 times.(¡ñ±»üÿÿÿÿH×RCRITICALZ
+˜squid:S1192À"gDefine a constant instead of duplicating this literal "UserController.viewWorkoutPlanHistory:" 3 times.(¸çÈ¿H‡RCRITICALZ
 CODE_SMELL

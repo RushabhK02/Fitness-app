@@ -1,42 +1,44 @@
 
-Ÿsquid:S1192á"iDefine a constant instead of duplicating this literal "UserService.viewDietActivity for user : " 3 times.(õ¼«‹ûÿÿÿÿHÄRCRITICALZ
+squid:S3776õ"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(ïÑÆüøÿÿÿÿ8’¨İ˜Ì,H£RCRITICALZ
 CODE_SMELL
-Šsquid:S3776­"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(’æøÿ8’¨İ˜Ì,H¿RCRITICALZ
+€squid:S1192€"JDefine a constant instead of duplicating this literal " - BEFORE" 4 times.(õÌñ«şÿÿÿÿH«RCRITICALZ
 CODE_SMELL
-squid:S1192Œ"GDefine a constant instead of duplicating this literal "User " 19 times.(âœ¶ò8Ÿš˜Ì,HÆRCRITICALZ
+squid:S1192˜"GDefine a constant instead of duplicating this literal "User " 19 times.(âœ¶ò8Ÿš˜Ì,H RCRITICALZ
 CODE_SMELL
-squid:S1192½"hDefine a constant instead of duplicating this literal "UserService.UpdateBasicInfo for user : " 3 times.(‘·ŠÿÿÿÿÿHÊRCRITICALZ
+”squid:S1192İ"WDefine a constant instead of duplicating this literal "Incorrect query type: " 5 times.(×Æõ ÿÿÿÿÿ8¦’Ì,H˜RCRITICALZ
 CODE_SMELL
-”squid:S1192Æ"WDefine a constant instead of duplicating this literal "Incorrect query type: " 5 times.(×Æõ ÿÿÿÿÿ8¦’Ì,HÈRCRITICALZ
+…squid:CommentedOutCodeLineº"<This block of commented-out lines of code should be removed.(ã‰äŒúÿÿÿÿ8ëÈ®ŒÍ,H§RMAJORZ
 CODE_SMELL
-€squid:S1192é"JDefine a constant instead of duplicating this literal " - BEFORE" 4 times.(õÌñ«şÿÿÿÿHÅRCRITICALZ
+zsquid:S1192á"IDefine a constant instead of duplicating this literal "- failed" 3 times.(Œæ ûH¢RCRITICALZ
 CODE_SMELL
-zsquid:S1192Ï"IDefine a constant instead of duplicating this literal "- failed" 3 times.(Œæ ûHÀRCRITICALZ
+£squid:S1192ê"mDefine a constant instead of duplicating this literal "UserService.UpdateExerciseStatus for user : " 3 times.(ûÊƒëúÿÿÿÿH•RCRITICALZ
 CODE_SMELL
-¥squid:S1192ä"oDefine a constant instead of duplicating this literal "UserService.viewWorkoutPlanHistory for user : " 3 times.(ÿÍï®ÿÿÿÿÿHÃRCRITICALZ
+Šsquid:S3776Ä"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(’æøÿ8’¨İ˜Ì,H™RCRITICALZ
 CODE_SMELL
-squid:S3776Ş"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(ïÑÆüøÿÿÿÿ8’¨İ˜Ì,HÇRCRITICALZ
+squid:S1192Ï"hDefine a constant instead of duplicating this literal "UserService.UpdateBasicInfo for user : " 3 times.(‘·ŠÿÿÿÿÿH—RCRITICALZ
 CODE_SMELL
-ƒsquid:S1192É"MDefine a constant instead of duplicating this literal "- successful" 3 times.(ıÄ——ÿÿÿÿÿHÏRCRITICALZ
+squid:S3776?"RRefactor this method to reduce its Cognitive Complexity from 43 to the 15 allowed.(Ü˜Öôşÿÿÿÿ8œœÌ,HšRCRITICALZ
 CODE_SMELL
-£squid:S1192Ø"mDefine a constant instead of duplicating this literal "UserService.UpdateExerciseStatus for user : " 3 times.(ûÊƒëúÿÿÿÿHÉRCRITICALZ
+squid:S1192—"hDefine a constant instead of duplicating this literal "UserService.UpdateFoodEaten for user : " 3 times.(œ ¦ÿÿÿÿÿH¤RCRITICALZ
 CODE_SMELL
-Šsquid:S1192Æ"MDefine a constant instead of duplicating this literal " for user - " 5 times.(×Æõ ÿÿÿÿÿ8¦’Ì,HÂRCRITICALZ
+asquid:S3655"3Call "plan.isPresent()" before accessing the value.(Âæ¡¥8³—Ú¹Ì,H–RMAJORZBUG
+esquid:S3655"7Call "Optional#isPresent()" before accessing the value.(ú‚üå8³—Ú¹Ì,HªRMAJORZBUG
+™squid:S1192Õ"hDefine a constant instead of duplicating this literal "UserService.viewCurrentPlan for user : " 3 times.(çòÍH¥RCRITICALZ
 CODE_SMELL
-¢squid:S1192"lDefine a constant instead of duplicating this literal "UserService.viewDietPlanHistory for user : " 3 times.(ˆÖÈÚùÿÿÿÿHĞRCRITICALZ
+fsquid:S3655Œ"3Call "plan.isPresent()" before accessing the value.(Š‚ÄØûÿÿÿÿ8³—Ú¹Ì,HœRMAJORZBUG
+‰squid:S1192˜"QDefine a constant instead of duplicating this literal " does not exist" 23 times.(âœ¶ò8¦’Ì,HRCRITICALZ
 CODE_SMELL
-¢squid:S1192°"lDefine a constant instead of duplicating this literal "UserService.viewWorkoutActivity for user : " 3 times.(òİ³¡ıÿÿÿÿHÍRCRITICALZ
+¢squid:S1192Ç"lDefine a constant instead of duplicating this literal "UserService.viewWorkoutActivity for user : " 3 times.(òİ³¡ıÿÿÿÿH¡RCRITICALZ
 CODE_SMELL
-squid:S3776?"RRefactor this method to reduce its Cognitive Complexity from 43 to the 15 allowed.(Ü˜Öôşÿÿÿÿ8œœÌ,H¾RCRITICALZ
+¢squid:S1192¦"lDefine a constant instead of duplicating this literal "UserService.viewDietPlanHistory for user : " 3 times.(ˆÖÈÚùÿÿÿÿH¦RCRITICALZ
 CODE_SMELL
-squid:S1192…"hDefine a constant instead of duplicating this literal "UserService.UpdateFoodEaten for user : " 3 times.(œ ¦ÿÿÿÿÿHÁRCRITICALZ
+Šsquid:S1192İ"MDefine a constant instead of duplicating this literal " for user - " 5 times.(×Æõ ÿÿÿÿÿ8¦’Ì,HŸRCRITICALZ
 CODE_SMELL
-™squid:S1192¾"hDefine a constant instead of duplicating this literal "UserService.viewCurrentPlan for user : " 3 times.(çòÍHÎRCRITICALZ
+Ÿsquid:S1192ø"iDefine a constant instead of duplicating this literal "UserService.viewDietActivity for user : " 3 times.(õ¼«‹ûÿÿÿÿHRCRITICALZ
 CODE_SMELL
-zsquid:S1192ø"IDefine a constant instead of duplicating this literal " - AFTER" 4 times.(şñš¡HËRCRITICALZ
+¥squid:S1192û"oDefine a constant instead of duplicating this literal "UserService.viewWorkoutPlanHistory for user : " 3 times.(ÿÍï®ÿÿÿÿÿH©RCRITICALZ
 CODE_SMELL
-‰squid:S1192Œ"QDefine a constant instead of duplicating this literal " does not exist" 23 times.(âœ¶ò8¦’Ì,HÌRCRITICALZ
+zsquid:S1192"IDefine a constant instead of duplicating this literal " - AFTER" 4 times.(şñš¡H›RCRITICALZ
 CODE_SMELL
-asquid:S3655…"3Call "plan.isPresent()" before accessing the value.(Âæ¡¥8³—Ú¹Ì,HãRMAJORZBUG
-fsquid:S3655ƒ"3Call "plan.isPresent()" before accessing the value.(Š‚ÄØûÿÿÿÿ8³—Ú¹Ì,HäRMAJORZBUG
-esquid:S3655†"7Call "Optional#isPresent()" before accessing the value.(ú‚üå8³—Ú¹Ì,HåRMAJORZBUG
+ƒsquid:S1192Û"MDefine a constant instead of duplicating this literal "- successful" 3 times.(ıÄ——ÿÿÿÿÿH¨RCRITICALZ
+CODE_SMELL

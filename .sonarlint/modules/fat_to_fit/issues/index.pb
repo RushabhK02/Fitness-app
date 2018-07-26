@@ -107,3 +107,5 @@ r
 Bsrc/main/java/com/f2f/app/exceptions/OperationFailedException.java,e\2\e2ca7c5284098dbf1f9d3a2e2d610f84c9daf6a3
 u
 Esrc/main/java/com/f2f/app/web/DefaultExceptionHandlingController.java,4\d\4d05f6ce2b3a955f89d0446be1c809a1a2f32608
+_
+/src/main/java/com/f2f/app/models/PlansList.java,3\a\3aee9087ed693144a4bfff0fb5cc0cc9b56fc7c6

@@ -1,0 +1,120 @@
+package com.f2f.app.web;
+
+import com.f2f.app.constants.*;
+
+import java.util.Date;
+import java.util.List;
+
+import com.f2f.app.models.*;
+import com.f2f.app.service.AdminService;
+import com.f2f.app.service.DateQueryType;
+import com.f2f.app.service.UserLite;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+@CrossOrigin(origins="*")
+@RestController
+@RequestMapping("/admin/{adminId}")
+public class AdminController {
+
+	@Autowired
+	private AdminService adminService;
+
+	@GetMapping(value="/user/{userId}/history/records/workout/date", produces = { "application/json" })
+	List<UserWorkoutRecord> viewUserWorkoutHistory(@PathVariable int userId,
+			   @RequestParam(value = "queryType", required=false) String queryType,
+			   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+			   @RequestParam(value = "date", required = false) Date date){
+		
+		if(queryType.equalsIgnoreCase(DateQueryType.AFTER.toString())) {
+			return adminService.viewUserWorkoutActivity(DateQueryType.AFTER, date, userId);
+		}else if(queryType.equalsIgnoreCase(DateQueryType.BEFORE.toString())) {
+			return adminService.viewUserWorkoutActivity(DateQueryType.BEFORE, date, userId);
+		}else if(queryType.equalsIgnoreCase(DateQueryType.DEFAULT.toString())) {
+			return adminService.viewUserWorkoutActivity(DateQueryType.DEFAULT, date, userId);
+		}
+		return null;
+	}
+	
+	@GetMapping(value="/user/{userId}/history/records/workout/current", produces = { "application/json" })
+	List<UserWorkoutRecord> viewUserCurrentWorkoutHistory(@PathVariable int userId){
+		return adminService.viewUserCurrentWorkoutActivity(userId);
+	}
+	
+	@GetMapping(value="/user/{userId}/history/records/workout/status", produces = { "application/json" })
+	List<UserWorkoutRecord> viewUserWorkoutHistoryByStatus(@PathVariable int userId,
+				@RequestParam(value = "queryType", required=true) String queryType,
+				@RequestParam(value = "status", required=true) String status){
+		queryType = queryType.toUpperCase();
+		if(status.equalsIgnoreCase(ExerciseStatus.COMPLETE.toString())) {
+			return adminService.viewUserWorkoutActivityByStatus(DateQueryType.valueOf(queryType), ExerciseStatus.COMPLETE, userId);
+		}
+		if(status.equalsIgnoreCase(ExerciseStatus.INCOMPLETE.toString())) {
+			return adminService.viewUserWorkoutActivityByStatus(DateQueryType.valueOf(queryType), ExerciseStatus.INCOMPLETE, userId);
+		}
+		return null;
+	}
+	
+	@GetMapping(value="/user/{userId}/history/records/diet/date", produces = { "application/json" })
+	List<UserDietRecord> viewUserDietHistory(@PathVariable int userId,
+			   @RequestParam(value = "queryType", required=false) String queryType,
+			   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+			   @RequestParam(value = "date", required = false) Date date){
+		
+		if(queryType.equalsIgnoreCase(DateQueryType.AFTER.toString())) {
+			return adminService.viewUserDietActivity(DateQueryType.AFTER, date, userId);
+		}else if(queryType.equalsIgnoreCase(DateQueryType.BEFORE.toString())) {
+			return adminService.viewUserDietActivity(DateQueryType.BEFORE, date, userId);
+		}else if(queryType.equalsIgnoreCase(DateQueryType.DEFAULT.toString())) {
+			return adminService.viewUserDietActivity(DateQueryType.DEFAULT, date, userId);
+		}
+		return null;
+	}
+	
+	@GetMapping(value="/user/{userId}/history/records/diet/current", produces = { "application/json" })
+	List<UserDietRecord> viewUserCurrentDietHistory(@PathVariable int userId){
+		return adminService.viewUserCurrentDietActivity(userId);
+	}
+	
+	@GetMapping(value="/users", produces = { "application/json" })
+	List<UserLite> viewClients(@PathVariable int adminId){
+		return adminService.viewClients(adminId);
+	}
+	
+	@GetMapping(value="/user/{userId}", produces = { "application/json" })
+	User viewClientInfo(@PathVariable int userId) {
+		return adminService.viewClientInfo(userId);
+	}
+	
+	@PostMapping(value="/new/plan")
+	Boolean createNewPreset(@RequestBody PlanPreset newPreset) {
+		return adminService.createNewPreset(newPreset.getPlan(), newPreset.getPlanDetails());
+	}
+	
+	@PutMapping(value="/user/{userId}/assign")
+	Boolean assignNewPreset(@PathVariable int userId,
+						@RequestBody PlanCombo comboPlan) {
+		return adminService.assignPresetToUser(userId, 1, comboPlan.getWorkoutPlan(), comboPlan.getDietPlan());
+	}
+	
+	@DeleteMapping(value="/delete/plan/{planId}")
+	Boolean deletePlanPreset(@RequestParam int planId) {
+		return adminService.deletePreset(planId);
+	}
+	
+	@GetMapping(value="/notifications", produces = { "application/json" })
+	List<UserLite> viewUsersWithExpiredPlans(@RequestParam int adminId){
+		return adminService.viewNotifications(adminId);
+	}
+}

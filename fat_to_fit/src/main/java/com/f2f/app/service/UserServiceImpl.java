@@ -71,6 +71,7 @@ public class UserServiceImpl implements UserService {
 					Optional<Plan> plan = planRepository.findById(1);
 					if (plan.isPresent()) {
 						userRepository.updateCurrentWorkoutPlan(plan.get(), date, userId);
+						user.get().setcurrentWorkoutPlan(plan.get());
 					} else {
 						throw new ResourceNotFoundException(1L, "Plan 1 does not exist");
 					}
@@ -79,6 +80,7 @@ public class UserServiceImpl implements UserService {
 					Optional<Plan> plan = planRepository.findById(2);
 					if (plan.isPresent()) {
 						userRepository.updateCurrentWorkoutPlan(plan.get(), date, userId);
+						user.get().setcurrentWorkoutPlan(plan.get());
 					} else {
 						throw new ResourceNotFoundException(2L, "Plan 2 does not exist");
 					}
@@ -87,6 +89,7 @@ public class UserServiceImpl implements UserService {
 					Optional<Plan> plan = planRepository.findById(3);
 					if (plan.isPresent()) {
 						userRepository.updateCurrentWorkoutPlan(plan.get(), date, userId);
+						user.get().setcurrentWorkoutPlan(plan.get());
 					} else {
 						throw new ResourceNotFoundException(3L, "Plan 3 does not exist");
 					}
@@ -95,6 +98,7 @@ public class UserServiceImpl implements UserService {
 					Optional<Plan> plan = planRepository.findById(4);
 					if (plan.isPresent()) {
 						userRepository.updateCurrentWorkoutPlan(plan.get(), date, userId);
+						user.get().setcurrentWorkoutPlan(plan.get());
 					} else {
 						throw new ResourceNotFoundException(4L, "Plan 4 does not exist");
 					}
@@ -105,6 +109,7 @@ public class UserServiceImpl implements UserService {
 					Optional<Plan> plan = planRepository.findById(5);
 					if (plan.isPresent()) {
 						userRepository.updateCurrentDietPlan(plan.get(), date, userId);
+						user.get().setCurrentDietPlan(plan.get());
 					} else {
 						throw new ResourceNotFoundException(5L, "Plan 5 does not exist");
 					}
@@ -113,6 +118,7 @@ public class UserServiceImpl implements UserService {
 					Optional<Plan> plan = planRepository.findById(6);
 					if (plan.isPresent()) {
 						userRepository.updateCurrentDietPlan(plan.get(), date, userId);
+						user.get().setCurrentDietPlan(plan.get());
 					} else {
 						throw new ResourceNotFoundException(6L, "Plan 6 does not exist");
 					}
@@ -121,20 +127,26 @@ public class UserServiceImpl implements UserService {
 					Optional<Plan> plan = planRepository.findById(7);
 					if (plan.isPresent()) {
 						userRepository.updateCurrentDietPlan(plan.get(), date, userId);
+						user.get().setCurrentDietPlan(plan.get());
 					} else {
 						throw new ResourceNotFoundException(7L, "Plan 7 does not exist");
 					}
 				}
-				logger.info("Running UserService.firstAllotment: allotment done for user - " + userId);
+
 				Allotment newAllotment = new Allotment();
+
 				Optional<Plan> plan = planRepository.findById(user.get().getCurrentDietPlan().getPlanId());
+				logger.info("Running UserService.firstAllotment: retrieve user diet plan - " + userId);
 				newAllotment.setDietPlanId(plan.get());
 				plan = planRepository.findById(user.get().getcurrentWorkoutPlan().getPlanId());
+				logger.info("Running UserService.firstAllotment: retrieve user workout plan - " + userId);
 				newAllotment.setWorkoutPlanId(plan.get());
 				newAllotment.setAdmin(adminRepository.findById(1).get());
+				logger.info("Running UserService.firstAllotment: retrieve admin - " + userId);
 				newAllotment.setStartDate(date);
 				newAllotment.setUser(user.get());
 				allotmentRepository.save(newAllotment);
+				logger.info("Running UserService.firstAllotment: allotment done for user - " + userId);
 				return true;
 			} else {
 				throw new ResourceNotFoundException((long) userId, "User " + userId + " does not exist");

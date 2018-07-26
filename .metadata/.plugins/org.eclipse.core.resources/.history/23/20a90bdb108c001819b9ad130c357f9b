@@ -1,0 +1,304 @@
+package com.f2f.app.service;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.f2f.app.constants.DateQueryType;
+import com.f2f.app.constants.ExerciseStatus;
+import com.f2f.app.models.Admin;
+import com.f2f.app.models.Allotment;
+import com.f2f.app.models.Plan;
+import com.f2f.app.models.PlanDetail;
+import com.f2f.app.models.User;
+import com.f2f.app.models.UserDietRecord;
+import com.f2f.app.models.UserLite;
+import com.f2f.app.models.UserWorkoutRecord;
+import com.f2f.app.repositories.AdminRepository;
+import com.f2f.app.repositories.AllotmentRepository;
+import com.f2f.app.repositories.PlanDetailRepository;
+import com.f2f.app.repositories.PlanRepository;
+import com.f2f.app.repositories.UserDietRecordRepository;
+import com.f2f.app.repositories.UserRepository;
+import com.f2f.app.repositories.UserWorkoutRecordRepository;
+
+@Service
+public class AdminServiceImpl implements AdminService {
+	@Autowired
+	private UserRepository userRepository;
+	@Autowired
+	private AllotmentRepository allotmentRepository;
+	@Autowired
+	private UserWorkoutRecordRepository userWorkoutRecordRepository;
+	@Autowired
+	private UserDietRecordRepository userDietRecordRepository;
+	@Autowired
+	private PlanDetailRepository planDetailRepository;
+	@Autowired
+	private PlanRepository planRepository;
+	@Autowired
+	private AdminRepository adminRepository;
+	private static Logger logger = LogManager.getLogger();
+	
+	@Override
+	public void addClient(int adminId, int userId) {
+		logger.info("Running AdminService.addClient: adding "+userId+" for admin "+adminId);
+		Admin admin = adminRepository.findById(adminId).get();
+		String clients = admin.getClients().concat(";" + userId);
+		admin.setClients(clients);
+		adminRepository.save(admin);
+	}
+
+	@Override
+	public boolean assignPresetToUser(int userId, int adminId, int workoutPlanId, int dietPlanId) {
+		logger.info("Running AdminService.assignPresetToUser: assignPresetToUser "+userId+" for admin "+adminId);
+		try {
+			Allotment newAllotment = new Allotment();
+			Plan plan = planRepository.findById(dietPlanId).get();
+			Date date = new Date();
+
+			newAllotment.setDietPlanId(plan);
+			userRepository.updateCurrentDietPlan(plan, date, userId);
+
+			plan = planRepository.findById(workoutPlanId).get();
+
+			userRepository.updateCurrentWorkoutPlan(plan, date, userId);
+			newAllotment.setWorkoutPlanId(plan);
+
+			newAllotment.setAdmin(adminRepository.findById(adminId).get());
+			newAllotment.setStartDate(date);
+			newAllotment.setUser(userRepository.findById(userId).get());
+
+			allotmentRepository.save(newAllotment);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public boolean createNewPreset(Plan plan, List<PlanDetail> planDetails) {
+		logger.info("Running AdminService.createNewPreset: createNewPreset - "+plan);
+		try {
+			plan = planRepository.save(plan);
+			for (PlanDetail planDetail : planDetails) {
+				planDetail.getId().setPlanId(plan.getPlanId());
+				planDetail.setPlan(plan);
+				planDetailRepository.save(planDetail);
+			}
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public boolean deletePreset(int planId) {
+		logger.info("Running AdminService.deletePreset: deletePreset - "+planId);
+		try {
+			Plan plan = planRepository.findById(planId).get();
+			planRepository.deleteById(planId);
+			planDetailRepository.deleteByPlanId(planId);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public Admin login(String adminName, String password) {
+		if (password == "secret") {
+			return adminRepository.findById(1).get();
+		}
+		return null;
+	}
+
+	@Override
+	public User viewClientInfo(int userId) {
+		try {
+			return userRepository.findById(userId).get();
+		} catch (Exception e) {
+			return null;
+
+		}
+	}
+
+	@Override
+	public List<UserLite> viewClients(int adminId) {
+		try {
+			String clientList = adminRepository.findClientsById(adminId);
+			String[] clients = clientList.split(";");
+			List<UserLite> users = new ArrayList<>();
+			for (String client : clients) {
+				User user = userRepository.findById(Integer.valueOf(client)).get();
+				UserLite userLite = new UserLite();
+				userLite.setFirstName(user.getFirstName());
+				userLite.setLastName(user.getLastName());
+				userLite.setUserId(user.getUserId());
+				users.add(userLite);
+			}
+			return users;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	@Override
+	public List<UserLite> viewNotifications(int adminId) {
+		List<UserLite> users = viewClients(adminId);
+		for (UserLite user : users) {
+			Date startDate = userRepository.findStartDateByUserId(user.getUserId());
+			Date now = new Date();
+
+//		SimpleDateFormat myFormat = new SimpleDateFormat("dd MM yyyy");
+//		String dateBeforeString = "31 01 2014";
+//		String dateAfterString = "02 02 2014";
+//
+//		Date dateBefore = null;
+//		try {
+//			dateBefore = myFormat.parse(dateBeforeString);
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		Date dateAfter = null;
+//		try {
+//			dateAfter = myFormat.parse(dateAfterString);
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		long difference = dateAfter.getTime() - dateBefore.getTime();
+			long difference = now.getTime() - startDate.getTime();
+			float daysBetween = difference / (1000 * 60 * 60 * 24);
+			System.out.println(daysBetween);
+		}
+
+		return null;
+	}
+
+	@Override
+	public List<UserDietRecord> viewUserCurrentDietActivity(int userId) {
+		User user = userRepository.findById(userId).get();
+		if (user != null) {
+			Allotment currAllotment = allotmentRepository.findFirstByOrderByAllotmentIdDesc(user.getUserId());
+			return userDietRecordRepository.findByUserIdAndAllotment(user, currAllotment.getAllotmentId());
+		}
+		return null;
+	}
+
+	@Override
+	public List<UserWorkoutRecord> viewUserCurrentWorkoutActivity(int userId) {
+		User user = userRepository.findById(userId).get();
+		if (user != null) {
+			Allotment currAllotment = allotmentRepository.findFirstByOrderByAllotmentIdDesc(user.getUserId());
+			List<UserWorkoutRecord> records = new ArrayList<>();
+			records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user, currAllotment.getAllotmentId(),
+					ExerciseStatus.COMPLETE));
+			records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user, currAllotment.getAllotmentId(),
+					ExerciseStatus.INCOMPLETE));
+			return records;
+
+		}
+		return null;
+	}
+
+	@Override
+	public List<UserDietRecord> viewUserDietActivity(DateQueryType queryType, Date date, int userId) {
+		if (queryType == DateQueryType.DEFAULT) {
+			User user = userRepository.findById(userId).get();
+
+			return userDietRecordRepository.findByUserId(user);
+		} else if (queryType == DateQueryType.BEFORE) {
+			User user = userRepository.findById(userId).get();
+
+			List<Allotment> allotments = allotmentRepository.findAllotmentsByUserIdAndBeforeDate(date, user);
+			List<UserDietRecord> records = new ArrayList<>();
+
+			for (Allotment allotment : allotments) {
+				records.addAll(userDietRecordRepository.findByUserIdAndAllotment(user, allotment.getAllotmentId()));
+			}
+			return records;
+		} else if (queryType == DateQueryType.AFTER) {
+			User user = userRepository.findById(userId).get();
+
+			List<Allotment> allotments = allotmentRepository.findAllotmentsByUserIdAndAfterDate(date, user);
+			List<UserDietRecord> records = new ArrayList<>();
+
+			for (Allotment allotment : allotments) {
+				records.addAll(userDietRecordRepository.findByUserIdAndAllotment(user, allotment.getAllotmentId()));
+			}
+			return records;
+		}
+		return null;
+	}
+
+	@Override
+	public List<UserWorkoutRecord> viewUserWorkoutActivity(DateQueryType queryType, Date date, int userId) {
+
+		if (queryType == DateQueryType.DEFAULT) {
+			User user = userRepository.findById(userId).get();
+
+			return userWorkoutRecordRepository.findByUserId(user);
+		} else if (queryType == DateQueryType.BEFORE) {
+			User user = userRepository.findById(userId).get();
+
+			List<Allotment> allotments = allotmentRepository.findAllotmentsByUserIdAndBeforeDate(date, user);
+			List<UserWorkoutRecord> records = new ArrayList<>();
+
+			for (Allotment allotment : allotments) {
+				records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user, allotment.getAllotmentId(),
+						ExerciseStatus.COMPLETE));
+				records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user, allotment.getAllotmentId(),
+						ExerciseStatus.INCOMPLETE));
+			}
+			return records;
+		} else if (queryType == DateQueryType.AFTER) {
+			User user = userRepository.findById(userId).get();
+
+			List<Allotment> allotments = allotmentRepository.findAllotmentsByUserIdAndAfterDate(date, user);
+			List<UserWorkoutRecord> records = new ArrayList<>();
+
+			for (Allotment allotment : allotments) {
+				records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user, allotment.getAllotmentId(),
+						ExerciseStatus.COMPLETE));
+				records.addAll(userWorkoutRecordRepository.findByUserIdAndAllotment(user, allotment.getAllotmentId(),
+						ExerciseStatus.INCOMPLETE));
+			}
+			return records;
+		}
+		return null;
+	}
+
+	@Override
+	public List<UserWorkoutRecord> viewUserWorkoutActivityByStatus(DateQueryType queryType, ExerciseStatus status,
+			int userId) {
+
+		User user = userRepository.findById(userId).get();
+		if (queryType == DateQueryType.CURRENT) {
+			Allotment allotment = allotmentRepository.findFirstByOrderByAllotmentIdDesc(user.getUserId());
+			return userWorkoutRecordRepository.findByUserIdAndAllotmentAndStatus(user, allotment.getAllotmentId(),
+					status);
+		} else if (queryType == DateQueryType.ALL) {
+			List<Allotment> allotments = allotmentRepository.findAllotmentsByUserId(user);
+			List<UserWorkoutRecord> records = new ArrayList<>();
+
+			for (Allotment allotment : allotments) {
+				records.addAll(
+						userWorkoutRecordRepository.findByUserIdAndAllotment(user, allotment.getAllotmentId(), status));
+			}
+			return records;
+		}
+
+		return null;
+	}
+
+}

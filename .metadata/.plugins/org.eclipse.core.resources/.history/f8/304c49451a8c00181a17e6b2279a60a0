@@ -1,0 +1,23 @@
+package com.f2f.app;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+
+import com.f2f.app.repositories.PlanDetailRepository;
+import com.f2f.app.repositories.UserRepository;
+import com.f2f.app.repositories.UserWorkoutRecordRepository;
+import com.f2f.app.service.AdminServiceImpl;
+
+@SpringBootApplication
+public class FatToFitApplication {
+	private static Logger logger = LogManager.getLogger();
+
+	public static void main(String[] args) {
+		SpringApplication.run(FatToFitApplication.class, args);
+	}
+}
